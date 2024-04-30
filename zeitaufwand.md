@@ -1,4 +1,4 @@
-*****Zeitaufwand:*****
+### Zeitaufwand:
 
 | Aufgabe | Zeit in Std. |
 |---------|--------------|
