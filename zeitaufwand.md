@@ -1,9 +1,8 @@
-**Zeitaufwand**:
+****Zeitaufwand****:
 
-Recherche zu OpenCV: 30 Min.
-
-Recherche zu KTOR: 1,5 Stunden.
-
-Coden der Frametrennung und Bildmontage: 1 Stunde.
-
-Coden der ersten Version des Backends mit den Bildfunktionalitäten: 2 Stunden.
+| Aufgabe | Zeit in Std. |
+|---------|--------------|
+|Recherche nach Bibliotheken zur Videobearbeitung| 1 |
+|Recherche nach Optionen zum Server Hosting | 1 |
+|Programmierung eines ersten Dienstes zur Teilung und Zusammensetzung von Frames| 2 |
+|Programmierung einer ersten Server-API zur Teilung von Bildern | 1,5 |
