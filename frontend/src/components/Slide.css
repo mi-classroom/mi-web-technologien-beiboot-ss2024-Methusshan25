@@ -1,0 +1,62 @@
+#card-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    width: 95%;
+
+    /* width */
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: lightgreen;
+        border-radius: 20px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: green;
+    }
+}
+
+.selected {
+    border: 3px solid green;
+}
+
+.unselected {
+    border: none;
+}
+
+#uploaded-content {
+    display: flex;
+}
+
+#uploaded-content video {
+    margin-left: 4%;
+}
+
+#imagePlaceholder {
+    width: 47%;
+    height: 320px;
+    background-color: black;
+    border: 3px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#buttonsProjectOverview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}

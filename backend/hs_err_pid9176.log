@@ -1,0 +1,975 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x0000012d94ebade7, pid=9176, tid=13168
+#
+# JRE version: Java(TM) SE Runtime Environment (22.0.1+8) (build 22.0.1+8-16)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (22.0.1+8-16, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# Problematic frame:
+# J 1346 c2 jdk.internal.misc.ScopedMemoryAccess.getByte(Ljdk/internal/foreign/MemorySessionImpl;Ljava/lang/Object;J)B java.base@22.0.1 (16 bytes) @ 0x0000012d94ebade7 [0x0000012d94ebada0+0x0000000000000047]
+#
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.1\lib\idea_rt.jar=52799:C:\Program Files\JetBrains\IntelliJ IDEA 2024.1\bin -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 com.example.ApplicationKt
+
+Host: 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz, 8 cores, 7G,  Windows 11 , 64 bit Build 22621 (10.0.22621.3527)
+Time: Mon May 27 21:14:56 2024 Mitteleuropäische Sommerzeit elapsed time: 9.478836 seconds (0d 0h 0m 9s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000012de882d5d0):  JavaThread "pool-3-thread-1"        [_thread_in_Java, id=13168, stack(0x0000000850f00000,0x0000000851000000) (1024K)]
+
+Stack: [0x0000000850f00000,0x0000000851000000],  sp=0x0000000850ffeb70,  free space=1018k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  0x0000012d94ebade7  (no source info available)
+
+The last pc belongs to nmethod (printed below).
+
+siginfo: EXCEPTION_ACCESS_VIOLATION (0xc0000005), reading address 0x0000012dedbc4080
+
+
+Registers:
+RAX=0x0000000000000000, RBX=0x0000012da217a360, RCX=0xfffffffffffffff5, RDX=0x00000000842a9f80
+RSP=0x0000000850ffeb70, RBP=0x00000000017bb000, RSI=0x0000000000000032, RDI=0x0000012dedbc4080
+R8 =0x0000000000000000, R9 =0x0000000000000000, R10=0x0000012dedbc4080, R11=0x0000000000000000
+R12=0x0000000000000000, R13=0x0000000850ffebf0, R14=0x0000000000000000, R15=0x0000012de882d5d0
+RIP=0x0000012d94ebade7, EFLAGS=0x0000000000010246
+
+
+Register to memory mapping:
+
+RAX=0x0 is null
+RBX={method} {0x0000012da217a368} 'get' '(I)B' in 'java/nio/DirectByteBuffer'
+RCX=0xfffffffffffffff5 is an unknown value
+RDX=0x00000000842a9f80 is an oop: jdk.internal.misc.ScopedMemoryAccess 
+{0x00000000842a9f80} - klass: 'jdk/internal/misc/ScopedMemoryAccess'
+ - ---- fields (total size 2 words):
+RSP=0x0000000850ffeb70 is pointing into the stack for thread: 0x0000012de882d5d0
+RBP=0x00000000017bb000 is an unknown value
+RSI=0x0000000000000032 is an unknown value
+RDI=0x0000012dedbc4080 is an unknown value
+R8 =0x0 is null
+R9 =0x0 is null
+R10=0x0000012dedbc4080 is an unknown value
+R11=0x0 is null
+R12=0x0 is null
+R13=0x0000000850ffebf0 is pointing into the stack for thread: 0x0000012de882d5d0
+R14=0x0 is null
+R15=0x0000012de882d5d0 is a thread
+
+Top of Stack: (sp=0x0000000850ffeb70)
+0x0000000850ffeb70:   ffffffffffffffff 0000012d94ebab0f
+0x0000000850ffeb80:   0000000850ffeba8 0000012da217a360
+0x0000000850ffeb90:   fffffffffffffff5 0000000850ffec48
+0x0000000850ffeba0:   00000000017bb000 0000012d94e9f64c
+0x0000000850ffebb0:   0000000085c77c90 0000012d948a9a3c
+0x0000000850ffebc0:   0000000000000000 00000000000000b6
+0x0000000850ffebd0:   00000000000000bc 0000000000000032
+0x0000000850ffebe0:   0000000850ffec48 0000012d94898a08
+0x0000000850ffebf0:   0000000000000000 0000000085c77c90
+0x0000000850ffec00:   fffffffffffffff7 0000012de453ab61
+0x0000000850ffec10:   0000000000000014 0000012de453efa0
+0x0000000850ffec20:   0000000000000000 0000000085c08758
+0x0000000850ffec30:   0000012de453ae08 fffffffffffffff5
+0x0000000850ffec40:   0000000850ffec98 0000000850ffed38
+0x0000000850ffec50:   0000012d948988c0 0000000000000000
+0x0000000850ffec60:   0000000000000000 0000000000000000
+0x0000000850ffec70:   0000000000000000 000000008b32f6a8
+0x0000000850ffec80:   0000000000000000 0000000000000000
+0x0000000850ffec90:   0000000000002d00 0000000000000000
+0x0000000850ffeca0:   0000000000000000 3ff0000000000000
+0x0000000850ffecb0:   0000000000000000 0000000000000000
+0x0000000850ffecc0:   0000000000002d00 0000000000000000
+0x0000000850ffecd0:   000000008b32f670 0000000000002d00
+0x0000000850ffece0:   0000000000000001 0000000085c77c90
+0x0000000850ffecf0:   fffffffffffffff7 0000012de453c406
+0x0000000850ffed00:   0000000000000013 0000012de453efa0
+0x0000000850ffed10:   0000000000000000 0000000085c08758
+0x0000000850ffed20:   0000012de453c6b0 ffffffffffffffec
+0x0000000850ffed30:   0000000850ffeda8 0000000850ffee20
+0x0000000850ffed40:   0000012d948988c0 0000000000000000
+0x0000000850ffed50:   0000000084400000 0000000000000000
+0x0000000850ffed60:   0000000000000003 0000000000002d00 
+
+Instructions: (pc=0x0000012d94ebade7)
+0x0000012d94ebace7:   00 00 00 00 00 00 00 00 00 a0 ad eb 94 2d 01 00
+0x0000012d94ebacf7:   00 c0 ad eb 94 2d 01 00 00 a0 ad eb 94 2d 01 00
+0x0000012d94ebad07:   00 00 00 00 00 ff ff ff ff 50 02 00 00 ff ff ff
+0x0000012d94ebad17:   ff 90 01 00 00 50 02 00 00 68 02 00 00 70 02 00
+0x0000012d94ebad27:   00 00 00 00 00 d0 02 00 00 10 03 00 00 18 03 00
+0x0000012d94ebad37:   00 18 03 00 00 18 03 00 00 18 03 00 00 18 03 00
+0x0000012d94ebad47:   00 20 00 00 00 42 05 00 00 02 00 00 00 ff ff ff
+0x0000012d94ebad57:   ff ff ff ff ff 04 04 00 00 00 00 00 00 10 00 00
+0x0000012d94ebad67:   00 14 30 3c 58 23 31 05 80 17 31 05 80 4c 78 08
+0x0000012d94ebad77:   40 11 31 05 31 0e 00 00 31 0f 31 00 00 00 00 00
+0x0000012d94ebad87:   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0x0000012d94ebad97:   00 00 00 00 00 00 00 00 00 44 8b 52 08 49 bb 00
+0x0000012d94ebada7:   00 00 a2 2d 01 00 00 4d 03 d3 49 3b c2 0f 85 c6
+0x0000012d94ebadb7:   3b a2 ff 66 90 0f 1f 40 00 89 84 24 00 80 ff ff
+0x0000012d94ebadc7:   55 48 83 ec 30 41 81 7f 20 04 00 00 00 0f 85 78
+0x0000012d94ebadd7:   00 00 00 4d 85 c0 75 1f 4d 85 c9 75 3c 4c 8b d7
+0x0000012d94ebade7:   41 0f be 02 48 83 c4 30 5d 49 3b a7 58 04 00 00
+0x0000012d94ebadf7:   0f 87 3f 00 00 00 c3 ba 54 ff ff ff 4c 89 0c 24
+0x0000012d94ebae07:   48 89 7c 24 08 4c 89 44 24 10 66 90 e8 e8 ce a2
+0x0000012d94ebae17:   ff 0f 1f 84 00 08 02 00 00 ba 54 ff ff ff 49 8b
+0x0000012d94ebae27:   e9 48 89 3c 24 66 66 90 e8 cc ce a2 ff 0f 1f 84
+0x0000012d94ebae37:   00 24 02 00 01 49 ba f0 ad eb 94 2d 01 00 00 4d
+0x0000012d94ebae47:   89 97 70 04 00 00 e9 2e bd a2 ff e8 69 c1 a0 ff
+0x0000012d94ebae57:   e9 7e ff ff ff f4 f4 f4 f4 e9 1b 51 b0 ff e8 00
+0x0000012d94ebae67:   00 00 00 48 83 2c 24 05 e9 ac d1 a2 ff f4 f4 f4
+0x0000012d94ebae77:   f4 d8 25 a9 83 00 00 00 00 b8 c0 06 a2 2d 01 00
+0x0000012d94ebae87:   00 40 05 07 a2 2d 01 00 00 ff 07 01 01 01 01 01
+0x0000012d94ebae97:   01 01 01 01 01 01 01 01 02 06 02 01 01 08 01 01
+0x0000012d94ebaea7:   01 83 01 03 02 01 01 45 01 01 01 01 02 01 83 0f
+0x0000012d94ebaeb7:   03 03 15 24 01 08 01 01 03 01 01 01 01 01 01 01
+0x0000012d94ebaec7:   01 01 01 01 05 03 02 01 d3 03 02 01 01 05 0f 03
+0x0000012d94ebaed7:   0f 2d 3c 01 00 00 00 00 00 ff ff ff ff 00 00 00 
+
+
+Stack slot to memory mapping:
+
+stack at sp + 0 slots: 0xffffffffffffffff is an unknown value
+stack at sp + 1 slots: 0x0000012d94ebab0f is at entry_point+143 in (nmethod*)0x0000012d94eba910
+Compiled method (c2) 9554 1347       4       java.nio.Buffer::session (20 bytes)
+ total in heap  [0x0000012d94eba910,0x0000012d94ebab80] = 624
+ relocation     [0x0000012d94ebaa68,0x0000012d94ebaa80] = 24
+ main code      [0x0000012d94ebaa80,0x0000012d94ebab18] = 152
+ stub code      [0x0000012d94ebab18,0x0000012d94ebab30] = 24
+ metadata       [0x0000012d94ebab30,0x0000012d94ebab38] = 8
+ scopes data    [0x0000012d94ebab38,0x0000012d94ebab48] = 16
+ scopes pcs     [0x0000012d94ebab48,0x0000012d94ebab78] = 48
+ dependencies   [0x0000012d94ebab78,0x0000012d94ebab80] = 8
+stack at sp + 2 slots: 0x0000000850ffeba8 is pointing into the stack for thread: 0x0000012de882d5d0
+stack at sp + 3 slots: {method} {0x0000012da217a368} 'get' '(I)B' in 'java/nio/DirectByteBuffer'
+stack at sp + 4 slots: 0xfffffffffffffff5 is an unknown value
+stack at sp + 5 slots: 0x0000000850ffec48 is pointing into the stack for thread: 0x0000012de882d5d0
+stack at sp + 6 slots: 0x00000000017bb000 is an unknown value
+stack at sp + 7 slots: 0x0000012d94e9f64c is at entry_point+140 in (nmethod*)0x0000012d94e9f410
+Compiled method (c2) 9565 1098   !   4       java.nio.DirectByteBuffer::get (34 bytes)
+ total in heap  [0x0000012d94e9f410,0x0000012d94e9f870] = 1120
+ relocation     [0x0000012d94e9f568,0x0000012d94e9f5a8] = 64
+ main code      [0x0000012d94e9f5c0,0x0000012d94e9f6e8] = 296
+ stub code      [0x0000012d94e9f6e8,0x0000012d94e9f720] = 56
+ oops           [0x0000012d94e9f720,0x0000012d94e9f730] = 16
+ metadata       [0x0000012d94e9f730,0x0000012d94e9f750] = 32
+ scopes data    [0x0000012d94e9f750,0x0000012d94e9f7b8] = 104
+ scopes pcs     [0x0000012d94e9f7b8,0x0000012d94e9f838] = 128
+ dependencies   [0x0000012d94e9f838,0x0000012d94e9f840] = 8
+ handler table  [0x0000012d94e9f840,0x0000012d94e9f870] = 48
+
+
+Compiled method (c2) 9566 1346   !   4       jdk.internal.misc.ScopedMemoryAccess::getByte (16 bytes)
+ total in heap  [0x0000012d94ebac10,0x0000012d94ebaf28] = 792
+ relocation     [0x0000012d94ebad68,0x0000012d94ebad88] = 32
+ main code      [0x0000012d94ebada0,0x0000012d94ebae60] = 192
+ stub code      [0x0000012d94ebae60,0x0000012d94ebae78] = 24
+ oops           [0x0000012d94ebae78,0x0000012d94ebae80] = 8
+ metadata       [0x0000012d94ebae80,0x0000012d94ebae90] = 16
+ scopes data    [0x0000012d94ebae90,0x0000012d94ebaee0] = 80
+ scopes pcs     [0x0000012d94ebaee0,0x0000012d94ebaf20] = 64
+ dependencies   [0x0000012d94ebaf20,0x0000012d94ebaf28] = 8
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000012da206c0c0} 'getByte' '(Ljdk/internal/foreign/MemorySessionImpl;Ljava/lang/Object;J)B' in 'jdk/internal/misc/ScopedMemoryAccess'
+  # this:     rdx:rdx   = 'jdk/internal/misc/ScopedMemoryAccess'
+  # parm0:    r8:r8     = 'jdk/internal/foreign/MemorySessionImpl'
+  # parm1:    r9:r9     = 'java/lang/Object'
+  # parm2:    rdi:rdi   = long
+  #           [sp+0x40]  (sp of caller)
+  0x0000012d94ebada0: 448b 5208 | 49bb 0000 | 00a2 2d01 | 0000 4d03 | d349 3bc2 
+
+  0x0000012d94ebadb4: ;   {runtime_call ic_miss_stub}
+  0x0000012d94ebadb4: 0f85 c63b | a2ff 6690 | 0f1f 4000 
+[Verified Entry Point]
+  0x0000012d94ebadc0: 8984 2400 | 80ff ff55 | 4883 ec30 | 4181 7f20 | 0400 0000 | 0f85 7800 | 0000 4d85 | c075 1f4d 
+  0x0000012d94ebade0: 85c9 753c | 4c8b d741 | 0fbe 0248 | 83c4 305d 
+
+  0x0000012d94ebadf0: ;   {poll_return}
+  0x0000012d94ebadf0: 493b a758 | 0400 000f | 873f 0000 | 00c3 ba54 | ffff ff4c | 890c 2448 | 897c 2408 | 4c89 4424 
+  0x0000012d94ebae10: ;   {runtime_call UncommonTrapBlob}
+  0x0000012d94ebae10: 1066 90e8 
+
+  0x0000012d94ebae14: ; ImmutableOopMap {[0]=Oop [16]=Oop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jdk.internal.misc.ScopedMemoryAccess::getByteInternal@1 (line 509)
+                      ; - jdk.internal.misc.ScopedMemoryAccess::getByte@4 (line 500)
+  0x0000012d94ebae14: e8ce a2ff 
+
+  0x0000012d94ebae18: ;   {other}
+  0x0000012d94ebae18: 0f1f 8400 | 0802 0000 | ba54 ffff | ff49 8be9 | 4889 3c24 
+
+  0x0000012d94ebae2c: ;   {runtime_call UncommonTrapBlob}
+  0x0000012d94ebae2c: 6666 90e8 
+
+  0x0000012d94ebae30: ; ImmutableOopMap {rbp=Oop }
+                      ;*invokevirtual getByte {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jdk.internal.misc.ScopedMemoryAccess::getByteInternal@13 (line 512)
+                      ; - jdk.internal.misc.ScopedMemoryAccess::getByte@4 (line 500)
+  0x0000012d94ebae30: ccce a2ff 
+
+  0x0000012d94ebae34: ;   {other}
+  0x0000012d94ebae34: 0f1f 8400 | 2402 0001 
+
+  0x0000012d94ebae3c: ;   {internal_word}
+  0x0000012d94ebae3c: 49ba f0ad | eb94 2d01 | 0000 4d89 | 9770 0400 
+
+  0x0000012d94ebae4c: ;   {runtime_call SafepointBlob}
+  0x0000012d94ebae4c: 00e9 2ebd 
+
+  0x0000012d94ebae50: ;   {runtime_call StubRoutines (final stubs)}
+  0x0000012d94ebae50: a2ff e869 | c1a0 ffe9 | 7eff ffff | f4f4 f4f4 
+[Exception Handler]
+  0x0000012d94ebae60: ;   {no_reloc}
+  0x0000012d94ebae60: e91b 51b0 | ffe8 0000 | 0000 4883 
+
+  0x0000012d94ebae6c: ;   {runtime_call DeoptimizationBlob}
+  0x0000012d94ebae6c: 2c24 05e9 | acd1 a2ff | f4f4 f4f4 
+[/MachCode]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000012de80ace20, length=26, elements={
+0x0000012d850311b0, 0x0000012da17ec430, 0x0000012da17ecf80, 0x0000012da17f36c0,
+0x0000012da17f5000, 0x0000012da17fec40, 0x0000012da17ff980, 0x0000012da1804a30,
+0x0000012da18084b0, 0x0000012da1a46d60, 0x0000012da1c93ab0, 0x0000012de744a770,
+0x0000012de7eac350, 0x0000012de7f3e8d0, 0x0000012de882fd30, 0x0000012de882e980,
+0x0000012de882f010, 0x0000012de88303c0, 0x0000012de882d5d0, 0x0000012de882dc60,
+0x0000012de882e2f0, 0x0000012de843e230, 0x0000012de843e8c0, 0x0000012de843ef50,
+0x0000012de843fc70, 0x0000012de8441020
+}
+
+Java Threads: ( => current thread )
+  0x0000012d850311b0 JavaThread "main"                              [_thread_blocked, id=14376, stack(0x000000084e500000,0x000000084e600000) (1024K)]
+  0x0000012da17ec430 JavaThread "Reference Handler"          daemon [_thread_blocked, id=20984, stack(0x000000084ed00000,0x000000084ee00000) (1024K)]
+  0x0000012da17ecf80 JavaThread "Finalizer"                  daemon [_thread_blocked, id=14972, stack(0x000000084ee00000,0x000000084ef00000) (1024K)]
+  0x0000012da17f36c0 JavaThread "Signal Dispatcher"          daemon [_thread_blocked, id=4532, stack(0x000000084ef00000,0x000000084f000000) (1024K)]
+  0x0000012da17f5000 JavaThread "Attach Listener"            daemon [_thread_blocked, id=18436, stack(0x000000084f000000,0x000000084f100000) (1024K)]
+  0x0000012da17fec40 JavaThread "Service Thread"             daemon [_thread_blocked, id=16644, stack(0x000000084f100000,0x000000084f200000) (1024K)]
+  0x0000012da17ff980 JavaThread "Monitor Deflation Thread"   daemon [_thread_blocked, id=12032, stack(0x000000084f200000,0x000000084f300000) (1024K)]
+  0x0000012da1804a30 JavaThread "C2 CompilerThread0"         daemon [_thread_blocked, id=17040, stack(0x000000084f300000,0x000000084f400000) (1024K)]
+  0x0000012da18084b0 JavaThread "C1 CompilerThread0"         daemon [_thread_blocked, id=8764, stack(0x000000084f400000,0x000000084f500000) (1024K)]
+  0x0000012da1a46d60 JavaThread "Common-Cleaner"             daemon [_thread_blocked, id=8732, stack(0x000000084f500000,0x000000084f600000) (1024K)]
+  0x0000012da1c93ab0 JavaThread "Monitor Ctrl-Break"         daemon [_thread_in_native, id=14804, stack(0x000000084f700000,0x000000084f800000) (1024K)]
+  0x0000012de744a770 JavaThread "Notification Thread"        daemon [_thread_blocked, id=12400, stack(0x000000084f800000,0x000000084f900000) (1024K)]
+  0x0000012de7eac350 JavaThread "DefaultDispatcher-worker-1" daemon [_thread_blocked, id=4196, stack(0x0000000850000000,0x0000000850100000) (1024K)]
+  0x0000012de7f3e8d0 JavaThread "DefaultDispatcher-worker-2" daemon [_thread_blocked, id=17900, stack(0x0000000850100000,0x0000000850200000) (1024K)]
+  0x0000012de882fd30 JavaThread "eventLoopGroupProxy-1-1"    daemon [_thread_in_native, id=972, stack(0x0000000850300000,0x0000000850400000) (1024K)]
+  0x0000012de882e980 JavaThread "eventLoopGroupProxy-3-1"    daemon [_thread_in_native, id=3876, stack(0x000000084f600000,0x000000084f700000) (1024K)]
+  0x0000012de882f010 JavaThread "eventLoopGroupProxy-4-1"    daemon [_thread_blocked, id=13840, stack(0x0000000850200000,0x0000000850300000) (1024K)]
+  0x0000012de88303c0 JavaThread "JavaCPP Deallocator"        daemon [_thread_blocked, id=8580, stack(0x0000000850500000,0x0000000850600000) (1024K)]
+=>0x0000012de882d5d0 JavaThread "pool-3-thread-1"                   [_thread_in_Java, id=13168, stack(0x0000000850f00000,0x0000000851000000) (1024K)]
+  0x0000012de882dc60 JavaThread "pool-3-thread-2"                   [_thread_in_native, id=19444, stack(0x0000000851000000,0x0000000851100000) (1024K)]
+  0x0000012de882e2f0 JavaThread "pool-3-thread-3"                   [_thread_in_native, id=17508, stack(0x0000000851100000,0x0000000851200000) (1024K)]
+  0x0000012de843e230 JavaThread "pool-3-thread-4"                   [_thread_in_native, id=12836, stack(0x0000000851200000,0x0000000851300000) (1024K)]
+  0x0000012de843e8c0 JavaThread "pool-3-thread-5"                   [_thread_in_native, id=13736, stack(0x0000000851300000,0x0000000851400000) (1024K)]
+  0x0000012de843ef50 JavaThread "pool-3-thread-6"                   [_thread_in_native, id=10236, stack(0x0000000851400000,0x0000000851500000) (1024K)]
+  0x0000012de843fc70 JavaThread "pool-3-thread-7"                   [_thread_in_native, id=4080, stack(0x0000000851500000,0x0000000851600000) (1024K)]
+  0x0000012de8441020 JavaThread "pool-3-thread-8"                   [_thread_in_native, id=11912, stack(0x0000000851600000,0x0000000851700000) (1024K)]
+Total: 26
+
+Other Threads:
+  0x0000012da17cfe50 VMThread "VM Thread"                           [id=17340, stack(0x000000084ec00000,0x000000084ed00000) (1024K)]
+  0x0000012da17b5640 WatcherThread "VM Periodic Task Thread"        [id=19224, stack(0x000000084eb00000,0x000000084ec00000) (1024K)]
+  0x0000012d850894f0 WorkerThread "GC Thread#0"                     [id=1848, stack(0x000000084e600000,0x000000084e700000) (1024K)]
+  0x0000012de7e83120 WorkerThread "GC Thread#1"                     [id=14412, stack(0x000000084f900000,0x000000084fa00000) (1024K)]
+  0x0000012de7eb3050 WorkerThread "GC Thread#2"                     [id=11852, stack(0x000000084fa00000,0x000000084fb00000) (1024K)]
+  0x0000012de75c3e50 WorkerThread "GC Thread#3"                     [id=18616, stack(0x000000084fb00000,0x000000084fc00000) (1024K)]
+  0x0000012de75c4200 WorkerThread "GC Thread#4"                     [id=3920, stack(0x000000084fc00000,0x000000084fd00000) (1024K)]
+  0x0000012de77e8300 WorkerThread "GC Thread#5"                     [id=18244, stack(0x000000084fd00000,0x000000084fe00000) (1024K)]
+  0x0000012de77e92d0 WorkerThread "GC Thread#6"                     [id=9340, stack(0x000000084fe00000,0x000000084ff00000) (1024K)]
+  0x0000012de778dc70 WorkerThread "GC Thread#7"                     [id=1516, stack(0x000000084ff00000,0x0000000850000000) (1024K)]
+  0x0000012d8509aee0 ConcurrentGCThread "G1 Main Marker"            [id=16028, stack(0x000000084e700000,0x000000084e800000) (1024K)]
+  0x0000012d8509c090 WorkerThread "G1 Conc#0"                       [id=5144, stack(0x000000084e800000,0x000000084e900000) (1024K)]
+  0x0000012de86200a0 WorkerThread "G1 Conc#1"                       [id=20872, stack(0x0000000850400000,0x0000000850500000) (1024K)]
+  0x0000012da16895d0 ConcurrentGCThread "G1 Refine#0"               [id=17736, stack(0x000000084e900000,0x000000084ea00000) (1024K)]
+  0x0000012da1689e00 ConcurrentGCThread "G1 Service"                [id=4164, stack(0x000000084ea00000,0x000000084eb00000) (1024K)]
+Total: 15
+
+Threads with active compile tasks:
+Total: 0
+
+VM state: not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap address: 0x0000000083600000, size: 1994 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000012da2000000-0x0000012da2c60000-0x0000012da2c60000), size 12976128, SharedBaseAddress: 0x0000012da2000000, ArchiveRelocationMode: 1.
+Compressed class space mapped at: 0x0000012da3000000-0x0000012de3000000, reserved size: 1073741824
+Narrow klass base: 0x0000012da2000000, Narrow klass shift: 0, Narrow klass range: 0x41000000
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 5 size 8 Array Of Cards #cards 12 size 40 Howl #buckets 4 coarsen threshold 1843 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 2048
+ CPUs: 8 total, 8 available
+ Memory: 7975M
+ Large Page Support: Disabled
+ NUMA Support: Disabled
+ Compressed Oops: Enabled (32-bit)
+ Heap Region Size: 1M
+ Heap Min Capacity: 8M
+ Heap Initial Capacity: 126M
+ Heap Max Capacity: 1994M
+ Pre-touch: Disabled
+ Parallel Workers: 8
+ Concurrent Workers: 2
+ Concurrent Refinement Workers: 8
+ Periodic GC: Disabled
+
+Heap:
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 40241K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 4 young (4096K), 1 survivors (1024K)
+ Metaspace       used 24747K, committed 25024K, reserved 1114112K
+  class space    used 2973K, committed 3136K, reserved 1048576K
+
+Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, TAMS=top-at-mark-start, PB=parsable bottom
+|   0|0x0000000083600000, 0x0000000083700000, 0x0000000083700000|100%| O|  |TAMS 0x0000000083600000| PB 0x0000000083600000| Untracked |  0
+|   1|0x0000000083700000, 0x0000000083800000, 0x0000000083800000|100%| O|  |TAMS 0x0000000083700000| PB 0x0000000083700000| Untracked |  0
+|   2|0x0000000083800000, 0x0000000083900000, 0x0000000083900000|100%| O|  |TAMS 0x0000000083800000| PB 0x0000000083800000| Untracked |  0
+|   3|0x0000000083900000, 0x0000000083a00000, 0x0000000083a00000|100%| O|  |TAMS 0x0000000083900000| PB 0x0000000083900000| Untracked |  0
+|   4|0x0000000083a00000, 0x0000000083b00000, 0x0000000083b00000|100%| O|  |TAMS 0x0000000083a00000| PB 0x0000000083a00000| Untracked |  0
+|   5|0x0000000083b00000, 0x0000000083c00000, 0x0000000083c00000|100%| O|  |TAMS 0x0000000083b00000| PB 0x0000000083b00000| Untracked |  0
+|   6|0x0000000083c00000, 0x0000000083d00000, 0x0000000083d00000|100%| O|  |TAMS 0x0000000083c00000| PB 0x0000000083c00000| Untracked |  0
+|   7|0x0000000083d00000, 0x0000000083e00000, 0x0000000083e00000|100%| O|  |TAMS 0x0000000083d00000| PB 0x0000000083d00000| Untracked |  0
+|   8|0x0000000083e00000, 0x0000000083e00000, 0x0000000083f00000|  0%| F|  |TAMS 0x0000000083e00000| PB 0x0000000083e00000| Untracked |  0
+|   9|0x0000000083f00000, 0x0000000084000000, 0x0000000084000000|100%| O|  |TAMS 0x0000000083f00000| PB 0x0000000083f00000| Untracked |  0
+|  10|0x0000000084000000, 0x0000000084100000, 0x0000000084100000|100%| O|  |TAMS 0x0000000084000000| PB 0x0000000084000000| Untracked |  0
+|  11|0x0000000084100000, 0x0000000084200000, 0x0000000084200000|100%| O|  |TAMS 0x0000000084100000| PB 0x0000000084100000| Untracked |  0
+|  12|0x0000000084200000, 0x0000000084300000, 0x0000000084300000|100%| O|  |TAMS 0x0000000084200000| PB 0x0000000084200000| Untracked |  0
+|  13|0x0000000084300000, 0x000000008435b3a0, 0x0000000084400000| 35%| O|  |TAMS 0x0000000084300000| PB 0x0000000084300000| Untracked |  0
+|  14|0x0000000084400000, 0x0000000084500000, 0x0000000084500000|100%|HS|  |TAMS 0x0000000084400000| PB 0x0000000084400000| Complete |  0
+|  15|0x0000000084500000, 0x0000000084600000, 0x0000000084600000|100%|HC|  |TAMS 0x0000000084500000| PB 0x0000000084500000| Complete |  0
+|  16|0x0000000084600000, 0x0000000084700000, 0x0000000084700000|100%|HC|  |TAMS 0x0000000084600000| PB 0x0000000084600000| Complete |  0
+|  17|0x0000000084700000, 0x0000000084800000, 0x0000000084800000|100%|HC|  |TAMS 0x0000000084700000| PB 0x0000000084700000| Complete |  0
+|  18|0x0000000084800000, 0x0000000084900000, 0x0000000084900000|100%|HC|  |TAMS 0x0000000084800000| PB 0x0000000084800000| Complete |  0
+|  19|0x0000000084900000, 0x0000000084a00000, 0x0000000084a00000|100%|HC|  |TAMS 0x0000000084900000| PB 0x0000000084900000| Complete |  0
+|  20|0x0000000084a00000, 0x0000000084b00000, 0x0000000084b00000|100%|HC|  |TAMS 0x0000000084a00000| PB 0x0000000084a00000| Complete |  0
+|  21|0x0000000084b00000, 0x0000000084c00000, 0x0000000084c00000|100%|HC|  |TAMS 0x0000000084b00000| PB 0x0000000084b00000| Complete |  0
+|  22|0x0000000084c00000, 0x0000000084d00000, 0x0000000084d00000|100%|HC|  |TAMS 0x0000000084c00000| PB 0x0000000084c00000| Complete |  0
+|  23|0x0000000084d00000, 0x0000000084e00000, 0x0000000084e00000|100%|HC|  |TAMS 0x0000000084d00000| PB 0x0000000084d00000| Complete |  0
+|  24|0x0000000084e00000, 0x0000000084f00000, 0x0000000084f00000|100%|HC|  |TAMS 0x0000000084e00000| PB 0x0000000084e00000| Complete |  0
+|  25|0x0000000084f00000, 0x0000000085000000, 0x0000000085000000|100%|HC|  |TAMS 0x0000000084f00000| PB 0x0000000084f00000| Complete |  0
+|  26|0x0000000085000000, 0x0000000085100000, 0x0000000085100000|100%|HC|  |TAMS 0x0000000085000000| PB 0x0000000085000000| Complete |  0
+|  27|0x0000000085100000, 0x0000000085200000, 0x0000000085200000|100%|HC|  |TAMS 0x0000000085100000| PB 0x0000000085100000| Complete |  0
+|  28|0x0000000085200000, 0x0000000085300000, 0x0000000085300000|100%|HC|  |TAMS 0x0000000085200000| PB 0x0000000085200000| Complete |  0
+|  29|0x0000000085300000, 0x0000000085400000, 0x0000000085400000|100%|HC|  |TAMS 0x0000000085300000| PB 0x0000000085300000| Complete |  0
+|  30|0x0000000085400000, 0x0000000085500000, 0x0000000085500000|100%|HC|  |TAMS 0x0000000085400000| PB 0x0000000085400000| Complete |  0
+|  31|0x0000000085500000, 0x0000000085600000, 0x0000000085600000|100%|HC|  |TAMS 0x0000000085500000| PB 0x0000000085500000| Complete |  0
+|  32|0x0000000085600000, 0x0000000085700000, 0x0000000085700000|100%|HC|  |TAMS 0x0000000085600000| PB 0x0000000085600000| Complete |  0
+|  33|0x0000000085700000, 0x0000000085800000, 0x0000000085800000|100%|HC|  |TAMS 0x0000000085700000| PB 0x0000000085700000| Complete |  0
+|  34|0x0000000085800000, 0x0000000085900000, 0x0000000085900000|100%|HC|  |TAMS 0x0000000085800000| PB 0x0000000085800000| Complete |  0
+|  35|0x0000000085900000, 0x0000000085a00000, 0x0000000085a00000|100%|HC|  |TAMS 0x0000000085900000| PB 0x0000000085900000| Complete |  0
+|  36|0x0000000085a00000, 0x0000000085b00000, 0x0000000085b00000|100%|HC|  |TAMS 0x0000000085a00000| PB 0x0000000085a00000| Complete |  0
+|  37|0x0000000085b00000, 0x0000000085c00000, 0x0000000085c00000|100%|HC|  |TAMS 0x0000000085b00000| PB 0x0000000085b00000| Complete |  0
+|  38|0x0000000085c00000, 0x0000000085cf1150, 0x0000000085d00000| 94%| S|CS|TAMS 0x0000000085c00000| PB 0x0000000085c00000| Complete |  0
+|  39|0x0000000085d00000, 0x0000000085d00000, 0x0000000085e00000|  0%| F|  |TAMS 0x0000000085d00000| PB 0x0000000085d00000| Untracked |  0
+|  40|0x0000000085e00000, 0x0000000085e00000, 0x0000000085f00000|  0%| F|  |TAMS 0x0000000085e00000| PB 0x0000000085e00000| Untracked |  0
+|  41|0x0000000085f00000, 0x0000000085f00000, 0x0000000086000000|  0%| F|  |TAMS 0x0000000085f00000| PB 0x0000000085f00000| Untracked |  0
+|  42|0x0000000086000000, 0x0000000086000000, 0x0000000086100000|  0%| F|  |TAMS 0x0000000086000000| PB 0x0000000086000000| Untracked |  0
+|  43|0x0000000086100000, 0x0000000086100000, 0x0000000086200000|  0%| F|  |TAMS 0x0000000086100000| PB 0x0000000086100000| Untracked |  0
+|  44|0x0000000086200000, 0x0000000086200000, 0x0000000086300000|  0%| F|  |TAMS 0x0000000086200000| PB 0x0000000086200000| Untracked |  0
+|  45|0x0000000086300000, 0x0000000086300000, 0x0000000086400000|  0%| F|  |TAMS 0x0000000086300000| PB 0x0000000086300000| Untracked |  0
+|  46|0x0000000086400000, 0x0000000086400000, 0x0000000086500000|  0%| F|  |TAMS 0x0000000086400000| PB 0x0000000086400000| Untracked |  0
+|  84|0x0000000088a00000, 0x0000000088a00000, 0x0000000088b00000|  0%| F|  |TAMS 0x0000000088a00000| PB 0x0000000088a00000| Untracked |  0
+|  85|0x0000000088b00000, 0x0000000088b00000, 0x0000000088c00000|  0%| F|  |TAMS 0x0000000088b00000| PB 0x0000000088b00000| Untracked |  0
+|  86|0x0000000088c00000, 0x0000000088c00000, 0x0000000088d00000|  0%| F|  |TAMS 0x0000000088c00000| PB 0x0000000088c00000| Untracked |  0
+|  87|0x0000000088d00000, 0x0000000088d999c0, 0x0000000088e00000| 60%| E|  |TAMS 0x0000000088d00000| PB 0x0000000088d00000| Complete |  0
+|  88|0x0000000088e00000, 0x0000000088f00000, 0x0000000088f00000|100%| E|CS|TAMS 0x0000000088e00000| PB 0x0000000088e00000| Complete |  0
+| 125|0x000000008b300000, 0x000000008b400000, 0x000000008b400000|100%| E|CS|TAMS 0x000000008b300000| PB 0x000000008b300000| Complete |  0
+
+Card table byte_map: [0x0000012d9ca80000,0x0000012d9ce70000] _byte_map_base: 0x0000012d9c665000
+
+Marking Bits: (CMBitMap*) 0x0000012d85089b00
+ Bits: [0x0000012d9ce70000, 0x0000012d9ed98000)
+
+Polling page: 0x0000012d847e0000
+
+Metaspace:
+
+Usage:
+  Non-class:     21.26 MB used.
+      Class:      2.90 MB used.
+       Both:     24.17 MB used.
+
+Virtual space:
+  Non-class space:       64.00 MB reserved,      21.38 MB ( 33%) committed,  1 nodes.
+      Class space:        1.00 GB reserved,       3.06 MB ( <1%) committed,  1 nodes.
+             Both:        1.06 GB reserved,      24.44 MB (  2%) committed. 
+
+Chunk freelists:
+   Non-Class:  10.25 MB
+       Class:  12.92 MB
+        Both:  23.17 MB
+
+MaxMetaspaceSize: unlimited
+CompressedClassSpaceSize: 1.00 GB
+Initial GC threshold: 21.00 MB
+Current GC threshold: 35.25 MB
+CDS: on
+ - commit_granule_bytes: 65536.
+ - commit_granule_words: 8192.
+ - virtual_space_node_default_size: 8388608.
+ - enlarge_chunks_in_place: 1.
+ - use_allocation_guard: 0.
+
+
+Internal statistics:
+
+num_allocs_failed_limit: 3.
+num_arena_births: 196.
+num_arena_deaths: 0.
+num_vsnodes_births: 2.
+num_vsnodes_deaths: 0.
+num_space_committed: 391.
+num_space_uncommitted: 0.
+num_chunks_returned_to_freelist: 3.
+num_chunks_taken_from_freelist: 884.
+num_chunk_merges: 3.
+num_chunk_splits: 698.
+num_chunks_enlarged: 588.
+num_inconsistent_stats: 0.
+
+CodeHeap 'non-profiled nmethods': size=120000Kb used=1552Kb max_used=1552Kb free=118447Kb
+ bounds [0x0000012d94e30000, 0x0000012d950a0000, 0x0000012d9c360000]
+CodeHeap 'profiled nmethods': size=120000Kb used=4859Kb max_used=4859Kb free=115140Kb
+ bounds [0x0000012d8d360000, 0x0000012d8d820000, 0x0000012d94890000]
+CodeHeap 'non-nmethods': size=5760Kb used=1809Kb max_used=1867Kb free=3950Kb
+ bounds [0x0000012d94890000, 0x0000012d94b00000, 0x0000012d94e30000]
+ total_blobs=3115 nmethods=2450 adapters=570
+ compilation: enabled
+              stopped_count=0, restarted_count=0
+ full_count=0
+
+Compilation events (20 events):
+Event: 4.310 Thread 0x0000012da18084b0 nmethod 2436 0x0000012d8d81c310 code [0x0000012d8d81c4e0, 0x0000012d8d81c7c0]
+Event: 4.313 Thread 0x0000012da1804a30 2438       4       java.lang.Object::equals (11 bytes)
+Event: 4.313 Thread 0x0000012da1804a30 nmethod 2438 0x0000012d94f95310 code [0x0000012d94f95480, 0x0000012d94f95510]
+Event: 4.526 Thread 0x0000012de885d0f0 nmethod 2370 0x0000012d94f95610 code [0x0000012d94f96b00, 0x0000012d94fa71b0]
+Event: 8.665 Thread 0x0000012da18084b0 2439       3       java.lang.Integer::numberOfTrailingZeros (80 bytes)
+Event: 8.666 Thread 0x0000012da18084b0 nmethod 2439 0x0000012d8d81c910 code [0x0000012d8d81cac0, 0x0000012d8d81ccf8]
+Event: 8.666 Thread 0x0000012da18084b0 2440       3       io.netty.handler.codec.http.HttpObjectDecoder::isWhitespace (10 bytes)
+Event: 8.666 Thread 0x0000012da18084b0 nmethod 2440 0x0000012d8d81cd90 code [0x0000012d8d81cf20, 0x0000012d8d81d048]
+Event: 8.672 Thread 0x0000012da18084b0 2441       3       java.util.concurrent.ThreadPoolExecutor::isRunning (10 bytes)
+Event: 8.672 Thread 0x0000012da18084b0 nmethod 2441 0x0000012d8d81d110 code [0x0000012d8d81d2a0, 0x0000012d8d81d3e0]
+Event: 8.672 Thread 0x0000012da18084b0 2442       3       java.util.concurrent.atomic.AtomicInteger::getAndIncrement (12 bytes)
+Event: 8.672 Thread 0x0000012da18084b0 nmethod 2442 0x0000012d8d81d490 code [0x0000012d8d81d620, 0x0000012d8d81d738]
+Event: 8.672 Thread 0x0000012da18084b0 2443       3       java.util.concurrent.Executors::callable (22 bytes)
+Event: 8.672 Thread 0x0000012da18084b0 nmethod 2443 0x0000012d8d81d810 code [0x0000012d8d81d9e0, 0x0000012d8d81dd90]
+Event: 9.426 Thread 0x0000012da18084b0 2447       3       org.bytedeco.javacv.FFmpegFrameGrabber::getFrameRate (5 bytes)
+Event: 9.426 Thread 0x0000012da18084b0 nmethod 2447 0x0000012d8d81df10 code [0x0000012d8d81e0c0, 0x0000012d8d81e218]
+Event: 9.426 Thread 0x0000012da18084b0 2448       3       org.bytedeco.javacv.FFmpegFrameGrabber::getVideoFrameRate (54 bytes)
+Event: 9.426 Thread 0x0000012da18084b0 nmethod 2448 0x0000012d8d81e310 code [0x0000012d8d81e520, 0x0000012d8d81e920]
+Event: 9.462 Thread 0x0000012da18084b0 2450       3       java.lang.Math::round (70 bytes)
+Event: 9.462 Thread 0x0000012da18084b0 nmethod 2450 0x0000012d8d81eb10 code [0x0000012d8d81ecc0, 0x0000012d8d81eef0]
+
+GC Heap History (20 events):
+Event: 0.465 GC heap before
+{Heap before GC invocations=0 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 129024K, used 23552K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 24 young (24576K), 0 survivors (0K)
+ Metaspace       used 5598K, committed 5760K, reserved 1114112K
+  class space    used 568K, committed 640K, reserved 1048576K
+}
+Event: 0.470 GC heap after
+{Heap after GC invocations=1 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 129024K, used 7594K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 3 young (3072K), 3 survivors (3072K)
+ Metaspace       used 5598K, committed 5760K, reserved 1114112K
+  class space    used 568K, committed 640K, reserved 1048576K
+}
+Event: 0.797 GC heap before
+{Heap before GC invocations=1 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 129024K, used 35242K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 30 young (30720K), 3 survivors (3072K)
+ Metaspace       used 12262K, committed 12480K, reserved 1114112K
+  class space    used 1439K, committed 1536K, reserved 1048576K
+}
+Event: 0.801 GC heap after
+{Heap after GC invocations=2 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 129024K, used 9885K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 3 young (3072K), 3 survivors (3072K)
+ Metaspace       used 12262K, committed 12480K, reserved 1114112K
+  class space    used 1439K, committed 1536K, reserved 1048576K
+}
+Event: 3.172 GC heap before
+{Heap before GC invocations=2 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 129024K, used 42653K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 37 young (37888K), 3 survivors (3072K)
+ Metaspace       used 21252K, committed 21504K, reserved 1114112K
+  class space    used 2565K, committed 2688K, reserved 1048576K
+}
+Event: 3.177 GC heap after
+{Heap after GC invocations=3 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 129024K, used 12775K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 5 young (5120K), 5 survivors (5120K)
+ Metaspace       used 21252K, committed 21504K, reserved 1114112K
+  class space    used 2565K, committed 2688K, reserved 1048576K
+}
+Event: 3.327 GC heap before
+{Heap before GC invocations=4 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 45056K, used 34279K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 26 young (26624K), 5 survivors (5120K)
+ Metaspace       used 22476K, committed 22720K, reserved 1114112K
+  class space    used 2672K, committed 2816K, reserved 1048576K
+}
+Event: 3.332 GC heap after
+{Heap after GC invocations=5 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 45056K, used 13295K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 1 young (1024K), 1 survivors (1024K)
+ Metaspace       used 22476K, committed 22720K, reserved 1114112K
+  class space    used 2672K, committed 2816K, reserved 1048576K
+}
+Event: 3.394 GC heap before
+{Heap before GC invocations=5 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 45056K, used 33775K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 21 young (21504K), 1 survivors (1024K)
+ Metaspace       used 22487K, committed 22720K, reserved 1114112K
+  class space    used 2672K, committed 2816K, reserved 1048576K
+}
+Event: 3.396 GC heap after
+{Heap after GC invocations=6 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 45056K, used 13017K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 1 young (1024K), 1 survivors (1024K)
+ Metaspace       used 22487K, committed 22720K, reserved 1114112K
+  class space    used 2672K, committed 2816K, reserved 1048576K
+}
+Event: 3.451 GC heap before
+{Heap before GC invocations=6 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 45056K, used 34521K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 22 young (22528K), 1 survivors (1024K)
+ Metaspace       used 22495K, committed 22784K, reserved 1114112K
+  class space    used 2672K, committed 2816K, reserved 1048576K
+}
+Event: 3.453 GC heap after
+{Heap after GC invocations=7 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 12954K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 1 young (1024K), 1 survivors (1024K)
+ Metaspace       used 22495K, committed 22784K, reserved 1114112K
+  class space    used 2672K, committed 2816K, reserved 1048576K
+}
+Event: 3.535 GC heap before
+{Heap before GC invocations=7 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 43674K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 31 young (31744K), 1 survivors (1024K)
+ Metaspace       used 22499K, committed 22784K, reserved 1114112K
+  class space    used 2672K, committed 2816K, reserved 1048576K
+}
+Event: 3.537 GC heap after
+{Heap after GC invocations=8 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 12984K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 1 young (1024K), 1 survivors (1024K)
+ Metaspace       used 22499K, committed 22784K, reserved 1114112K
+  class space    used 2672K, committed 2816K, reserved 1048576K
+}
+Event: 3.794 GC heap before
+{Heap before GC invocations=8 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 43704K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 31 young (31744K), 1 survivors (1024K)
+ Metaspace       used 23732K, committed 24000K, reserved 1114112K
+  class space    used 2847K, committed 2944K, reserved 1048576K
+}
+Event: 3.796 GC heap after
+{Heap after GC invocations=9 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 13304K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 1 young (1024K), 1 survivors (1024K)
+ Metaspace       used 23732K, committed 24000K, reserved 1114112K
+  class space    used 2847K, committed 2944K, reserved 1048576K
+}
+Event: 4.097 GC heap before
+{Heap before GC invocations=9 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 44024K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 31 young (31744K), 1 survivors (1024K)
+ Metaspace       used 24059K, committed 24320K, reserved 1114112K
+  class space    used 2909K, committed 3008K, reserved 1048576K
+}
+Event: 4.099 GC heap after
+{Heap after GC invocations=10 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 13478K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 1 young (1024K), 1 survivors (1024K)
+ Metaspace       used 24059K, committed 24320K, reserved 1114112K
+  class space    used 2909K, committed 3008K, reserved 1048576K
+}
+Event: 9.470 GC heap before
+{Heap before GC invocations=10 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 26790K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 15 young (15360K), 1 survivors (1024K)
+ Metaspace       used 24657K, committed 24960K, reserved 1114112K
+  class space    used 2966K, committed 3136K, reserved 1048576K
+}
+Event: 9.472 GC heap after
+{Heap after GC invocations=11 (full 0):
+ garbage-first heap   total reserved 2041856K, committed 54272K, used 13617K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 1 young (1024K), 1 survivors (1024K)
+ Metaspace       used 24657K, committed 24960K, reserved 1114112K
+  class space    used 2966K, committed 3136K, reserved 1048576K
+}
+
+Dll operation events (20 events):
+Event: 3.504 Loaded shared library C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\msvcp140.dll
+Event: 3.513 Loaded shared library C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\msvcp140_1.dll
+Event: 3.521 Loaded shared library C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\concrt140.dll
+Event: 3.529 Loaded shared library C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\vcomp140.dll
+Event: 3.540 Loaded shared library C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\jnijavacpp.dll
+Event: 3.585 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avutil-56.dll
+Event: 3.600 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavutil.dll
+Event: 3.659 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\swresample-3.dll
+Event: 3.671 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniswresample.dll
+Event: 3.718 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avcodec-58.dll
+Event: 3.730 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavcodec.dll
+Event: 3.778 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avformat-58.dll
+Event: 3.790 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavformat.dll
+Event: 3.842 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\swscale-5.dll
+Event: 3.858 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniswscale.dll
+Event: 3.936 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avfilter-7.dll
+Event: 3.949 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavfilter.dll
+Event: 3.979 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avdevice-58.dll
+Event: 3.991 Loaded shared library C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavdevice.dll
+Event: 9.466 Loaded shared library C:\Program Files\Java\jdk-22\bin\awt.dll
+
+Deoptimization events (20 events):
+Event: 3.725 Thread 0x0000012de882f010 DEOPT PACKING pc=0x0000012d8d78e99d sp=0x00000008502fbb70
+Event: 3.725 Thread 0x0000012de882f010 DEOPT UNPACKING pc=0x0000012d948e88e2 sp=0x00000008502fb010 mode 0
+Event: 3.727 Thread 0x0000012de882f010 DEOPT PACKING pc=0x0000012d8d78e99d sp=0x00000008502fbb70
+Event: 3.727 Thread 0x0000012de882f010 DEOPT UNPACKING pc=0x0000012d948e88e2 sp=0x00000008502fb010 mode 0
+Event: 3.741 Thread 0x0000012de882f010 DEOPT PACKING pc=0x0000012d8d79b312 sp=0x00000008502fc090
+Event: 3.741 Thread 0x0000012de882f010 DEOPT UNPACKING pc=0x0000012d948e88e2 sp=0x00000008502fb558 mode 0
+Event: 3.772 Thread 0x0000012de882f010 DEOPT PACKING pc=0x0000012d8d79b312 sp=0x00000008502fb560
+Event: 3.772 Thread 0x0000012de882f010 DEOPT UNPACKING pc=0x0000012d948e88e2 sp=0x00000008502faa28 mode 0
+Event: 3.782 Thread 0x0000012de882f010 Uncommon trap: trap_request=0xffffff45 fr.pc=0x0000012d94f4b040 relative=0x0000000000000f80
+Event: 3.782 Thread 0x0000012de882f010 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000012d94f4b040 method=jdk.internal.jimage.ImageLocation.verifyName(Ljava/lang/String;Ljava/lang/String;IIIIIILjdk/internal/jimage/ImageStrings;)Z @ 2 c2
+Event: 3.782 Thread 0x0000012de882f010 DEOPT PACKING pc=0x0000012d94f4b040 sp=0x00000008502fb930
+Event: 3.782 Thread 0x0000012de882f010 DEOPT UNPACKING pc=0x0000012d948e7da2 sp=0x00000008502fb808 mode 2
+Event: 3.831 Thread 0x0000012de882f010 DEOPT PACKING pc=0x0000012d8d79b312 sp=0x00000008502fb560
+Event: 3.831 Thread 0x0000012de882f010 DEOPT UNPACKING pc=0x0000012d948e88e2 sp=0x00000008502faa28 mode 0
+Event: 3.884 Thread 0x0000012de882f010 DEOPT PACKING pc=0x0000012d8d79b312 sp=0x00000008502fb560
+Event: 3.884 Thread 0x0000012de882f010 DEOPT UNPACKING pc=0x0000012d948e88e2 sp=0x00000008502faa28 mode 0
+Event: 3.948 Thread 0x0000012de882f010 DEOPT PACKING pc=0x0000012d8d79b312 sp=0x00000008502fb560
+Event: 3.948 Thread 0x0000012de882f010 DEOPT UNPACKING pc=0x0000012d948e88e2 sp=0x00000008502faa28 mode 0
+Event: 3.980 Thread 0x0000012de882f010 DEOPT PACKING pc=0x0000012d8d78d4f2 sp=0x00000008502fbb20
+Event: 3.980 Thread 0x0000012de882f010 DEOPT UNPACKING pc=0x0000012d948e88e2 sp=0x00000008502fafa8 mode 0
+
+Classes loaded (20 events):
+Event: 9.470 Loading class sun/java2d/StateTrackableDelegate$2
+Event: 9.470 Loading class sun/java2d/StateTrackableDelegate$2 done
+Event: 9.476 Loading class java/awt/image/PixelInterleavedSampleModel
+Event: 9.476 Loading class java/awt/image/PixelInterleavedSampleModel done
+Event: 9.476 Loading class sun/awt/image/ByteInterleavedRaster
+Event: 9.476 Loading class sun/awt/image/ByteComponentRaster
+Event: 9.477 Loading class sun/awt/image/ByteComponentRaster done
+Event: 9.477 Loading class sun/awt/image/ByteInterleavedRaster done
+Event: 9.477 Loading class sun/awt/image/NativeLibLoader
+Event: 9.477 Loading class sun/awt/image/NativeLibLoader done
+Event: 9.477 Loading class sun/awt/image/NativeLibLoader$1
+Event: 9.477 Loading class sun/awt/image/NativeLibLoader$1 done
+Event: 9.477 Loading class java/awt/Rectangle
+Event: 9.477 Loading class java/awt/Shape
+Event: 9.477 Loading class java/awt/Shape done
+Event: 9.477 Loading class java/awt/geom/Rectangle2D
+Event: 9.477 Loading class java/awt/geom/RectangularShape
+Event: 9.478 Loading class java/awt/geom/RectangularShape done
+Event: 9.478 Loading class java/awt/geom/Rectangle2D done
+Event: 9.478 Loading class java/awt/Rectangle done
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (20 events):
+Event: 0.902 Thread 0x0000012d850311b0 Exception <a 'java/lang/NoSuchMethodError'{0x000000008a961718}: 'void java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial(java.lang.Object, java.lang.Object, java.lang.Object)'> (0x000000008a961718) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 0.965 Thread 0x0000012d850311b0 Exception <a 'java/lang/UnsatisfiedLinkError'{0x000000008a30b9e8}: 'int io.netty.channel.kqueue.Native.sizeofKEvent()'> (0x000000008a30b9e8) 
+thrown [s\open\src\hotspot\share\prims\nativeLookup.cpp, line 417]
+Event: 0.965 Thread 0x0000012d850311b0 Exception <a 'java/lang/ExceptionInInitializerError'{0x000000008a30cb88}> (0x000000008a30cb88) 
+thrown [s\open\src\hotspot\share\oops\instanceKlass.cpp, line 1252]
+Event: 0.985 Thread 0x0000012d850311b0 Exception <a 'java/lang/NoSuchMethodError'{0x000000008a369e80}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, int, int, int, int)'> (0x000000008a369e80) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 1.022 Thread 0x0000012d850311b0 Exception <a 'java/lang/NoSuchMethodError'{0x000000008a2a2388}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, java.lang.Object, int, int, int, int)'> (0x000000008a2a2388) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 1.028 Thread 0x0000012da17f5000 Exception <a 'java/lang/NoSuchMethodError'{0x000000008a142c10}: 'java.lang.Object java.lang.invoke.Invokers$Holder.invokeExact_MT(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)'> (0x000000008a142c10) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 1.030 Thread 0x0000012d850311b0 Exception <a 'java/lang/UnsatisfiedLinkError'{0x000000008a2c7c00}: 'int io.netty.channel.epoll.Native.offsetofEpollData()'> (0x000000008a2c7c00) 
+thrown [s\open\src\hotspot\share\prims\nativeLookup.cpp, line 417]
+Event: 1.031 Thread 0x0000012d850311b0 Exception <a 'java/lang/ExceptionInInitializerError'{0x000000008a2c94e8}> (0x000000008a2c94e8) 
+thrown [s\open\src\hotspot\share\oops\instanceKlass.cpp, line 1252]
+Event: 1.078 Thread 0x0000012d850311b0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000089eaf700}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(java.lang.Object, long, java.lang.Object)'> (0x0000000089eaf700) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 1.079 Thread 0x0000012d850311b0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000089eb2d88}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, long, java.lang.Object)'> (0x0000000089eb2d88) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 1.079 Thread 0x0000012d850311b0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000089eb8330}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.newInvokeSpecial(java.lang.Object, long)'> (0x0000000089eb8330) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 1.080 Thread 0x0000012d850311b0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000089ebd430}: 'long java.lang.invoke.DirectMethodHandle$Holder.invokeInterface(java.lang.Object, java.lang.Object)'> (0x0000000089ebd430) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 1.080 Thread 0x0000012d850311b0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000089ec0db8}: 'long java.lang.invoke.DelegatingMethodHandle$Holder.reinvoke_L(java.lang.Object, java.lang.Object)'> (0x0000000089ec0db8) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 3.226 Thread 0x0000012de882f010 Exception <a 'java/lang/NoSuchMethodError'{0x00000000859b3678}: 'int java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)'> (0x00000000859b3678) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 3.227 Thread 0x0000012de882f010 Exception <a 'java/lang/IncompatibleClassChangeError'{0x00000000859bc098}: Found class java.lang.Object, but interface was expected> (0x00000000859bc098) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 841]
+Event: 3.228 Thread 0x0000012de882f010 Exception <a 'java/lang/NoSuchMethodError'{0x00000000859bf050}: 'void java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, java.lang.Object)'> (0x00000000859bf050) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 3.228 Thread 0x0000012de882f010 Exception <a 'java/lang/NoSuchMethodError'{0x00000000859c4960}: 'int java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, java.lang.Object)'> (0x00000000859c4960) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+Event: 3.582 Thread 0x0000012de882f010 Exception <a 'sun/nio/fs/WindowsException'{0x0000000088b39568}> (0x0000000088b39568) 
+thrown [s\open\src\hotspot\share\prims\jni.cpp, line 520]
+Event: 3.582 Thread 0x0000012de882f010 Exception <a 'sun/nio/fs/WindowsException'{0x0000000088b397d0}> (0x0000000088b397d0) 
+thrown [s\open\src\hotspot\share\prims\jni.cpp, line 520]
+Event: 4.310 Thread 0x0000012de882e980 Exception <a 'java/lang/NoSuchMethodError'{0x0000000085f87bf0}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.newInvokeSpecial(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)'> (0x0000000085f87bf0) 
+thrown [s\open\src\hotspot\share\interpreter\linkResolver.cpp, line 774]
+
+ZGC Phase Switch (0 events):
+No events
+
+VM Operations (20 events):
+Event: 3.327 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause)
+Event: 3.332 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause) done
+Event: 3.394 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause)
+Event: 3.396 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause) done
+Event: 3.451 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause)
+Event: 3.453 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause) done
+Event: 3.535 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause)
+Event: 3.537 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause) done
+Event: 3.583 Executing VM operation: HandshakeAllThreads (Deoptimize)
+Event: 3.583 Executing VM operation: HandshakeAllThreads (Deoptimize) done
+Event: 3.794 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause)
+Event: 3.796 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause) done
+Event: 4.097 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause)
+Event: 4.099 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause) done
+Event: 5.103 Executing VM operation: Cleanup
+Event: 5.103 Executing VM operation: Cleanup done
+Event: 9.150 Executing VM operation: Cleanup
+Event: 9.150 Executing VM operation: Cleanup done
+Event: 9.470 Executing VM operation: G1TryInitiateConcMark (G1 Humongous Allocation)
+Event: 9.472 Executing VM operation: G1TryInitiateConcMark (G1 Humongous Allocation) done
+
+Events (20 events):
+Event: 4.294 Thread 0x0000012dea59fb30 Thread added: 0x0000012dea59fb30
+Event: 4.294 Thread 0x0000012dea59f4a0 Thread added: 0x0000012dea59f4a0
+Event: 4.294 Thread 0x0000012dea5a0850 Thread added: 0x0000012dea5a0850
+Event: 4.298 Thread 0x0000012de882d5d0 Thread exited: 0x0000012de882d5d0
+Event: 4.298 Thread 0x0000012dea59da60 Thread exited: 0x0000012dea59da60
+Event: 4.298 Thread 0x0000012dea5a0850 Thread exited: 0x0000012dea5a0850
+Event: 4.298 Thread 0x0000012de882e2f0 Thread exited: 0x0000012de882e2f0
+Event: 4.298 Thread 0x0000012dea59fb30 Thread exited: 0x0000012dea59fb30
+Event: 4.298 Thread 0x0000012de882dc60 Thread exited: 0x0000012de882dc60
+Event: 4.298 Thread 0x0000012dea59f4a0 Thread exited: 0x0000012dea59f4a0
+Event: 4.298 Thread 0x0000012dea59ee10 Thread exited: 0x0000012dea59ee10
+Event: 8.665 Thread 0x0000012de885d0f0 Thread exited: 0x0000012de885d0f0
+Event: 8.671 Thread 0x0000012de882d5d0 Thread added: 0x0000012de882d5d0
+Event: 8.671 Thread 0x0000012de882dc60 Thread added: 0x0000012de882dc60
+Event: 8.671 Thread 0x0000012de882e2f0 Thread added: 0x0000012de882e2f0
+Event: 8.671 Thread 0x0000012de843e230 Thread added: 0x0000012de843e230
+Event: 8.671 Thread 0x0000012de843e8c0 Thread added: 0x0000012de843e8c0
+Event: 8.672 Thread 0x0000012de843ef50 Thread added: 0x0000012de843ef50
+Event: 8.672 Thread 0x0000012de843fc70 Thread added: 0x0000012de843fc70
+Event: 8.672 Thread 0x0000012de8441020 Thread added: 0x0000012de8441020
+
+
+Dynamic libraries:
+0x00007ff7bddf0000 - 0x00007ff7bde00000 	C:\Program Files\Java\jdk-22\bin\java.exe
+0x00007fff6d310000 - 0x00007fff6d527000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007fff6bc90000 - 0x00007fff6bd54000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007fff6a8e0000 - 0x00007fff6ac87000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007fff6a7c0000 - 0x00007fff6a8d1000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007fff5fbb0000 - 0x00007fff5fbc7000 	C:\Program Files\Java\jdk-22\bin\jli.dll
+0x00007fff487c0000 - 0x00007fff487db000 	C:\Program Files\Java\jdk-22\bin\VCRUNTIME140.dll
+0x00007fff6bbd0000 - 0x00007fff6bc82000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007fff6c5a0000 - 0x00007fff6c647000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007fff6c650000 - 0x00007fff6c6f8000 	C:\WINDOWS\System32\sechost.dll
+0x00007fff6af70000 - 0x00007fff6af98000 	C:\WINDOWS\System32\bcrypt.dll
+0x00007fff6d1b0000 - 0x00007fff6d2c5000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007fff6b360000 - 0x00007fff6b50e000 	C:\WINDOWS\System32\USER32.dll
+0x00007fff473a0000 - 0x00007fff47633000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.3527_none_270e469b73872a76\COMCTL32.dll
+0x00007fff6ad50000 - 0x00007fff6ad76000 	C:\WINDOWS\System32\win32u.dll
+0x00007fff6b320000 - 0x00007fff6b349000 	C:\WINDOWS\System32\GDI32.dll
+0x00007fff6a630000 - 0x00007fff6a749000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007fff6afa0000 - 0x00007fff6b03a000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007fff60110000 - 0x00007fff6011a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007fff6bd80000 - 0x00007fff6bdb1000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007fff63a00000 - 0x00007fff63a0c000 	C:\Program Files\Java\jdk-22\bin\vcruntime140_1.dll
+0x00007fff37890000 - 0x00007fff3791e000 	C:\Program Files\Java\jdk-22\bin\msvcp140.dll
+0x00007fff04a10000 - 0x00007fff05757000 	C:\Program Files\Java\jdk-22\bin\server\jvm.dll
+0x00007fff6b0a0000 - 0x00007fff6b111000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007fff694b0000 - 0x00007fff694fd000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007fff61bc0000 - 0x00007fff61bf4000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007fff69490000 - 0x00007fff694a3000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007fff69740000 - 0x00007fff69758000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007fff60900000 - 0x00007fff6090a000 	C:\Program Files\Java\jdk-22\bin\jimage.dll
+0x00007fff67ea0000 - 0x00007fff680d2000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007fff6c080000 - 0x00007fff6c408000 	C:\WINDOWS\System32\combase.dll
+0x00007fff6b190000 - 0x00007fff6b267000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007fff3d480000 - 0x00007fff3d4b2000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007fff6ad80000 - 0x00007fff6adf9000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007fff5fba0000 - 0x00007fff5fbaf000 	C:\Program Files\Java\jdk-22\bin\instrument.dll
+0x00007fff487a0000 - 0x00007fff487be000 	C:\Program Files\Java\jdk-22\bin\java.dll
+0x00007fff6c7a0000 - 0x00007fff6cffc000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007fff6d000000 - 0x00007fff6d1a5000 	C:\WINDOWS\System32\ole32.dll
+0x00007fff68580000 - 0x00007fff68e76000 	C:\WINDOWS\SYSTEM32\windows.storage.dll
+0x00007fff68440000 - 0x00007fff6857e000 	C:\WINDOWS\SYSTEM32\wintypes.dll
+0x00007fff6c4a0000 - 0x00007fff6c595000 	C:\WINDOWS\System32\SHCORE.dll
+0x00007fff6ba10000 - 0x00007fff6ba6e000 	C:\WINDOWS\System32\shlwapi.dll
+0x00007fff6a560000 - 0x00007fff6a581000 	C:\WINDOWS\SYSTEM32\profapi.dll
+0x00007fff37710000 - 0x00007fff377e7000 	C:\Program Files\Java\jdk-22\bin\jsvml.dll
+0x00007fff40f90000 - 0x00007fff40fa7000 	C:\Program Files\Java\jdk-22\bin\zip.dll
+0x00007fff56370000 - 0x00007fff56380000 	C:\Program Files\Java\jdk-22\bin\net.dll
+0x00007fff69bb0000 - 0x00007fff69c19000 	C:\WINDOWS\system32\mswsock.dll
+0x00007fff40f70000 - 0x00007fff40f86000 	C:\Program Files\Java\jdk-22\bin\nio.dll
+0x00007fff40ea0000 - 0x00007fff40eba000 	C:\Program Files\JetBrains\IntelliJ IDEA 2024.1\bin\breakgen64.dll
+0x00007fff40f60000 - 0x00007fff40f69000 	C:\Program Files\Java\jdk-22\bin\extnet.dll
+0x00007fff40e90000 - 0x00007fff40e9e000 	C:\Program Files\Java\jdk-22\bin\sunmscapi.dll
+0x00007fff6ae00000 - 0x00007fff6af68000 	C:\WINDOWS\System32\CRYPT32.dll
+0x00007fff69fd0000 - 0x00007fff69ffe000 	C:\WINDOWS\SYSTEM32\ncrypt.dll
+0x00007fff69f90000 - 0x00007fff69fc7000 	C:\WINDOWS\SYSTEM32\NTASN1.dll
+0x00007fff435d0000 - 0x00007fff435d8000 	C:\WINDOWS\system32\wshunix.dll
+0x00007fff69e10000 - 0x00007fff69e2b000 	C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0x00007fff696a0000 - 0x00007fff696d5000 	C:\WINDOWS\system32\rsaenh.dll
+0x00007fff69cb0000 - 0x00007fff69cd8000 	C:\WINDOWS\SYSTEM32\USERENV.dll
+0x00007fff69e30000 - 0x00007fff69e3c000 	C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0x00007fff69150000 - 0x00007fff6917d000 	C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL
+0x00007fff6ba00000 - 0x00007fff6ba09000 	C:\WINDOWS\System32\NSI.dll
+0x00007fff40e80000 - 0x00007fff40e8a000 	C:\Program Files\Java\jdk-22\bin\management.dll
+0x00007fff37880000 - 0x00007fff3788b000 	C:\Program Files\Java\jdk-22\bin\management_ext.dll
+0x00007fff6b350000 - 0x00007fff6b358000 	C:\WINDOWS\System32\PSAPI.DLL
+0x0000012da1f40000 - 0x0000012da1f43000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-locale-l1-1-0.dll
+0x0000012da1f50000 - 0x0000012da1f54000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-string-l1-1-0.dll
+0x0000012da1f60000 - 0x0000012da1f64000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-stdio-l1-1-0.dll
+0x0000012da1f70000 - 0x0000012da1f75000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-math-l1-1-0.dll
+0x0000012da1f80000 - 0x0000012da1f83000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-heap-l1-1-0.dll
+0x0000012da1f90000 - 0x0000012da1f94000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-runtime-l1-1-0.dll
+0x0000012da1fa0000 - 0x0000012da1fa4000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-convert-l1-1-0.dll
+0x0000012da1fb0000 - 0x0000012da1fb3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-environment-l1-1-0.dll
+0x0000012da1fc0000 - 0x0000012da1fc3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-time-l1-1-0.dll
+0x0000012da1fd0000 - 0x0000012da1fd3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-filesystem-l1-1-0.dll
+0x0000012da1fe0000 - 0x0000012da1fe3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-utility-l1-1-0.dll
+0x0000012da1ff0000 - 0x0000012da1ff5000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-crt-multibyte-l1-1-0.dll
+0x0000012de9ef0000 - 0x0000012de9ef3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-string-l1-1-0.dll
+0x0000012de9f00000 - 0x0000012de9f03000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-errorhandling-l1-1-0.dll
+0x0000012de9f10000 - 0x0000012de9f13000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-timezone-l1-1-0.dll
+0x0000012de9f20000 - 0x0000012de9f24000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-file-l1-1-0.dll
+0x0000012de9f30000 - 0x0000012de9f33000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-namedpipe-l1-1-0.dll
+0x0000012de9f40000 - 0x0000012de9f43000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-handle-l1-1-0.dll
+0x0000012de9f50000 - 0x0000012de9f53000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-file-l2-1-0.dll
+0x0000012de9f60000 - 0x0000012de9f63000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-heap-l1-1-0.dll
+0x0000012de9f70000 - 0x0000012de9f73000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-libraryloader-l1-1-0.dll
+0x0000012de9f80000 - 0x0000012de9f83000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-synch-l1-1-0.dll
+0x0000012de9f90000 - 0x0000012de9f93000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-processthreads-l1-1-0.dll
+0x0000012de9fa0000 - 0x0000012de9fa3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-processenvironment-l1-1-0.dll
+0x0000012de9fb0000 - 0x0000012de9fb3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-datetime-l1-1-0.dll
+0x0000012de9fc0000 - 0x0000012de9fc3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-localization-l1-2-0.dll
+0x0000012de9fd0000 - 0x0000012de9fd3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-sysinfo-l1-1-0.dll
+0x0000012de9fe0000 - 0x0000012de9fe3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-synch-l1-2-0.dll
+0x0000012de9ff0000 - 0x0000012de9ff3000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-console-l1-1-0.dll
+0x0000012dea000000 - 0x0000012dea003000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-debug-l1-1-0.dll
+0x0000012dea010000 - 0x0000012dea013000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-rtlsupport-l1-1-0.dll
+0x0000012dea020000 - 0x0000012dea023000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-processthreads-l1-1-1.dll
+0x0000012dea030000 - 0x0000012dea033000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-file-l1-2-0.dll
+0x0000012dea040000 - 0x0000012dea043000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-profile-l1-1-0.dll
+0x0000012dea050000 - 0x0000012dea053000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-memory-l1-1-0.dll
+0x0000012dea060000 - 0x0000012dea063000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-util-l1-1-0.dll
+0x0000012dea070000 - 0x0000012dea073000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\api-ms-win-core-interlocked-l1-1-0.dll
+0x00007fff37610000 - 0x00007fff3770a000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\ucrtbase.dll
+0x00007fff37860000 - 0x00007fff37875000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\vcruntime140.dll
+0x00007fff37600000 - 0x00007fff3760c000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\vcruntime140_1.dll
+0x00007fff37560000 - 0x00007fff375fb000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\msvcp140.dll
+0x00007fff37550000 - 0x00007fff37559000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\msvcp140_1.dll
+0x00007fff374f0000 - 0x00007fff37541000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\concrt140.dll
+0x00007fff374c0000 - 0x00007fff374e7000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\vcomp140.dll
+0x00007fff374b0000 - 0x00007fff374be000 	C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64\jnijavacpp.dll
+0x00007fff0c0f0000 - 0x00007fff0c3d3000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avutil-56.dll
+0x000000006fe00000 - 0x000000006ff1b000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavutil.dll
+0x00007fff37480000 - 0x00007fff374a6000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\swresample-3.dll
+0x0000000070080000 - 0x00000000700b5000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniswresample.dll
+0x00007ffea60b0000 - 0x00007ffea7aa3000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avcodec-58.dll
+0x00007fff62890000 - 0x00007fff62a5e000 	C:\WINDOWS\SYSTEM32\MFPlat.DLL
+0x00007fff6a2e0000 - 0x00007fff6a32e000 	C:\WINDOWS\SYSTEM32\cfgmgr32.dll
+0x00007fff62850000 - 0x00007fff62883000 	C:\WINDOWS\SYSTEM32\RTWorkQ.DLL
+0x000000006a1c0000 - 0x000000006a2b5000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavcodec.dll
+0x00007ffee4c00000 - 0x00007ffee510c000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avformat-58.dll
+0x000000006abc0000 - 0x000000006ac8e000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavformat.dll
+0x00007fff373e0000 - 0x00007fff37478000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\swscale-5.dll
+0x0000000067cc0000 - 0x0000000067cfb000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniswscale.dll
+0x00007fff08740000 - 0x00007fff08b68000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avfilter-7.dll
+0x0000000064400000 - 0x0000000064461000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavfilter.dll
+0x00007fff28b30000 - 0x00007fff28b5a000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\avdevice-58.dll
+0x00007fff373c0000 - 0x00007fff373da000 	C:\WINDOWS\SYSTEM32\AVICAP32.dll
+0x00007fff27720000 - 0x00007fff2774b000 	C:\WINDOWS\SYSTEM32\MSVFW32.dll
+0x0000000000cb0000 - 0x0000000000cea000 	C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64\jniavdevice.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Java\jdk-22\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.3527_none_270e469b73872a76;C:\Program Files\Java\jdk-22\bin\server;C:\Program Files\JetBrains\IntelliJ IDEA 2024.1\bin;C:\Users\elank\.javacpp\cache\javacpp-1.5.5-windows-x86_64.jar\org\bytedeco\javacpp\windows-x86_64;C:\Users\elank\.javacpp\cache\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar\org\bytedeco\ffmpeg\windows-x86_64
+
+VM Arguments:
+jvm_args: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2024.1\lib\idea_rt.jar=52799:C:\Program Files\JetBrains\IntelliJ IDEA 2024.1\bin -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 
+java_command: com.example.ApplicationKt
+java_class_path (initial): C:\Users\elank\OneDrive\Dokumente\Studium\MI_Master\Web Technologien\langzeitbelichtung_ktor_opencv\build\classes\kotlin\main;C:\Users\elank\OneDrive\Dokumente\Studium\MI_Master\Web Technologien\langzeitbelichtung_ktor_opencv\build\resources\main;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-server-content-negotiation-jvm\2.3.10\e0cb40781e1756b9fd1b6108f60be334b3cc2295\ktor-server-content-negotiation-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-server-netty-jvm\2.3.10\e6012ef15337527062bf85be8ccab4684391d2c6\ktor-server-netty-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-server-core-jvm\2.3.10\38be93131eb262945578957b98028abc6fb90eb7\ktor-server-core-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-serialization-kotlinx-json-jvm\2.3.10\3a09ca06e992d239bedcf408dae97ebd92c3dffd\ktor-serialization-kotlinx-json-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.9.23\dbaadea1f5e68f790d242a91a38355a83ec38747\kotlin-stdlib-1.9.23.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-classic\1.4.14\d98bc162275134cdf1518774da4a2a17ef6fb94d\logback-classic-1.4.14.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.openpnp\opencv\4.9.0-0\a50feb53802d310e8a2633c6a0a3aec8a6ac04d1\opencv-4.9.0-0.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacv-platform\1.5.5\2866ce65414c2a6c7acd56eb32b7d38e4cea1233\javacv-platform-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.8.22\b25c86d47d6b962b9cf0f8c3f320c8a10eea3dd1\kotlin-stdlib-jdk8-1.8.22.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.8.22\4dabb8248310d833bb6a8b516024a91fd3d275c\kotlin-stdlib-jdk7-1.8.22.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-jdk8\1.7.1\31b0f471577d3c228d331fde355e14ccb071c90a\kotlinx-coroutines-jdk8-1.7.1.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.7\41eb7184ea9d556f23e18b5cb99cad1f8581fc00\slf4j-api-2.0.7.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-server-cors-jvm\2.3.10\d05f02b95f9df9a411ee2e69aa4549c67157b6c9\ktor-server-cors-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec-http2\4.1.106.Final\41515e8c51eeaaddceabdb4f86fbc5dbfc25b70e\netty-codec-http2-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.eclipse.jetty.alpn\alpn-api\1.1.3.v20160715\a1bf3a937f91b4c953acd13e8c9552347adc2198\alpn-api-1.1.3.v20160715.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-kqueue\4.1.106.Final\2bc6c92bfac0f6810d6a695e2d53eb3c141f6372\netty-transport-native-kqueue-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.106.Final\876aeb4cc952b2f19695e4473df2762353ed9fad\netty-transport-native-epoll-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-reflect\1.8.22\b52be44bc57cb6fd2169a29aefa4507c4e49c858\kotlin-reflect-1.8.22.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\com.typesafe\config\1.4.3\b57e0fbdc7270d8ea59c1ba367457a5cc7ba0e98\config-1.4.3.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\23.0.0\8cc20c07506ec18e0834947b84a864bfc094484e\annotations-23.0.0.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-core\1.4.14\4d3c2248219ac0effeb380ed4c5280a80bf395e8\logback-core-1.4.14.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacv\1.5.5\658e46655daf7c3fa5289cfdbc438fb59b6a40a6\javacv-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark-platform\1.07-1.5.5\d905d1a031b875d465c6022eb7593e52e8145f27\flandmark-platform-1.07-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv-platform\4.5.1-1.5.5\d95b9cb9b23f3b2f3f186068777062d28430ea55\opencv-platform-4.5.1-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas-platform\0.3.13-1.5.5\d79835fa1be959dca3b11f22c4f8bb7293cd4179\openblas-platform-0.3.13-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg-platform\4.3.2-1.5.5\22c97067cd1c0700b95e2bc80862e869e414c926\ffmpeg-platform-4.3.2-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flycapture-platform\2.13.3.31-1.5.5\6a3228be3a33bd70e1dbeca01cee4bc1e605faac\flycapture-platform-2.13.3.31-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394-platform\2.2.6-1.5.5\f0d9c3aab6c22e0347a27f1d0b1b758bacd95e9e\libdc1394-platform-2.2.6-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect-platform\0.5.7-1.5.5\417084ba35c5099222a06e6b69b322eb2732bcb8\libfreenect-platform-0.5.7-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect2-platform\0.2.0-1.5.5\4a837be0663e5a9c2b5a039f7180720bf324387\libfreenect2-platform-0.2.0-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense-platform\1.12.4-1.5.5\9ca5b178cc97bad1c3f4c55c48b0f35ea01995d5\librealsense-platform-1.12.4-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense2-platform\2.40.0-1.5.5\d7f9da2bb29bc5637ac38406282a959b4be39e40\librealsense2-platform-2.40.0-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\videoinput-platform\0.200-1.5.5\ccd76a8ca2998343a84bb5233b2c17064555f2bc\videoinput-platform-0.200-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus-platform\2.3.1-1.5.5\c037b590049043b97ef0e8c9a3bdfe9fc2634cb7\artoolkitplus-platform-2.3.1-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract-platform\4.1.1-1.5.5\4682e512906d2bb49aaf2829267897da780a75f3\tesseract-platform-4.1.1-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica-platform\1.80.0-1.5.5\46ca56e6789383b449736757de4214abf7551b9d\leptonica-platform-1.80.0-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core-jvm\1.7.1\63a0779cf668e2a47d13fda7c3b0c4f8dc7762f4\kotlinx-coroutines-core-jvm-1.7.1.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-server-host-common-jvm\2.3.10\967a4fbbbd39c4630c88c34662eaffdc967a7397\ktor-server-host-common-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec-http\4.1.106.Final\21a07cdf0fc46b313fe2248f1275cdbdac0ba87b\netty-codec-http-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-handler\4.1.106.Final\874c970c4ff958b1140dde52bc17e6a9e7cde662\netty-handler-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec\4.1.106.Final\25171b63aa1e7a5fd8a7e4e660d6d3110241ea7\netty-codec-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport\4.1.106.Final\8fcca44ae16b98e15965093e7696832019fd6f27\netty-transport-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-buffer\4.1.106.Final\c5495ba59a627641b3a7c23f6bcb801874c7f7b0\netty-buffer-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-common\4.1.106.Final\132defb4689f41b51b483b7202b22b6e89fe35fd\netty-common-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-classes-kqueue\4.1.106.Final\c09ce8927dbf58e7b0fc6291a9df1675dc98a29a\netty-transport-classes-kqueue-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-unix-common\4.1.106.Final\2da179bd95903f0fa73218b8f0d02690c0cfbc94\netty-transport-native-unix-common-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-classes-epoll\4.1.106.Final\c058d5c712e00e8560e519970b3d27747778b8f2\netty-transport-classes-epoll-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-serialization-jvm\2.3.10\f135966aa22a2746486d9e4e57f9685f2597cb1d\ktor-serialization-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-events-jvm\2.3.10\3aedfe9234c67671ce78586117b15f8f4330c268\ktor-events-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-http-jvm\2.3.10\b452a9e9b5b77d06616b272f08b24160762d3735\ktor-http-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-utils-jvm\2.3.10\b474d68ec326cfd65987f2865ecbeeb8086a5f20\ktor-utils-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-serialization-kotlinx-jvm\2.3.10\d475345a4593d85b07cde63c519fc4b88a2ef6d9\ktor-serialization-kotlinx-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-serialization-json-jvm\1.5.1\21ac91884e0b9462b9106d1a83e5e0d200170c65\kotlinx-serialization-json-jvm-1.5.1.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\f72745f97bae8f9a05d2d95cb8f901130d7abd84\flandmark-1.07-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\e11dbba1fdf94d2ca3703480e9db1eace07c742c\flandmark-1.07-1.5.5-android-arm.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\8494aad50cc2c974b79b6afefe62384f683132df\flandmark-1.07-1.5.5-android-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\58b1e57d64eba49ae53589e3260e46f10c8a4a0d\flandmark-1.07-1.5.5-android-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\2d0260c17a981f49529d42e8d131a63aeea23007\flandmark-1.07-1.5.5-android-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\e235de3c68acdd973af17a75af38cd57bb53fbea\flandmark-1.07-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\49b1197a46b41ba6cceb077dbe253cf030b983c7\flandmark-1.07-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\12bb92d134fa45b856b896f08a707b815818e883\flandmark-1.07-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\787f21c6d8bd3332287ef166b389e3ec35de45a\flandmark-1.07-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\ecfb25c966ad16b9a3739f913b82568b16446a03\flandmark-1.07-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\406a97409b890f368454ef2ffa627256c2f69810\flandmark-1.07-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\c6f65296920c5c3179d67f6c1441dc0f927cc65f\flandmark-1.07-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flandmark\1.07-1.5.5\9a0ca47725160fb80dfce5fb727fff57b1b070ce\flandmark-1.07-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\fb962fa32b97d7cae58c840a009e1e25e8a9efb9\opencv-4.5.1-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\63b92909abf966336eb20c00ff8f9da178f3a088\opencv-4.5.1-1.5.5-android-arm.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\dc132fff689ce5da1a2d244f6060ee919f142941\opencv-4.5.1-1.5.5-android-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\7d2a61b3329291e770d2d607f0376c506119ba50\opencv-4.5.1-1.5.5-android-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\7a9ec115628f1b996e5cc1e27d503030d8f00407\opencv-4.5.1-1.5.5-android-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\73a7cdd7c572a170c7d14d63eb9549e5b2a79323\opencv-4.5.1-1.5.5-ios-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\553e06bebc01739f9da600448377c998c450a283\opencv-4.5.1-1.5.5-ios-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\4a0c4355ad2d8e321440245250b62da515f3ae14\opencv-4.5.1-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\d938362aa23446abe36a3e274816f42601467a4f\opencv-4.5.1-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\b813303169072935cb14fb5987ecc8f92e1eae34\opencv-4.5.1-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\fb8b3d1467046bac24508405acabc3db0643d581\opencv-4.5.1-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\25b04906df9c60ae57ea8c45012cb20d36086299\opencv-4.5.1-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\a079d9d2aff9af6e11456e071fc2e122cbd8d94b\opencv-4.5.1-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\6aa51b0161dfdfde81e43015042447da868a834c\opencv-4.5.1-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\opencv\4.5.1-1.5.5\33097aa8cb366539340e5e9fd2ef36ea1303ad65\opencv-4.5.1-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\9dcba9271c67a29d273277ce44b1b91e7240754b\openblas-0.3.13-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\2ec94abc15c4343c1a1aac22ec506428ba2de0a8\openblas-0.3.13-1.5.5-android-arm.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\f89e3bf3da02cfea77828873a3e4cf6cf481136c\openblas-0.3.13-1.5.5-android-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\12b9d8fdab5894901c3ca75c37bcb4dfab8dbbba\openblas-0.3.13-1.5.5-android-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\c4fcdf66d92dd4f2da7e2ad61df8c21130c622df\openblas-0.3.13-1.5.5-android-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\6e4a768da2bf4c9979ed688a0f9b1afa25831ebb\openblas-0.3.13-1.5.5-ios-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\a065f80bd93d871cc4ce67e241987055af3edd00\openblas-0.3.13-1.5.5-ios-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\9084552cec07acaf2bc2889a4eaebed8bc48c8bc\openblas-0.3.13-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\25917895cc4d047728ce0f6edd010507123d16b3\openblas-0.3.13-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\89146e024449ecf692aa17ae5fa2e90655aff33b\openblas-0.3.13-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\7e534273ba7ecbe50c9ffa66363e83299ad6501f\openblas-0.3.13-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\80fbca129017f61f5767291da018b394f9a2dec3\openblas-0.3.13-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\e67413c8a139b87d8c6356549299bdc2343d7305\openblas-0.3.13-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\f6f21392676ca7767e79a2db51dc4f66670148c6\openblas-0.3.13-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\openblas\0.3.13-1.5.5\67cf9aff479b0b153df1ab0387161f0a25d8b91f\openblas-0.3.13-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\c57d70fef7e6c693a4d32df854d34c00f5959f28\ffmpeg-4.3.2-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\c1ddccc2f555e4e2c4bef127524e1381ff5cc00d\ffmpeg-4.3.2-1.5.5-android-arm.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\9797250cde9d2a04e134a08cc87c7defaebfb91f\ffmpeg-4.3.2-1.5.5-android-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\bbf224584f89525f351632e89aaa68569926bc31\ffmpeg-4.3.2-1.5.5-android-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\e57f4443209f1b95210160f3dc8e9be1d162afa\ffmpeg-4.3.2-1.5.5-android-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\82abd14693b456314035f8c3a6162107b5f5dbfd\ffmpeg-4.3.2-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\a5a11b5f45284bb67e730c60648aeeb469a814c6\ffmpeg-4.3.2-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\837d9978846410a86da0004fb7ca85e46f7d936d\ffmpeg-4.3.2-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\4c157d5e5c6a5e6541968956595c645f599eecb9\ffmpeg-4.3.2-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\1f2bd89e88a5b2ae3d63af2da168fa64d2e712ef\ffmpeg-4.3.2-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\5897c85bb6d12d74a1eb092c8fb07574ba807223\ffmpeg-4.3.2-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\6b434a2e75cdd27acd16bbd2c03508151ba5a35d\ffmpeg-4.3.2-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\ffmpeg\4.3.2-1.5.5\9ec7d6902f9fd3edca7dcaaa7219452c1cd101fb\ffmpeg-4.3.2-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flycapture\2.13.3.31-1.5.5\4ec3ad5eb3031b0605dc9911452ebe0d22d99d78\flycapture-2.13.3.31-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flycapture\2.13.3.31-1.5.5\8cf10b7b98625bea99dc17fcd28059bddf821ff\flycapture-2.13.3.31-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flycapture\2.13.3.31-1.5.5\82fa655bff084c4a0adb816de6d85f3a2c9993ce\flycapture-2.13.3.31-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flycapture\2.13.3.31-1.5.5\d3528c3c6c02e22af2bf554d39a86e582bd94d14\flycapture-2.13.3.31-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flycapture\2.13.3.31-1.5.5\9d1ced1fda8d60b072ff5f32f44ea199f51cff13\flycapture-2.13.3.31-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flycapture\2.13.3.31-1.5.5\bca1e483b390209f0164d026f137c5e9d2d46b46\flycapture-2.13.3.31-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\flycapture\2.13.3.31-1.5.5\8f52005c947b389c7b28eb0d98c7fdbd0d7d0278\flycapture-2.13.3.31-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394\2.2.6-1.5.5\9397d34ecccf9a6aa2ae6a22b02dc7f143d560fb\libdc1394-2.2.6-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394\2.2.6-1.5.5\338f538ca4e63c30ccc9b41f8a012ec0c91b18e2\libdc1394-2.2.6-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394\2.2.6-1.5.5\4bc8862107f39d03badb9ef6e29aa46c61b8f649\libdc1394-2.2.6-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394\2.2.6-1.5.5\544819fc589fef5258bc84e5ef01fa6f7732242d\libdc1394-2.2.6-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394\2.2.6-1.5.5\455c986e93ba74c7d27051586d40803750b9f267\libdc1394-2.2.6-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394\2.2.6-1.5.5\5d762ec2f6967bdbf66a2248fc8e9b1ef903f74a\libdc1394-2.2.6-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394\2.2.6-1.5.5\e3ac33f16bd30c5899e21c81b49c1150283b7cbf\libdc1394-2.2.6-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394\2.2.6-1.5.5\ce216f9203527788ab2116681777d4cee882c587\libdc1394-2.2.6-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libdc1394\2.2.6-1.5.5\eb21aba9e128bf45cfb6e1ea138aec58e2932a7f\libdc1394-2.2.6-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect\0.5.7-1.5.5\d0435ed08d0ced69597af64545f7f872c8193654\libfreenect-0.5.7-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect\0.5.7-1.5.5\aea0dcd0568fc0711c19f7c17d9efcf5d71710ef\libfreenect-0.5.7-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect\0.5.7-1.5.5\3efeba61d28c805760d4aff90c7a6c65d16990ac\libfreenect-0.5.7-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect\0.5.7-1.5.5\b83740d2fe5d6649dcf206be675cc11bf4138019\libfreenect-0.5.7-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect\0.5.7-1.5.5\67a150beb524ce7f451bb378d3f9c29fcc8b97ac\libfreenect-0.5.7-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect\0.5.7-1.5.5\cecbf342926abe55fafc1c3bc38c198bf55ca17\libfreenect-0.5.7-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect\0.5.7-1.5.5\7f553b8252f6c484372fec5ba159e14374928e37\libfreenect-0.5.7-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect\0.5.7-1.5.5\44747c762e9d6aeac7c659576ec37ba72357cdba\libfreenect-0.5.7-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect\0.5.7-1.5.5\6626a23c312d5c9dc9fd2b2d034f1b3cf9b079c7\libfreenect-0.5.7-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect2\0.2.0-1.5.5\2ca101db08ac1dec1cae159d29a41719f80a6b57\libfreenect2-0.2.0-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect2\0.2.0-1.5.5\3818903f24706faeb9aa066c984b488fd8451e9a\libfreenect2-0.2.0-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect2\0.2.0-1.5.5\6dd1479e97d8f32ff1abff7a4e12f039fb376565\libfreenect2-0.2.0-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect2\0.2.0-1.5.5\7a247f8897422214bdc12e0e5ab1cb611af75bd5\libfreenect2-0.2.0-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\libfreenect2\0.2.0-1.5.5\e40b8e36cc6cc0276080664940fab492a7b9bf0a\libfreenect2-0.2.0-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense\1.12.4-1.5.5\d5b1296da6f85d93dababbaf6949e1a7cec6451c\librealsense-1.12.4-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense\1.12.4-1.5.5\b8a152f314a361ea53edbeb40ba8d4b0139a2c7\librealsense-1.12.4-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense\1.12.4-1.5.5\585cd6cdbf840d43fe627639778b283fac20eba4\librealsense-1.12.4-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense\1.12.4-1.5.5\1c17aa8a10e80458517c4409287cdfc5d63bd924\librealsense-1.12.4-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense\1.12.4-1.5.5\6be93cf1f8caf3400e7506fc5e1bcf3c989181c5\librealsense-1.12.4-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense\1.12.4-1.5.5\a69ba69b65eb1b3892fc0630dfb074359bcdde85\librealsense-1.12.4-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense\1.12.4-1.5.5\f92c25b82b2644fe744cf39364e32bece8a71816\librealsense-1.12.4-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense\1.12.4-1.5.5\c3c1cd675e55dae7643fe5a6de30949a29d14c24\librealsense-1.12.4-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense2\2.40.0-1.5.5\bfc1e39252a0ceb980e5832f2aef3f1093164e21\librealsense2-2.40.0-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense2\2.40.0-1.5.5\da29a40ba6b1271c81df0123892d728bc65a5ac\librealsense2-2.40.0-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense2\2.40.0-1.5.5\fca7a6a2d0920aaa7aa56df9618f286b47371274\librealsense2-2.40.0-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense2\2.40.0-1.5.5\cf6dc7d36a3b1460634cdeeb14226599c35593c2\librealsense2-2.40.0-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense2\2.40.0-1.5.5\578fae30448361e2ef03441846b1426a7e3f6ff7\librealsense2-2.40.0-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense2\2.40.0-1.5.5\8b84d677f74487b109e46fd2da4897ed9ead02d3\librealsense2-2.40.0-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense2\2.40.0-1.5.5\7db64812e355ab7bf929c18e168dc63f606a5684\librealsense2-2.40.0-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\librealsense2\2.40.0-1.5.5\ecbd25b2d75c89262cb43435f37623d6db187d5b\librealsense2-2.40.0-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\videoinput\0.200-1.5.5\e994f972cd493e8b011f4de5966843668486093f\videoinput-0.200-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\videoinput\0.200-1.5.5\30ebf8a7d121dd94c0f92785eeae7f331b51031e\videoinput-0.200-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\videoinput\0.200-1.5.5\ad262b81cd3c2f7274fe2510f69db2f1d4aad5ff\videoinput-0.200-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\5a3273dc731b278e4676422f6427cce4aff41777\artoolkitplus-2.3.1-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\7f4f877de329ecd68e35b91fbf09ce73eda0e375\artoolkitplus-2.3.1-1.5.5-android-arm.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\90c89b532e6327f897d2e58eae1ed437d41dbd0\artoolkitplus-2.3.1-1.5.5-android-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\ca97553d5b93fac21debb099e7834662355dc043\artoolkitplus-2.3.1-1.5.5-android-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\5c87e5272f879de7502adb5fb9ef9fb2f13d50ce\artoolkitplus-2.3.1-1.5.5-android-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\dfd31fb76b244f516618fe03306d496254306434\artoolkitplus-2.3.1-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\2e9b49ee67d90bc249c838f06ebdd5d9b38b26ce\artoolkitplus-2.3.1-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\4016c5f62956552baef1c315b33e91a3725426f1\artoolkitplus-2.3.1-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\3205ec4fd5dc244f3e1e0863bd998cd816aca5f5\artoolkitplus-2.3.1-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\4475e534513ee61ba6cdc2f12caa009aba164d6c\artoolkitplus-2.3.1-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\8384868f55e43e73f357a4e33d0224097494ba4a\artoolkitplus-2.3.1-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\229c20d83eb99385f14e98cf1f8590e86d44b696\artoolkitplus-2.3.1-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\artoolkitplus\2.3.1-1.5.5\f332b401b0db5c6bdd9e7b6b06015bdc7c1aecc1\artoolkitplus-2.3.1-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\3f390ece9ec0d1fa621469d142c349b78e97854e\tesseract-4.1.1-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\f5e7784a9e9592963b0fe2e1cf265587ca53a08b\tesseract-4.1.1-1.5.5-android-arm.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\b4fc33a16520aa74860a9221170d973596ad28f3\tesseract-4.1.1-1.5.5-android-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\2c85ed7cd56111cfc93ba58691607fe464b5a6f9\tesseract-4.1.1-1.5.5-android-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\38647059f5ae89ebda9a76c5f7b9bc6ab944c998\tesseract-4.1.1-1.5.5-android-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\c8065da79c0077d242dab6275472a29f057ccdf8\tesseract-4.1.1-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\ee0e24875a1b5b89d2adcddddb57188dacdda35\tesseract-4.1.1-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\87f3e1760b442a2da4c5eefb15eeaad953373355\tesseract-4.1.1-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\8a9947df58abf6a23fbbe4b2837fbe437438ad46\tesseract-4.1.1-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\7c92787bdaf81a21c22803f3ed80575e906885b8\tesseract-4.1.1-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\c602034fccf8d8caa20f2a483799d9f7ab0c487\tesseract-4.1.1-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\9d196495456aeafed2bddf007d0a68b875f3b61d\tesseract-4.1.1-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\tesseract\4.1.1-1.5.5\8932df98c263ae145ad2cf1b62c4853e71cf97bf\tesseract-4.1.1-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\d852d6913b2d196ac5ddcb9b9d9e3d2aa6abcf2d\leptonica-1.80.0-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\b3c0905a00604676bf1e4bae48365e480a336f8a\leptonica-1.80.0-1.5.5-android-arm.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\6a7ed387c3dcab29ab2e6cf7815cf49baf0f59c\leptonica-1.80.0-1.5.5-android-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\ce8bdf2c7067bddb0ce311815425c865dc9706b1\leptonica-1.80.0-1.5.5-android-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\492045962bc8d038adb182612cd398501f2c31ab\leptonica-1.80.0-1.5.5-android-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\c012bab03ea688ce71aab99b4b17f842b3f12f8\leptonica-1.80.0-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\f2cb213f8123b56e484d21971b7cc2c0df7751cf\leptonica-1.80.0-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\27bac240251e284696a92b4f6d031aa4bb05e6fd\leptonica-1.80.0-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\7ff42b719e94c135e1f2499beee7529f92860544\leptonica-1.80.0-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\f4e122303f164f418e9e918a70d90e8baaf2add6\leptonica-1.80.0-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\8adbdbf173e559d82905ecb7ba5e108cf603273f\leptonica-1.80.0-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\c6fd3e0a892141dc14bf02b363c11fc6df99572e\leptonica-1.80.0-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\leptonica\1.80.0-1.5.5\42a674f1f0867c2615f84417964a979ad858fe2e\leptonica-1.80.0-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\92e1c31aaed15a3dc12008859a37ced45fa0b730\javacpp-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\3f4103dbc532617a91c176027bd2b52bd95a8929\javacpp-1.5.5-android-arm.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\594f1483d24d1a489de29cf7b16cc19b60dbd9f0\javacpp-1.5.5-android-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\42374db77c7c7f1d8620a85c26fbbc14b9c8bcd4\javacpp-1.5.5-android-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\82d31939f4ebd6ab9f8e547830ef721340c7c1b7\javacpp-1.5.5-android-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\9b22365a060f2e3b5bec2ff5f5f6d75ea2962eef\javacpp-1.5.5-ios-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\ee20a88e18d635cc62869a20204e37cc68f6efe4\javacpp-1.5.5-ios-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\7397da1ad8ed5a08e8f6d389452ee0fb19bf2bcc\javacpp-1.5.5-linux-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\d45afe724f6c373c8070ecd3e955858dc9bbd544\javacpp-1.5.5-linux-armhf.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\59e6cae70d93093c8f8909f563f1360c44789c3b\javacpp-1.5.5-linux-ppc64le.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\262e581c536a83501f10ddfdcc0f2e83a1a60e10\javacpp-1.5.5-linux-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\e5f16ef28a056fe6c0f1c26a6a02f2dc94ce0693\javacpp-1.5.5-linux-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\1ed7d9a0059182448149115cf13842e83533cfa\javacpp-1.5.5-macosx-arm64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\3525246f3ef45f824fa04004c370f35589730398\javacpp-1.5.5-macosx-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\9d6da1103af76d7f21c6f644862ab26035c0e05\javacpp-1.5.5-windows-x86.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp\1.5.5\bdcd2b6a12b6222c50edfbf6e1f46e37ffff73bf\javacpp-1.5.5-windows-x86_64.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.bytedeco\javacpp-platform\1.5.5\ce1aae20dac967f042cd30d78e61c55af8477852\javacpp-platform-1.5.5.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.netty\netty-resolver\4.1.106.Final\e185ae573db04939215f94d6ba869758dcecbde9\netty-resolver-4.1.106.Final.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-websockets-jvm\2.3.10\acb33467c8411d88643978bac017d15f18778717\ktor-websockets-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-http-cio-jvm\2.3.10\a5f4f1c7caf24d09b9db7c89bdc2125a902a4ca4\ktor-http-cio-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-io-jvm\2.3.10\daf2d4d3d21028881331acafaed60c16eea8349c\ktor-io-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-serialization-core-jvm\1.5.1\e26cf5dfbcfe3e82ca196694dfd305753b1a49b9\kotlinx-serialization-core-jvm-1.5.1.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-network-jvm\2.3.10\d3d31794cf63d67fc8f401e10418c6d0c62b01ba\ktor-network-jvm-2.3.10.jar;C:\Users\elank\.gradle\caches\modules-2\files-2.1\org.fusesource.jansi\jansi\2.4.1\d5774f204d990c9f5da2809b88f928515577beb4\jansi-2.4.1.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+   size_t InitialHeapSize                          = 132120576                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2090860544                                {product} {ergonomic}
+   size_t MaxNewSize                               = 1254096896                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 2090860544                             {manageable} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+PATH=C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\Users\elank\AppData\Local\Programs\Python\Launcher\;C:\Users\elank\AppData\Local\Microsoft\WindowsApps;C:\Users\elank\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\elank\AppData\Roaming\npm;C:\Users\elank\.dotnet\tools;C:\Users\elank\AppData\Local\GitHubDesktop\bin;C:\ffmpeg\bin
+USERNAME=elank
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+TMP=C:\Users\elank\AppData\Local\Temp
+TEMP=C:\Users\elank\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 22621 (10.0.22621.3527)
+OS uptime: 1 days 0:32 hours
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 140 stepping 1 microcode 0xaa, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, avx512f, avx512dq, avx512cd, avx512bw, avx512vl, sha, fma, vzeroupper, avx512_vpopcntdq, avx512_vpclmulqdq, avx512_vaes, avx512_vnni, clflush, clflushopt, clwb, avx512_vbmi2, avx512_vbmi, rdtscp, rdpid, fsrm, gfni, avx512_bitalg, f16c, pku, cet_ibt, cet_ss, avx512_ifma
+Processor Information for all 8 processors :
+  Max Mhz: 2419, Current Mhz: 2419, Mhz Limit: 2419
+
+Memory: 4k page, system-wide physical 7975M (1067M free)
+TotalPageFile size 17368M (AvailPageFile size 3427M)
+current process WorkingSet (physical memory assigned to process): 159M, peak: 583M
+current process commit charge ("private bytes"): 211M, peak: 646M
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (22.0.1+8-16) for windows-amd64 JRE (22.0.1+8-16), built on 2024-03-12T10:33:16Z by "mach5one" with MS VC++ 17.6 (VS2022)
+
+END.

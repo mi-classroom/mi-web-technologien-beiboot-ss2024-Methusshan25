@@ -1,0 +1,14 @@
+GET /splitFrames/RB25?startTime=15&endTime=25 HTTP/1.1
+Host: 127.0.0.1:8080
+Content-Length: 40
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+###
+DELETE /splitFrames/RB25 HTTP/1.1
+Host: 127.0.0.1:8080
+
+###
+
+GET /blendImages/RB25 HTTP/1.1
+Host: 127.0.0.1:8080
