@@ -139,6 +139,10 @@ const FileUpload = (props: any) => {
         setImages(copy)
     }
 
+    const changeSelectedValue = (event: Event | SyntheticEvent, newValue: number | number[]) => {
+        setSliderValue(newValue as number[])
+    }
+
     const changeSelected = (event: Event | SyntheticEvent, newValue: number | number[]) => {
         setSliderValue(newValue as number[])
         images.forEach((image) => {
@@ -149,7 +153,7 @@ const FileUpload = (props: any) => {
             }
         })
     }
-
+    
     const createImage = async () => {
         setLoadingImage(true)
         var numbers = "";
@@ -232,7 +236,7 @@ const FileUpload = (props: any) => {
                         ))
                     }
                 </div>
-                <Slider min={0} max={images.length} value={sliderValue} valueLabelDisplay="auto" onChangeCommitted={changeSelected} sx={{ mt: 4 }}></Slider>
+                <Slider min={0} max={images.length} value={sliderValue} valueLabelDisplay="auto" onChange={changeSelectedValue} onChangeCommitted={changeSelected} sx={{ mt: 4 }}></Slider>
                 <Button variant="outlined" onClick={createImage} sx={{ float: "right" }}>Create Image</Button>
                 {
                     loadingImage &&
@@ -254,7 +258,7 @@ const FileUpload = (props: any) => {
                     </>
                 }
                 {!file &&
-                    <div className="dropzone" onDragOver={handleDragOver} onDrop={handleDrop}>
+                    <div className="dropzone" onDragOver={handleDragOver}>
                         <Typography variant="h4" textAlign='center'>Drag and Drop Videofiles to Upload</Typography>
                     </div>
                 }
