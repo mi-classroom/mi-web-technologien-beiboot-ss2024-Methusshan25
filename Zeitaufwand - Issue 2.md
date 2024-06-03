@@ -19,4 +19,4 @@ Im Backend musste die Funktion zum blenden der Bilder so bearbeitet werden, dass
 | Einbindung von Ausgangsvideo und vorhandenen geblendeten Bildern | 1h |
 | Ummodellierung des Backends zur Einschränkung der zu verwendeten Frames | 1h |
 | Ummodellierung des Backends zur Nutzung von Referenzen | 1h |
-| Gesamt | 15h |
+| **Gesamt** | **15h** |
