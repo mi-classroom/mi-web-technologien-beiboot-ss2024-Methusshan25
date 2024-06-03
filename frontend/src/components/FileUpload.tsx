@@ -236,7 +236,7 @@ const FileUpload = (props: any) => {
                         ))
                     }
                 </div>
-                <Slider min={0} max={images.length} value={sliderValue} valueLabelDisplay="auto" onChange={changeSelectedValue} onChangeCommitted={changeSelected} sx={{ mt: 4 }}></Slider>
+                <Slider min={0} max={images.length} value={sliderValue} valueLabelDisplay="on" onChange={changeSelectedValue} onChangeCommitted={changeSelected} sx={{ mt: 4 }}></Slider>
                 <Button variant="outlined" onClick={createImage} sx={{ float: "right" }}>Create Image</Button>
                 {
                     loadingImage &&
@@ -273,90 +273,6 @@ const FileUpload = (props: any) => {
             </>
         )
     }
-
-
-    /*
-    if (!imagesUploaded) {
-        return (
-            <>
-                {file &&
-                    <>
-                        <Typography variant="h5" textAlign='center' sx={{ mt: 2 }}>File {file.name} selected</Typography>
-                        <Box textAlign='center' sx={{ mt: 2 }}>
-                            <Button variant="contained" sx={{ mr: 1 }} onClick={uploadFile}>Upload File</Button>
-                            <Button variant="contained" sx={{ mr: 1 }} color="warning" onClick={removeFile}>Remove File</Button>
-                            <Button variant="contained" color="warning" onClick={getImages}>GetImages</Button>
-                        </Box>
-                    </>
-                }
-                {!file &&
-                    <div className="dropzone" onDragOver={handleDragOver} onDrop={handleDrop}>
-                        <Typography variant="h4" textAlign='center'>Drag and Drop Videofiles to Upload</Typography>
-                    </div>
-                }
-                {
-                    loading &&
-                    <>
-                        <Box sx={{ width: '100%' }}>
-                            <LinearProgress sx={{ mt: 2 }} />
-                        </Box>
-                    </>
-                }
-            </>
-        )
-    }
-    else {
-        return (
-            <>
-                <div id="card-container">
-                    {
-                        images.map((item, index) => (
-                            <Grid item sx={{ margin: "50px" }} xs={6} sm={6} md={2} lg={2}>
-                                <Card key={index} className={`${item.selected ? "selected" : "unselected"}`}>
-                                    <CardMedia>
-                                        <img loading="lazy" src={item.data} width="300px"></img>
-                                    </CardMedia>
-                                    <CardContent>
-                                        <Grid container spacing={1}>
-                                            <Grid item xs={8}>
-                                                <Typography variant="h5">{"Frame: " + item.index}</Typography>
-                                            </Grid>
-                                            <Grid item xs>
-                                                {item.selected &&
-                                                    <Button variant="outlined" onClick={() => changeSelectStatus(index)} color="warning">Deselect</Button>
-                                                }
-                                                {!item.selected &&
-                                                    <Button variant="outlined" onClick={() => changeSelectStatus(index)} color="success">Select</Button>
-                                                }
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        ))
-                    }
-                </div>
-                <Slider min={0} max={images.length} value={sliderValue} valueLabelDisplay="auto" onChangeCommitted={changeSelected} sx={{ mt: 4 }}></Slider>
-                <Button variant="outlined" onClick={createImage} sx={{ float: "right" }}>Create Image</Button>
-                <>
-                    {
-                        loadingImage &&
-                        <LinearProgress sx={{ mt: 8 }}></LinearProgress>
-                    }
-                </>
-                <>
-                    {
-                        blendedImage &&
-                        <>
-                            <img loading="lazy" style={{ display: "block", marginTop: "50px", marginLeft: "auto", marginRight: "auto", width: "70%", border: "5px solid blue" }} src={blendedImage}></img>
-                            <Button variant="outlined" onClick={downloadImage} sx={{ float: "right" }}>Download</Button>
-                        </>
-                    }
-                </>
-            </>
-        )
-    }
-    */
 }
 
 export default FileUpload

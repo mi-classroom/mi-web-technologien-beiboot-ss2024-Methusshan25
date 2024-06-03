@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutorService
 
 import javax.imageio.ImageIO
 
-val TOTAL_SEGMENTS = 5
+val TOTAL_SEGMENTS = 10
 
 fun deleteDirectory(directory: File) {
     val result = directory.listFiles()?.forEach {
@@ -63,6 +63,8 @@ fun processSegment(videoPath: String, segment: Int, startTime: Int, endTime: Int
         val grabber = FFmpegFrameGrabber(videoPath)
         grabber.start()
 
+        grabber.frameRate = 1.0;
+
         for (i in startTime until endTime) {
             grabber.setVideoFrameNumber(i)
             val frame = grabber.grabFrame()
@@ -90,29 +92,29 @@ fun processSegment(videoPath: String, segment: Int, startTime: Int, endTime: Int
 fun blendImages(project: String, framesToUse : String = "") {
     System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
     val fileCount = File("projects/$project/frames").listFiles()?.size
+    var framesToUseList = framesToUse.split(",").toMutableList()
 
-    var image = ImageIO.read(File("projects/$project/frames/frame0.jpg"))
+
+    var image = ImageIO.read(File("projects/$project/frames/frame${framesToUseList.first()}.jpg"))
     var mat = org.opencv.core.Mat(image.height, image.width, CvType.CV_8UC3)
     mat.put(0, 0, (image.raster.dataBuffer as DataBufferByte).data)
 
-    var framesToUseList = framesToUse.split(",")
+    framesToUseList.removeFirst()
+    framesToUseList.removeLast()
 
     var alpha = 1 - 0.05
     var beta = 1 - alpha
     val blendedImage = mat
 
-    for (i in 1 until fileCount!!) {
-        if(framesToUseList.contains("$i")){
-            image = ImageIO.read(File("projects/$project/frames/frame$i.jpg"))
-            mat = org.opencv.core.Mat(image.height, image.width, CvType.CV_8UC3)
-            mat.put(0, 0, (image.raster.dataBuffer as DataBufferByte).data)
-            if(!mat.empty()){
-                Core.addWeighted(blendedImage, alpha, mat, beta, 0.0, blendedImage)
-                println("image $i blended")
-            }
-        }
-        else{
-            println("Skipped Frame $i")
+    println(framesToUseList)
+
+    framesToUseList.forEach {
+        image = ImageIO.read(File("projects/$project/frames/frame$it.jpg"))
+        mat = org.opencv.core.Mat(image.height, image.width, CvType.CV_8UC3)
+        mat.put(0, 0, (image.raster.dataBuffer as DataBufferByte).data)
+        if(!mat.empty()){
+            Core.addWeighted(blendedImage, alpha, mat, beta, 0.0, blendedImage)
+            println("image $it blended")
         }
     }
 
