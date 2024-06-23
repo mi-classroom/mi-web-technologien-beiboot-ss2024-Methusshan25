@@ -4,11 +4,13 @@ import com.example.models.Project
 import com.example.models.projects
 import com.example.models.updateProjects
 import io.ktor.http.*
+import io.ktor.http.ContentDisposition.Companion.File
 import io.ktor.http.content.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -43,9 +45,12 @@ fun Route.projectRouting() {
                     project = Project(part.value)
                 }
             }
-            project?.let { it1 -> projects.add(it1) }
-            Files.createDirectory(Paths.get("projects/${project?.projectName}"))
-            call.respondText("Project stored correctly", status = HttpStatusCode.Created)
+            project?.let { it -> projects.add(it) }
+            val directory = File("/app/data/projects/${project?.projectName}")
+            if(!directory.exists()){
+                directory.mkdirs()
+            }
+            call.respondText("${directory.exists()}", status = HttpStatusCode.Created)
         }
         delete("/{id}") {
             val id = call.parameters["id"] ?: return@delete call.respondText(

@@ -30,10 +30,10 @@ import kotlin.reflect.typeOf
 fun Route.videoProcessRouting() {
 
     fun createStaticRoutes(){
-        val directories = File("projects").listFiles().map { it.name }
-        directories.forEach{
-            staticFiles("/$it", File("projects/$it/frames"))
-            staticFiles("/$it/video", File("projects/$it"))
+        val directories = File("projects").listFiles()?.map { it.name }
+        directories?.forEach{
+            staticFiles("/$it", File("/app/data/projects/$it/frames"))
+            staticFiles("/$it/video", File("/app/data/projects/$it"))
         }
     }
 
@@ -56,7 +56,7 @@ fun Route.videoProcessRouting() {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
-            val file = File("projects/$projectName/uploadedVideo.mp4")
+            val file = File("/app/data/projects/$projectName/uploadedVideo.mp4")
             if (file.exists()) {
                 call.respondFile(file)
             } else {
@@ -72,7 +72,7 @@ fun Route.videoProcessRouting() {
                 if (part is PartData.FileItem) {
                     if (part.contentType?.match(ContentType.Video.Any) == true) {
                         val fileBytes = part.streamProvider().readBytes()
-                        val destination = File("projects/$projectName/uploadedVideo.mp4")
+                        val destination = File("/app/data/projects/$projectName/uploadedVideo.mp4")
                         destination.writeBytes(fileBytes)
                         call.respondText("File uploaded successfully", status = HttpStatusCode.OK)
                     } else {
@@ -92,10 +92,10 @@ fun Route.videoProcessRouting() {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
-            if(!File("projects/$projectName/frames").exists()) {
-                Files.createDirectory(Paths.get("projects/$projectName/frames"))
+            if(!File("/app/data/projects/$projectName/frames").exists()) {
+                Files.createDirectory(Paths.get("/app/data/projects/$projectName/frames"))
             }
-            val file = File("projects/$projectName/uploadedVideo.mp4")
+            val file = File("/app/data/projects/$projectName/uploadedVideo.mp4")
             val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
             splitVideo(file.absolutePath, executor, projectName)
             executor.shutdown()
@@ -111,7 +111,7 @@ fun Route.videoProcessRouting() {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
-            val file = File("projects/$projectName/frames")
+            val file = File("/app/data/projects/$projectName/frames")
             if (file.exists()) {
                 deleteDirectory(file)
                 call.respondText("Frames sucessfully deleted", status = HttpStatusCode.OK)
@@ -133,10 +133,9 @@ fun Route.videoProcessRouting() {
                     framesToUse = part.value
                 }
             }
-            if (Paths.get("projects/$projectName/frames").exists()) {
+            if (Paths.get("/app/data/projects/$projectName/frames").exists()) {
                 blendImages(projectName, framesToUse)
-                var result = File("projects/$projectName/blendedImage.jpg")
-                //Base64.getEncoder().encode(result.readBytes())
+                var result = File("/app/data/projects/$projectName/blendedImage.jpg")
                 call.respondBytes(Base64.getEncoder().encode(result.readBytes()))
             } else {
                 call.respondText("Images not found", status = HttpStatusCode.NotFound)
@@ -149,7 +148,7 @@ fun Route.videoProcessRouting() {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
-            val blendedImage = File("projects/$projectName/blendedImage.jpg")
+            val blendedImage = File("/app/data/projects/$projectName/blendedImage.jpg")
             if(blendedImage.exists()) {
                 call.respondBytes(Base64.getEncoder().encode(blendedImage.readBytes()))
             }else{
@@ -157,26 +156,5 @@ fun Route.videoProcessRouting() {
             }
         }
     }
-    /*
-    route("/images") {
-        get("/{id}") {
-            val projectName = call.parameters["id"] ?: return@get call.respondText(
-                "Missing id",
-                status = HttpStatusCode.BadRequest
-            )
-            val imageDirectory = File("projects/$projectName/frames")
-            if (imageDirectory.exists() && imageDirectory.isDirectory) {
-                val imageFiles = imageDirectory.listFiles { file -> file.isFile() } ?: arrayOf()
-                val imagesJsonArray = imageFiles.map { file ->
-                    val base64Image = "data:image/jpg;base64, " + Base64.getEncoder().encodeToString(file.readBytes())
-                    mapOf("name" to file.name, "data" to base64Image)
-                }
-                call.respond(mapOf("images" to imagesJsonArray))
-            } else {
-                call.respond(HttpStatusCode.InternalServerError, "Images directory not found")
-            }
-        }
-    }
-    */
 }
 
