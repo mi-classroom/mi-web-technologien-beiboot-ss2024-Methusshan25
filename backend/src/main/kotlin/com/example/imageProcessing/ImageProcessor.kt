@@ -89,6 +89,7 @@ fun processSegment(videoPath: String, segment: Int, startTime: Int, endTime: Int
     }
 }
 
+<<<<<<< Updated upstream
 fun blendImages(project: String, framesToUse : String = "") {
     System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
     val fileCount = File("projects/$project/frames").listFiles()?.size
@@ -101,6 +102,34 @@ fun blendImages(project: String, framesToUse : String = "") {
 
     framesToUseList.removeFirst()
     framesToUseList.removeLast()
+=======
+fun blendImages(project: String, pFramesToUse : String = "", pFramesToHighlight : String = "") {
+
+    val framesToUse = pFramesToUse.split(",").toMutableList()
+    val framesToHighlight = pFramesToHighlight.split(",").toMutableList()
+
+    var image = imread("/app/data/projects/$project/frames/frame${framesToUse[0]}.jpg")
+
+    framesToUse.removeFirst()
+    if(framesToUse.isNotEmpty()){
+        framesToUse.removeLast()
+    }
+
+    // Check if images are loaded properly
+    if (image.empty()) {
+        println("Error: Could not load images.")
+        return
+    }
+
+
+    // Create a destination matrix
+    val blendedImage = Mat()
+    var alpha = 1 - 0.1
+    var beta = 1 - alpha
+    var gamma = 0.0
+
+    addWeighted(image, alpha, image, beta, gamma, blendedImage)
+>>>>>>> Stashed changes
 
     var alpha = 1 - 0.05
     var beta = 1 - alpha
@@ -118,10 +147,24 @@ fun blendImages(project: String, framesToUse : String = "") {
         }
     }
 
+<<<<<<< Updated upstream
     alpha = 1 - 0.3
     beta = 1 - alpha
     Core.addWeighted(blendedImage, alpha, mat, beta, 0.0, blendedImage)
     // Save blended image
     Imgcodecs.imwrite("projects/$project/blendedImage.jpg", blendedImage)
+=======
+    framesToHighlight.forEach{
+        image = imread("/app/data/projects/$project/frames/frame$it.jpg")
+        if(!image.empty()){
+            alpha =  1 - 0.15
+            beta = 1 - alpha
+            addWeighted(blendedImage, alpha, image, beta, gamma, blendedImage)
+        }
+    }
+
+    // Save the result
+    imwrite("/app/data/projects/$project/blendedImage.jpg", blendedImage)
+>>>>>>> Stashed changes
 }
 

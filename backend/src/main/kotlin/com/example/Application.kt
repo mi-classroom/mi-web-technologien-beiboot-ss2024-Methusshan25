@@ -15,12 +15,6 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-    install(WebSockets){
-        pingPeriod = Duration.ofSeconds(15)
-        timeout = Duration.ofSeconds(15)
-        maxFrameSize = Long.MAX_VALUE
-        masking = false
-    }
     configureSerialization()
     configureRouting()
     configureProjects()

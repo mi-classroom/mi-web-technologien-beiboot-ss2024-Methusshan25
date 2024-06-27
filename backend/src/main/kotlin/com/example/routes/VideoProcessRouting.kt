@@ -45,7 +45,7 @@ fun Route.videoProcessRouting() {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
-            val images = File("projects/$projectName/frames").listFiles()?.map { it.name }
+            val images = File("/app/data/projects/$projectName/frames").listFiles()?.map { it.name }
             call.respond(images!!)
         }
     }
@@ -88,14 +88,26 @@ fun Route.videoProcessRouting() {
     }
     route("/splitFrames") {
         get("/{id}") {
+
             val projectName = call.parameters["id"] ?: return@get call.respondText(
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
+<<<<<<< Updated upstream
             if(!File("projects/$projectName/frames").exists()) {
                 Files.createDirectory(Paths.get("projects/$projectName/frames"))
             }
             val file = File("projects/$projectName/uploadedVideo.mp4")
+=======
+            var projectDirectory = File("/app/data/projects/$projectName/frames")
+            if(!projectDirectory.exists()) {
+                Files.createDirectory(Paths.get("/app/data/projects/$projectName/frames"))
+            }
+            else{
+                deleteDirectory(projectDirectory)
+            }
+            val file = File("/app/data/projects/$projectName/uploadedVideo.mp4")
+>>>>>>> Stashed changes
             val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
             splitVideo(file.absolutePath, executor, projectName)
             executor.shutdown()
@@ -128,15 +140,25 @@ fun Route.videoProcessRouting() {
             )
             val multipartPart = call.receiveMultipart()
             var framesToUse: String = ""
+            var framesToHighlight = ""
             multipartPart.forEachPart { part ->
-                if (part is PartData.FormItem) {
+                if (part is PartData.FormItem && part.name == "framesToUse") {
                     framesToUse = part.value
                 }
+                if (part is PartData.FormItem && part.name == "framesToHighlight") {
+                    framesToHighlight = part.value
+                }
             }
+<<<<<<< Updated upstream
             if (Paths.get("projects/$projectName/frames").exists()) {
                 blendImages(projectName, framesToUse)
                 var result = File("projects/$projectName/blendedImage.jpg")
                 //Base64.getEncoder().encode(result.readBytes())
+=======
+            if (Paths.get("/app/data/projects/$projectName/frames").exists()) {
+                blendImages(projectName, framesToUse, framesToHighlight)
+                var result = File("/app/data/projects/$projectName/blendedImage.jpg")
+>>>>>>> Stashed changes
                 call.respondBytes(Base64.getEncoder().encode(result.readBytes()))
             } else {
                 call.respondText("Images not found", status = HttpStatusCode.NotFound)
