@@ -7,6 +7,8 @@ import org.bytedeco.opencv.opencv_core.Mat;
 import org.opencv.core.Core
 import java.io.File
 import org.bytedeco.javacv.*
+import org.bytedeco.opencv.global.opencv_core.addWeighted
+import org.bytedeco.opencv.global.opencv_imgcodecs.imread
 import org.opencv.core.CvType
 import org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
 import org.opencv.imgcodecs.Imgcodecs
@@ -89,20 +91,7 @@ fun processSegment(videoPath: String, segment: Int, startTime: Int, endTime: Int
     }
 }
 
-<<<<<<< Updated upstream
-fun blendImages(project: String, framesToUse : String = "") {
-    System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
-    val fileCount = File("projects/$project/frames").listFiles()?.size
-    var framesToUseList = framesToUse.split(",").toMutableList()
 
-
-    var image = ImageIO.read(File("projects/$project/frames/frame${framesToUseList.first()}.jpg"))
-    var mat = org.opencv.core.Mat(image.height, image.width, CvType.CV_8UC3)
-    mat.put(0, 0, (image.raster.dataBuffer as DataBufferByte).data)
-
-    framesToUseList.removeFirst()
-    framesToUseList.removeLast()
-=======
 fun blendImages(project: String, pFramesToUse : String = "", pFramesToHighlight : String = "") {
 
     val framesToUse = pFramesToUse.split(",").toMutableList()
@@ -128,32 +117,14 @@ fun blendImages(project: String, pFramesToUse : String = "", pFramesToHighlight 
     var beta = 1 - alpha
     var gamma = 0.0
 
-    addWeighted(image, alpha, image, beta, gamma, blendedImage)
->>>>>>> Stashed changes
-
-    var alpha = 1 - 0.05
-    var beta = 1 - alpha
-    val blendedImage = mat
-
-    println(framesToUseList)
-
-    framesToUseList.forEach {
-        image = ImageIO.read(File("projects/$project/frames/frame$it.jpg"))
-        mat = org.opencv.core.Mat(image.height, image.width, CvType.CV_8UC3)
-        mat.put(0, 0, (image.raster.dataBuffer as DataBufferByte).data)
-        if(!mat.empty()){
-            Core.addWeighted(blendedImage, alpha, mat, beta, 0.0, blendedImage)
+    framesToUse.forEach {
+        image = imread("projects/$project/frames/frame$it.jpg")
+        if(!image.empty()){
+            addWeighted(blendedImage, alpha, image, beta, 0.0, blendedImage)
             println("image $it blended")
         }
     }
 
-<<<<<<< Updated upstream
-    alpha = 1 - 0.3
-    beta = 1 - alpha
-    Core.addWeighted(blendedImage, alpha, mat, beta, 0.0, blendedImage)
-    // Save blended image
-    Imgcodecs.imwrite("projects/$project/blendedImage.jpg", blendedImage)
-=======
     framesToHighlight.forEach{
         image = imread("/app/data/projects/$project/frames/frame$it.jpg")
         if(!image.empty()){
@@ -165,6 +136,5 @@ fun blendImages(project: String, pFramesToUse : String = "", pFramesToHighlight 
 
     // Save the result
     imwrite("/app/data/projects/$project/blendedImage.jpg", blendedImage)
->>>>>>> Stashed changes
 }
 
