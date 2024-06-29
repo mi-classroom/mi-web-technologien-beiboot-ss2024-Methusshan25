@@ -1,5 +1,6 @@
-import { Margin, NavigateBefore, NavigateNext } from "@mui/icons-material";
-import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, CircularProgress } from "@mui/material";
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import StarIcon from '@mui/icons-material/Star';
+import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, CircularProgress, IconButton } from "@mui/material";
 import axios from "axios";
 import { SetStateAction, useState, useRef, useEffect, SyntheticEvent } from "react";
 
@@ -11,7 +12,8 @@ interface IImage {
     index: number,
     name: string,
     data: string,
-    selected: boolean
+    selected: boolean,
+    highlighted: boolean
 }
 
 interface IProject {
@@ -23,7 +25,7 @@ interface IProject {
 
 const FileUpload = (props: any) => {
     const [file, setFile] = useState<Nullable<File>>();
-    const [images, setImages] = useState<Array<IImage>>([{ index: 0, name: "FillName", data: "FillData", selected: true }]);
+    const [images, setImages] = useState<Array<IImage>>([{ index: 0, name: "FillName", data: "FillData", selected: true, highlighted: false }]);
     const [imagesUploaded, setImagesUploaded] = useState<Boolean>();
     const [video, setVideo] = useState<Nullable<File>>();
     const [loading, setLoading] = useState<Boolean>(false);
@@ -115,7 +117,8 @@ const FileUpload = (props: any) => {
                     index: indexArray[0],
                     name: image,
                     data: "http://localhost:8080/" + props.project.projectName + "/" + image,
-                    selected: true
+                    selected: true,
+                    highlighted: false
                 })
             })
             images2.sort((a, b) => { return a.index - b.index })
@@ -139,6 +142,16 @@ const FileUpload = (props: any) => {
         setImages(copy)
     }
 
+    const changeHighlightStatus = (index : any) => {
+        var copy = [...images]
+        if(copy[index].highlighted){
+            copy[index].highlighted = false
+        } else{
+            copy[index].highlighted = true
+        }
+        setImages(copy)
+    }
+
     const changeSelectedValue = (event: Event | SyntheticEvent, newValue: number | number[]) => {
         setSliderValue(newValue as number[])
     }
@@ -153,23 +166,29 @@ const FileUpload = (props: any) => {
             }
         })
     }
-    
+
     const createImage = async () => {
         setLoadingImage(true)
-        var numbers = "";
+        var selectedImages = "";
+        var highlightedImages = ""
         images.forEach((image) => {
             if (image.selected) {
-                numbers += image.index + ","
+                selectedImages += image.index + ","
+            }
+            if(image.highlighted){
+                highlightedImages += image.index + ","
             }
         })
         const form = new FormData();
-        form.append('framesToUse', numbers)
+        form.append('framesToUse', selectedImages)
+        form.append('framesToHighlight', highlightedImages)
+        console.log(highlightedImages)
         if (props.blendedImageExists) {
             await axios.get("http://127.0.0.1:8080/blendedImage/" + props.project.projectName).then((res) => {
                 setBlendedImage("data:image/jpeg;base64," + res.data)
                 setLoadingImage(false)
             })
-        } else{
+        } else {
             await axios.post("http://127.0.0.1:8080/blendImages/" + props.project.projectName, form).then((res) => {
                 setBlendedImage("data:image/jpeg;base64," + res.data)
                 setLoadingImage(false)
@@ -215,6 +234,19 @@ const FileUpload = (props: any) => {
                                 <Card key={index} className={`${item.selected ? "selected" : "unselected"}`}>
                                     <CardMedia>
                                         <img loading="lazy" src={item.data} width="300px"></img>
+                                        {
+                                            item.highlighted &&
+                                            <IconButton sx={{ float: "right", color: "gold"}}  onClick={() => changeHighlightStatus(index)}>
+                                                <StarIcon></StarIcon>
+                                            </IconButton>
+                                        }
+                                        {
+                                            !item.highlighted &&
+                                            <IconButton sx={{ float: "right", color: "gray"}}  onClick={() => changeHighlightStatus(index)}>
+                                                <StarOutlineIcon></StarOutlineIcon>
+                                            </IconButton>
+                                        }
+
                                     </CardMedia>
                                     <CardContent>
                                         <Grid container spacing={1}>
