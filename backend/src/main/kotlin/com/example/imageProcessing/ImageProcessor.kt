@@ -2,20 +2,19 @@
 
 package com.example.imageProcessing
 
-import kotlinx.coroutines.*
-import org.bytedeco.opencv.opencv_core.Mat;
-import org.opencv.core.Core
-import java.io.File
-import org.bytedeco.javacv.*
+import kotlinx.coroutines.DelicateCoroutinesApi
+import org.bytedeco.javacv.FFmpegFrameGrabber
+import org.bytedeco.javacv.OpenCVFrameConverter
 import org.bytedeco.opencv.global.opencv_core.addWeighted
+import org.bytedeco.opencv.global.opencv_cudawarping.resize
 import org.bytedeco.opencv.global.opencv_imgcodecs.imread
-import org.opencv.core.CvType
-import org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
-import org.opencv.imgcodecs.Imgcodecs
-import java.awt.image.DataBufferByte
+import org.bytedeco.opencv.global.opencv_imgcodecs.imwrite
+import org.bytedeco.opencv.opencv_core.Mat
+import org.bytedeco.opencv.opencv_core.Size
+import java.io.File
 import java.util.concurrent.ExecutorService
+import kotlin.math.max
 
-import javax.imageio.ImageIO
 
 val TOTAL_SEGMENTS = 10
 
@@ -76,7 +75,7 @@ fun processSegment(videoPath: String, segment: Int, startTime: Int, endTime: Int
                 try {
 
                     val mat : Mat = converter.convert(frame)
-                    imwrite("projects/$project/frames/frame$i.jpg", mat)
+                    imwrite("/app/data/projects/$project/frames/frame$i.jpg", mat)
                     println("Saved Frame$i.jpg")
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -91,11 +90,10 @@ fun processSegment(videoPath: String, segment: Int, startTime: Int, endTime: Int
     }
 }
 
+fun blendImages(project: String, framesToUse : String = "") {
 
-fun blendImages(project: String, pFramesToUse : String = "", pFramesToHighlight : String = "") {
-
-    val framesToUse = pFramesToUse.split(",").toMutableList()
-    val framesToHighlight = pFramesToHighlight.split(",").toMutableList()
+    val fileCount = File("/app/data/projects/$project/frames").listFiles()?.size
+    var framesToUse = framesToUse.split(",").toMutableList()
 
     var image = imread("/app/data/projects/$project/frames/frame${framesToUse[0]}.jpg")
 
@@ -113,26 +111,23 @@ fun blendImages(project: String, pFramesToUse : String = "", pFramesToHighlight 
 
     // Create a destination matrix
     val blendedImage = Mat()
-    var alpha = 1 - 0.1
-    var beta = 1 - alpha
-    var gamma = 0.0
 
-    framesToUse.forEach {
-        image = imread("projects/$project/frames/frame$it.jpg")
+    // Blend images with a given weight (alpha and beta)
+    var alpha = 1 - 0.05// Weight for the first image
+    var beta = 1 - alpha // Weight for the second image
+    var gamma = 0.0 // Scalar added to each sum
+    addWeighted(image, alpha, image, beta, gamma, blendedImage)
+
+    framesToUse.forEach{
+        image = imread("/app/data/projects/$project/frames/frame$it.jpg")
         if(!image.empty()){
-            addWeighted(blendedImage, alpha, image, beta, 0.0, blendedImage)
+            addWeighted(blendedImage, alpha, image, beta, gamma, blendedImage)
             println("image $it blended")
         }
     }
-
-    framesToHighlight.forEach{
-        image = imread("/app/data/projects/$project/frames/frame$it.jpg")
-        if(!image.empty()){
-            alpha =  1 - 0.15
-            beta = 1 - alpha
-            addWeighted(blendedImage, alpha, image, beta, gamma, blendedImage)
-        }
-    }
+    alpha = 1 - 0.3
+    beta = 1 - alpha
+    addWeighted(blendedImage, alpha, image, beta, gamma, blendedImage)
 
     // Save the result
     imwrite("/app/data/projects/$project/blendedImage.jpg", blendedImage)

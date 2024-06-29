@@ -11,20 +11,20 @@ var projects = mutableListOf<Project>()
 
 fun configureProjects(){
     File("projects").listFiles()?.forEach {
-        val imageDirectory = File("projects/${it.name}/frames")
+        val imageDirectory = File("/app/data/projects/${it.name}/frames")
         val imageFiles = imageDirectory.listFiles { file -> file.isFile() } ?: arrayOf()
-        var videoFile = File("projects/${it.name}/uploadedVideo.mp4")
-        var blendedImage = File("projects/${it.name}/blendedImage.jpg")
+        var videoFile = File("/app/data/projects/${it.name}/uploadedVideo.mp4")
+        var blendedImage = File("/app/data/projects/${it.name}/blendedImage.jpg")
         projects.add(Project(it.name, imageFiles.size, videoFile.exists(), blendedImage.exists()))
     }
 }
 
 fun updateProjects(){
     projects.forEach {
-        val imageDirectory = File("projects/${it.projectName}/frames")
+        val imageDirectory = File("/app/data/projects/${it.projectName}/frames")
         it.frameCount = imageDirectory.listFiles { file -> file.isFile() }?.size ?: 0
         println(it.frameCount)
-        it.videoExists = File("projects/${it.projectName}/uploadedVideo.mp4").exists()
-        it.blendedImageExists = File("projects/${it.projectName}/blendedImage.jpg").exists()
+        it.videoExists = File("/app/data/projects/${it.projectName}/uploadedVideo.mp4").exists()
+        it.blendedImageExists = File("/app/data/projects/${it.projectName}/blendedImage.jpg").exists()
     }
 }
