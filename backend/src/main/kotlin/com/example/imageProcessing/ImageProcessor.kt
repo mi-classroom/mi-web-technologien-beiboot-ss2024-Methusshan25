@@ -13,8 +13,6 @@ import org.bytedeco.opencv.opencv_core.Mat
 import org.bytedeco.opencv.opencv_core.Size
 import java.io.File
 import java.util.concurrent.ExecutorService
-import kotlin.math.max
-
 
 val TOTAL_SEGMENTS = 10
 
@@ -90,10 +88,11 @@ fun processSegment(videoPath: String, segment: Int, startTime: Int, endTime: Int
     }
 }
 
-fun blendImages(project: String, framesToUse : String = "") {
+fun blendImages(project: String, framesToUse : String = "", framesToHighlight: String) {
 
-    val fileCount = File("/app/data/projects/$project/frames").listFiles()?.size
     var framesToUse = framesToUse.split(",").toMutableList()
+    var framesToHighlight = framesToHighlight.split(",").toMutableList()
+
 
     var image = imread("/app/data/projects/$project/frames/frame${framesToUse[0]}.jpg")
 
@@ -125,9 +124,17 @@ fun blendImages(project: String, framesToUse : String = "") {
             println("image $it blended")
         }
     }
-    alpha = 1 - 0.3
+    alpha = 1 - 0.1
     beta = 1 - alpha
-    addWeighted(blendedImage, alpha, image, beta, gamma, blendedImage)
+
+    framesToHighlight.forEach{
+        image = imread("/app/data/projects/$project/frames/frame$it.jpg")
+        if(!image.empty()){
+            addWeighted(blendedImage, alpha, image, beta, gamma, blendedImage)
+            println("image $it highlighted")
+        }
+    }
+
 
     // Save the result
     imwrite("/app/data/projects/$project/blendedImage.jpg", blendedImage)
