@@ -16,5 +16,4 @@ Im Backend wurde die Blendingfunktion um ein weiteres Eingabearray erweitert. Di
 | --- | --- |
 | Erweiterung des Backend | 1h |
 | Erweiterung des Karten im Frontend | 2 h |
-
 | **Gesamt** | **3h** |
