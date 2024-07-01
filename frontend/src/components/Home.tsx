@@ -61,6 +61,9 @@ function Home() {
                             <CardContent>
                                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>Select frames to use in longterm exposure</Typography>
                                 <Divider sx={{ borderBottomWidth: 2, background: "black" }}></Divider>
+                                <Typography variant="h6">In the Projectview, select all frames which should be used in blending process by using the slider. It is possible to manually
+                                    add and remove frames. Frames can be highlighted in the blending process, by clicking the star-icon. 
+                                </Typography>
                             </CardContent>
                         </Card>
                     </Slide>
@@ -69,6 +72,8 @@ function Home() {
                             <CardContent>
                                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>Blend selected images together</Typography>
                                 <Divider sx={{ borderBottomWidth: 2, background: "black" }}></Divider>
+                                <Typography variant="h6">To blend the images together, click "create image" in the right end corner. The result will be saved and can be downloaded.
+                                </Typography>
                             </CardContent>
                         </Card>
                     </Slide>
