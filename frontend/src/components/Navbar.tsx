@@ -6,7 +6,6 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { ButtonGroup } from '@mui/joy';
 import { styled } from '@mui/material/styles';
 import Button, { ButtonProps } from '@mui/material/Button';
@@ -44,15 +43,9 @@ function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            Langzeit-Belichtungs-Simulator
-          </Typography>
+          <Button variant='text' sx={{color: "white", fontSize: "2em"}} href="/">LES</Button>
           <ButtonGroup spacing={1}>
-            <ColorButton variant='contained' color='success' href="/projects">Projects</ColorButton>
+            <ColorButton sx={{position: 'absolute', right: 10, top: 15, borderRadius: 3}} variant='contained' color='success' href="/projects">Projects</ColorButton>
           </ButtonGroup>
         </Toolbar>
       </AppBar>

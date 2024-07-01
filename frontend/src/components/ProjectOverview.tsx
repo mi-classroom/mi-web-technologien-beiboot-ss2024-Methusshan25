@@ -1,12 +1,16 @@
-import { Card, CardActions, CardContent, Typography, Button } from "@mui/material";
-import axios, { Axios } from "axios"
+import { Label } from "@mui/icons-material";
+import { Card, CardActions, CardContent, Typography, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@mui/material";
+import axios from "axios"
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 
 
 const ProjectOverview = () => {
 
     const [projects, setProjects] = useState<Array<IProject>>([{ projectName: "", imageCount: 0, videoExists: true, blendedImageExists: true }]);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [newProjectName, setNewProjectName] = useState('');
 
     interface IProject {
         projectName: string,
@@ -18,6 +22,29 @@ const ProjectOverview = () => {
     useEffect(() => {
         getProjects()
     }, [])
+
+    const handleClickOpen = () => {
+        setDialogOpen(true);
+    };
+
+    const handleClose = () => {
+        setDialogOpen(false);
+    };
+
+    const handleSave = async () => {
+        const form = new FormData();
+        form.append('projectName', newProjectName)
+        await axios.post('http://127.0.0.1:8080/projects', form).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.error(err)
+        })
+        setDialogOpen(false);
+    };
+
+    const handleTextInput = (e : any) => {
+        setNewProjectName(e.target.value)
+    }
 
 
     const getProjects = async () => {
@@ -51,7 +78,7 @@ const ProjectOverview = () => {
                 <div className="card-container">
                     {
                         projects.map((item) => (
-                            <Card sx={{ marginBottom: "10px", border: "3px solid green" }}>
+                            <Card sx={{ marginBottom: "10px", border: "3px solid green", borderRadius: 5 }}>
                                 <CardContent>
                                     <Typography variant="h4">{item.projectName}</Typography>
                                     <Typography variant="h5">Framecount: {item.imageCount}</Typography>
@@ -59,7 +86,7 @@ const ProjectOverview = () => {
                                     <Typography variant="h5" color={item.blendedImageExists ? "green" : "red"}>{item.blendedImageExists ? "Blended image exists" : "Blended image doesnt exist"}</Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button variant="outlined">
+                                    <Button variant="outlined" sx={{ borderRadius: 3 }}>
                                         <Link className="linkToPage" to='/upload' state={item}>Select</Link>
                                     </Button>
                                 </CardActions>
@@ -67,10 +94,30 @@ const ProjectOverview = () => {
                         ))
                     }
                 </div>
+                <Dialog
+                    open={dialogOpen}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Add Project"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <Typography variant="h6">Enter the name of the new project:</Typography>
+                        <TextField label="Projectname" value={newProjectName} onChange={handleTextInput} variant="standard"></TextField>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>Don't save</Button>
+                        <Button onClick={handleSave} autoFocus>
+                            Save
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
             <div id="buttonsProjectOverview">
-                <Button variant="outlined" sx={{ width: "200px" }} onClick={getProjects}>Add Project</Button>
-                <Button variant="outlined" sx={{ width: "200px" }} onClick={getProjects}>Update</Button>
+                <Button variant="outlined" sx={{ width: "200px", borderRadius: 3 }} onClick={handleClickOpen}>Add Project</Button>
+                <Button variant="outlined" sx={{ width: "200px", borderRadius: 3 }} onClick={getProjects}>Update</Button>
             </div>
         </>
     )
