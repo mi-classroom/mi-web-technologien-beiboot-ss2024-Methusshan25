@@ -1,8 +1,9 @@
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
-import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, CircularProgress, IconButton } from "@mui/material";
+import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, IconButton } from "@mui/material";
 import axios from "axios";
-import { SetStateAction, useState, useRef, useEffect, SyntheticEvent } from "react";
+import { useCallback, useState, useRef, useEffect, SyntheticEvent, SetStateAction } from "react";
+import { useDropzone } from 'react-dropzone'
 
 import "./Slide.css";
 
@@ -32,8 +33,15 @@ const FileUpload = (props: any) => {
     const [sliderValue, setSliderValue] = useState<number[]>([0, 25]);
     const [blendedImage, setBlendedImage] = useState<string>("")
     const [uploadedVideo, setUploadedVideo] = useState<string>("")
+    const [isVideoUploaded, setIsVideoUploaded] = useState<Boolean>(false)
     const [loadingImage, setLoadingImage] = useState<Boolean>(false);
     const videoRef = useRef(null);
+
+    const onDrop = useCallback((acceptedFiles: SetStateAction<Nullable<File>>[]) => {
+        setFile(acceptedFiles[0])
+    }, [])
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
     useEffect(() => {
         checkVideo()
@@ -47,27 +55,6 @@ const FileUpload = (props: any) => {
             setUploadedVideo("http://localhost:8080/" + props.project.projectName + "/video/uploadedVideo.mp4")
         }
     }, [])
-
-    const handleDragOver = (event: React.DragEvent) => {
-        event.preventDefault();
-    }
-
-    const handleDrop = (event: React.DragEvent) => {
-        event.preventDefault();
-        if (event.dataTransfer.files.length > 1) {
-            alert("Only one file can be selected")
-        } else {
-            let file = event.dataTransfer.files[0]
-            let filetype = file.type.split("/");
-            if (filetype[0] != "video") {
-                alert("The File is not a video file")
-            }
-            else {
-                setFile(event.dataTransfer.files[0]);
-            }
-        }
-
-    }
 
     const checkVideo = async () => {
         await axios.get('http://127.0.0.1:8080/uploadVideo/' + props.project.projectName).then((res) => {
@@ -86,6 +73,7 @@ const FileUpload = (props: any) => {
         form.append('video', file!!)
         await axios.post('http://127.0.0.1:8080/uploadVideo', form).then((res) => {
             console.log(res)
+            setIsVideoUploaded(true)
             setLoading(false)
         }).catch((err) => {
             console.error(err)
@@ -142,11 +130,11 @@ const FileUpload = (props: any) => {
         setImages(copy)
     }
 
-    const changeHighlightStatus = (index : any) => {
+    const changeHighlightStatus = (index: any) => {
         var copy = [...images]
-        if(copy[index].highlighted){
+        if (copy[index].highlighted) {
             copy[index].highlighted = false
-        } else{
+        } else {
             copy[index].highlighted = true
         }
         setImages(copy)
@@ -175,7 +163,7 @@ const FileUpload = (props: any) => {
             if (image.selected) {
                 selectedImages += image.index + ","
             }
-            if(image.highlighted){
+            if (image.highlighted) {
                 highlightedImages += image.index + ","
             }
         })
@@ -236,13 +224,13 @@ const FileUpload = (props: any) => {
                                         <img loading="lazy" src={item.data} width="300px"></img>
                                         {
                                             item.highlighted &&
-                                            <IconButton sx={{ float: "right", color: "gold"}}  onClick={() => changeHighlightStatus(index)}>
+                                            <IconButton sx={{ float: "right", color: "gold" }} onClick={() => changeHighlightStatus(index)}>
                                                 <StarIcon></StarIcon>
                                             </IconButton>
                                         }
                                         {
                                             !item.highlighted &&
-                                            <IconButton sx={{ float: "right", color: "gray"}}  onClick={() => changeHighlightStatus(index)}>
+                                            <IconButton sx={{ float: "right", color: "gray" }} onClick={() => changeHighlightStatus(index)}>
                                                 <StarOutlineIcon></StarOutlineIcon>
                                             </IconButton>
                                         }
@@ -285,13 +273,21 @@ const FileUpload = (props: any) => {
                         <Box textAlign='center' sx={{ mt: 2 }}>
                             <Button variant="contained" sx={{ mr: 1 }} onClick={uploadFile}>Upload File</Button>
                             <Button variant="contained" sx={{ mr: 1 }} color="warning" onClick={removeFile}>Remove File</Button>
-                            <Button variant="contained" color="warning" onClick={generateFrames}>Generate Frames</Button>
+                            <Button disabled={!isVideoUploaded} variant="contained" color="warning" onClick={generateFrames}>Generate Frames</Button>
                         </Box>
                     </>
                 }
                 {!file &&
-                    <div className="dropzone" onDragOver={handleDragOver}>
-                        <Typography variant="h4" textAlign='center'>Drag and Drop Videofiles to Upload</Typography>
+                    <div className="dropzone" {...getRootProps()}>
+                        <input {...getInputProps()}></input>
+                        {
+                            !isDragActive &&
+                            <Typography variant="h4" textAlign='center'>Drag and Drop Videofiles to Upload</Typography>
+                        }
+                        {
+                            isDragActive &&
+                            <Typography variant="h4" textAlign='center'>Release the file</Typography>
+                        }
                     </div>
                 }
                 {
