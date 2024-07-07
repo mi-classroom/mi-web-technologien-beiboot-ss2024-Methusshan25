@@ -13,8 +13,8 @@ Reviewer: Dennis Wäckerle
 ## Start der Anwendung:
 1. Das Repository klonen
 2. Die Anwendung mit `docker compose up -d` starten
-- Backend läuft unter: http://localhost:8080
-- Frontend läuft unter: http://localhost:5173
+  - Backend läuft unter: http://localhost:8080
+  - Frontend läuft unter: http://localhost:5173
 3. Anwendung beenden mit `docker compose down`
 
 
