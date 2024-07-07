@@ -14,7 +14,7 @@ fun configureProjects(){
         val imageDirectory = File("/app/data/projects/${it.name}/frames")
         val imageFiles = imageDirectory.listFiles { file -> file.isFile() } ?: arrayOf()
         var videoFile = File("/app/data/projects/${it.name}/uploadedVideo.mp4")
-        var blendedImage = File("/app/data/projects/${it.name}/blendedImage.jpg")
+        var blendedImage = File("/app/data/projects/${it.name}/blendedImage.png")
         projects.add(Project(it.name, imageFiles.size, videoFile.exists(), blendedImage.exists()))
     }
 }
@@ -25,6 +25,6 @@ fun updateProjects(){
         it.frameCount = imageDirectory.listFiles { file -> file.isFile() }?.size ?: 0
         println(it.frameCount)
         it.videoExists = File("/app/data/projects/${it.projectName}/uploadedVideo.mp4").exists()
-        it.blendedImageExists = File("/app/data/projects/${it.projectName}/blendedImage.jpg").exists()
+        it.blendedImageExists = File("/app/data/projects/${it.projectName}/blendedImage.png").exists()
     }
 }

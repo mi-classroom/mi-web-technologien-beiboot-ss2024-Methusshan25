@@ -57,7 +57,7 @@ fun Route.projectRouting() {
                 directory.mkdirs()
             }
             createNewRoute(project!!.projectName)
-            call.respondText("${directory.exists()}", status = HttpStatusCode.Created)
+            call.respondText("Project ${project!!.projectName} sucessfully created!", status = HttpStatusCode.Created)
         }
         delete("/{id}") {
             val id = call.parameters["id"] ?: return@delete call.respondText(
