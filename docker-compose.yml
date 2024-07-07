@@ -1,0 +1,10 @@
+version: '3'
+services:
+  backend:
+    image: docker.io/methusshan25/les-backend:v1.1
+    ports:
+      - "8080:8080"
+  frontend:
+    image: docker.io/methusshan25/les-frontend:v1.0
+    ports:
+      - "5173:5173"
