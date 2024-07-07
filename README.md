@@ -6,11 +6,15 @@ Als organisatorischen Rahmen für das Projekt nutzen wir GitHub Classroom. Inhal
 
 Warum ist das cool? Bilder mit Langzeitbelichtung sind gar nicht so einfach zu erstellen, vor allem, wenn man möglichst viel Kontrolle über das Endergebnis haben möchte. In unserem Ansatz, bildet ein Film den Ausgangspunkt. Diesen zerlegen wir in Einzelbilder und montieren die Einzelbilder mit verschiedenen Blendmodes zu einem Bild mit Langzeitbelichtungseffekt zusammen.
 
-Dokumentieren Sie in diesem Beibootprojekt Ihre Entscheidungen gewissenhaft unter Zuhilfenahme von [Architectual Decision Records](https://adr.github.io) (ADR).
+##Team:
+Author: Methusshan Elankumaran
+Reviewer: Dennis Wäckerle
 
-Hier ein paar ADR Beispiele aus dem letzten Semestern:
-- https://github.com/mi-classroom/mi-web-technologien-beiboot-ss2022-Moosgloeckchen/tree/main/docs/decisions
-- https://github.com/mi-classroom/mi-web-technologien-beiboot-ss2022-mweiershaeuser/tree/main/adr
-- https://github.com/mi-classroom/mi-web-technologien-beiboot-ss2022-twobiers/tree/main/adr
+##Start der Anwendung:
+1. Das Repository klonen
+2. Die Anwendung mit `docker compose up -d` starten
+   2.1  Backend läuft unter: http://localhost:8080
+   2.2  Frontend läuft unter: http://localhost:5173
+3. Anwendung beenden mit `docker compose down`
 
-Halten Sie die Anwendung, gerade in der Anfangsphase möglichst einfach, schlank und leichtgewichtig (KISS).
+
