@@ -1,8 +1,8 @@
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
-import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, IconButton } from "@mui/material";
+import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, IconButton, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import axios from "axios";
-import { useCallback, useState, useRef, useEffect, SyntheticEvent, SetStateAction } from "react";
+import { useCallback, useState, useRef, useEffect, SyntheticEvent, SetStateAction, ChangeEvent } from "react";
 import { useDropzone } from 'react-dropzone'
 
 import "./Slide.css";
@@ -14,7 +14,8 @@ interface IImage {
     name: string,
     data: string,
     selected: boolean,
-    highlighted: boolean
+    highlighted: boolean,
+    highlightStrength: Number,
 }
 
 interface IProject {
@@ -26,7 +27,7 @@ interface IProject {
 
 const FileUpload = (props: any) => {
     const [file, setFile] = useState<Nullable<File>>();
-    const [images, setImages] = useState<Array<IImage>>([{ index: 0, name: "FillName", data: "FillData", selected: true, highlighted: false }]);
+    const [images, setImages] = useState<Array<IImage>>([{ index: 0, name: "FillName", data: "FillData", selected: true, highlighted: false, highlightStrength: 0 }]);
     const [imagesUploaded, setImagesUploaded] = useState<Boolean>();
     const [video, setVideo] = useState<Nullable<File>>();
     const [loading, setLoading] = useState<Boolean>(false);
@@ -106,7 +107,8 @@ const FileUpload = (props: any) => {
                     name: image,
                     data: "http://localhost:8080/" + props.project.projectName + "/" + image,
                     selected: true,
-                    highlighted: false
+                    highlighted: false,
+                    highlightStrength: 0,
                 })
             })
             images2.sort((a, b) => { return a.index - b.index })
@@ -153,6 +155,10 @@ const FileUpload = (props: any) => {
                 image.selected = true;
             }
         })
+    }
+
+    const handleHighlightStrength = (event: ChangeEvent, index: number | number[]) => {
+        images[index as number].highlightStrength = parseInt((event.target as HTMLInputElement).value.split("x")[0]);
     }
 
     const createImage = async () => {
@@ -234,11 +240,24 @@ const FileUpload = (props: any) => {
                                                 <StarOutlineIcon></StarOutlineIcon>
                                             </IconButton>
                                         }
+                                        <FormControl disabled={!item.highlighted} sx={{ml: 2, color: "black"}}>
+                                            <FormLabel  sx={{color: "black"}} id="demo-row-radio-buttons-group-label">Hightlight Strength</FormLabel>
+                                            <RadioGroup
+                                                row
+                                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                                name="row-radio-buttons-group"
+                                                onChange={(event) => handleHighlightStrength(event, item.index)}
+                                            >
+                                                <FormControlLabel value="1x" control={<Radio />} label="1x" />
+                                                <FormControlLabel value="2x" control={<Radio />} label="2x" />
+                                                <FormControlLabel value="3x" control={<Radio />} label="3x" />
+                                            </RadioGroup>
+                                        </FormControl>
 
                                     </CardMedia>
                                     <CardContent>
                                         <Grid container spacing={1}>
-                                            <Grid item xs={8}>
+                                            <Grid item xs={8} sx={{ml: 0}}>
                                                 <Typography variant="h5">{"Frame: " + item.index}</Typography>
                                             </Grid>
                                             <Grid item xs>
