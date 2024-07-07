@@ -1,20 +1,18 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/gQyBcnrC)
-# Web Technologien // begleitendes Projekt Sommersemester 2024
-Zum Modul Web Technologien gibt es ein begleitendes Projekt. Im Rahmen dieses Projekts werden wir von Veranstaltung zu Veranstaltung ein Projekt sukzessive weiter entwickeln und uns im Rahmen der Veranstaltung den Fortschritt anschauen, Code Reviews machen und Entwicklungsschritte vorstellen und diskutieren.
+# Web Technologies // Project 2024
+This is the accompanying project for the module Web Technologies. We will successively develop a project from issue to issue, look at the progress and do code reviews as well as present and discuss development steps.
 
-Als organisatorischen Rahmen für das Projekt nutzen wir GitHub Classroom. Inhaltlich befassen wir uns mit einer Client-Server Anwendung mit deren Hilfe [Bilder mit Langzeitbelichtung](https://de.wikipedia.org/wiki/Langzeitbelichtung) sehr einfach nachgestellt werden können.
-
-Warum ist das cool? Bilder mit Langzeitbelichtung sind gar nicht so einfach zu erstellen, vor allem, wenn man möglichst viel Kontrolle über das Endergebnis haben möchte. In unserem Ansatz, bildet ein Film den Ausgangspunkt. Diesen zerlegen wir in Einzelbilder und montieren die Einzelbilder mit verschiedenen Blendmodes zu einem Bild mit Langzeitbelichtungseffekt zusammen.
+We will use GitHub Classroom as the organizational framework for the project. In terms of content, we are looking at developing a small web service for recreating longterm exposures out out videofiles. A video will be split into single frames and blended together to create the effect. The focus lies on exploring new technologies and using them in a practical project. 
 
 ## Team:
 Author: Methusshan Elankumaran
 Reviewer: Dennis Wäckerle
 
-## Start der Anwendung:
-1. Das Repository klonen
-2. Die Anwendung mit `docker compose up -d` starten
-  - Backend läuft unter: http://localhost:8080
-  - Frontend läuft unter: http://localhost:5173
-3. Anwendung beenden mit `docker compose down`
+## Quickstart:
+1. Clone the repository
+2. Run the application with `docker compose up -d`
+  - Backend runs under URL: http://localhost:8080
+  - Frontend runs under URL: http://localhost:5173
+3. Shutdown application with `docker compose down`
 
 
