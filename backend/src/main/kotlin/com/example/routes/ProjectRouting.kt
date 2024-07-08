@@ -7,7 +7,6 @@ import io.ktor.http.*
 import io.ktor.http.ContentDisposition.Companion.File
 import io.ktor.http.content.*
 import io.ktor.server.application.*
-import io.ktor.server.http.content.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -16,11 +15,6 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 fun Route.projectRouting() {
-
-    fun createNewRoute(projectName : String){
-        staticFiles("/$projectName", File("/app/data/projects/$projectName/frames"))
-        staticFiles("/$projectName/video", File("/app/data/projects/$projectName"))
-    }
 
     route("/projects") {
         get{
@@ -56,8 +50,7 @@ fun Route.projectRouting() {
             if(!directory.exists()){
                 directory.mkdirs()
             }
-            createNewRoute(project!!.projectName)
-            call.respondText("Project ${project!!.projectName} sucessfully created!", status = HttpStatusCode.Created)
+            call.respondText("${directory.exists()}", status = HttpStatusCode.Created)
         }
         delete("/{id}") {
             val id = call.parameters["id"] ?: return@delete call.respondText(
