@@ -3,19 +3,13 @@
 package com.example.imageProcessing
 
 import kotlinx.coroutines.DelicateCoroutinesApi
-import org.bytedeco.javacv.FFmpegFrameGrabber
-import org.bytedeco.javacv.OpenCVFrameConverter
 import org.bytedeco.opencv.global.opencv_core.addWeighted
-import org.bytedeco.opencv.global.opencv_cudawarping.resize
 import org.bytedeco.opencv.global.opencv_imgcodecs.imread
 import org.bytedeco.opencv.global.opencv_imgcodecs.imwrite
 import org.bytedeco.opencv.opencv_core.Mat
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
-
-
-val TOTAL_SEGMENTS = 10
 
 fun deleteDirectory(directory: File) {
     val result = directory.listFiles()?.forEach {

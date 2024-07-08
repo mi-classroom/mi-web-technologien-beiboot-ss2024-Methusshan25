@@ -10,7 +10,7 @@ data class Project(var projectName : String, var frameCount : Int = 0, var video
 var projects = mutableListOf<Project>()
 
 fun configureProjects(){
-    File("projects").listFiles()?.forEach {
+    File("/app/data/projects").listFiles()?.forEach {
         val imageDirectory = File("/app/data/projects/${it.name}/frames")
         val imageFiles = imageDirectory.listFiles { file -> file.isFile() } ?: arrayOf()
         var videoFile = File("/app/data/projects/${it.name}/uploadedVideo.mp4")
