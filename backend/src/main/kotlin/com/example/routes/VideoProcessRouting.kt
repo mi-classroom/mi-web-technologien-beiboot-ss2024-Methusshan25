@@ -98,15 +98,7 @@ fun Route.videoProcessRouting() {
                 deleteDirectory(File("/app/data/projects/$projectName/frames"))
             }
             val file = File("/app/data/projects/$projectName/uploadedVideo.mp4")
-            //val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
-            //splitVideo(file.absolutePath, executor, projectName)
             extractFrames(file, projectName)
-            //executor.shutdown()
-            try {
-                //executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)
-            } catch (e: InterruptedException) {
-                //e.printStackTrace()
-            }
             call.respondText("Frames sucessfully split", status = HttpStatusCode.BadRequest)
         }
         delete("/{id}") {
