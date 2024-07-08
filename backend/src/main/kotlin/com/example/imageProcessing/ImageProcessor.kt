@@ -82,7 +82,7 @@ fun blendImages(project: String, framesToUse : String = "", framesToHighlight: S
     val blendedImage = Mat()
 
     // Blend images with a given weight (alpha and beta)
-    var alpha = 1 - 0.05// Weight for the first image
+    var alpha = 1 - 0.1// Weight for the first image
     var beta = 1 - alpha // Weight for the second image
     var gamma = 0.0 // Scalar added to each sum
     addWeighted(image, alpha, image, beta, gamma, blendedImage)
@@ -94,7 +94,7 @@ fun blendImages(project: String, framesToUse : String = "", framesToHighlight: S
             println("image $it blended")
         }
     }
-    alpha = 1 - 0.1
+    alpha = 1 - 0.01
     beta = 1 - alpha
 
     framesToHighlightList.forEach {
