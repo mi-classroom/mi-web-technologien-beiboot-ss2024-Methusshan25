@@ -4,7 +4,7 @@ package com.example.routes
 
 import com.example.imageProcessing.blendImages
 import com.example.imageProcessing.deleteDirectory
-import com.example.imageProcessing.extractFrames
+import com.example.imageProcessing.splitVideo
 import com.example.models.Project
 import com.example.models.configureProjects
 import com.example.models.projects
@@ -98,14 +98,13 @@ fun Route.videoProcessRouting() {
                 deleteDirectory(File("/app/data/projects/$projectName/frames"))
             }
             val file = File("/app/data/projects/$projectName/uploadedVideo.mp4")
-            //val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
-            //splitVideo(file.absolutePath, executor, projectName)
-            extractFrames(file, projectName)
-            //executor.shutdown()
+            val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
+            splitVideo(file.absolutePath, executor, projectName)
+            executor.shutdown()
             try {
-                //executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)
+                executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)
             } catch (e: InterruptedException) {
-                //e.printStackTrace()
+                e.printStackTrace()
             }
             call.respondText("Frames sucessfully split", status = HttpStatusCode.BadRequest)
         }
@@ -142,7 +141,7 @@ fun Route.videoProcessRouting() {
             }
             if (Paths.get("/app/data/projects/$projectName/frames").exists()) {
                 blendImages(projectName, framesToUse, framesToHighlight)
-                var result = File("/app/data/projects/$projectName/blendedImage.png")
+                var result = File("/app/data/projects/$projectName/blendedImage.jpg")
                 call.respondBytes(Base64.getEncoder().encode(result.readBytes()))
             } else {
                 call.respondText("Images not found", status = HttpStatusCode.NotFound)
@@ -155,7 +154,7 @@ fun Route.videoProcessRouting() {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
-            val blendedImage = File("/app/data/projects/$projectName/blendedImage.png")
+            val blendedImage = File("/app/data/projects/$projectName/blendedImage.jpg")
             if(blendedImage.exists()) {
                 call.respondBytes(Base64.getEncoder().encode(blendedImage.readBytes()))
             }else{
