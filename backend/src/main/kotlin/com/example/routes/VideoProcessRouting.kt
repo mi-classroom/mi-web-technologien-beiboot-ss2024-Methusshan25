@@ -5,10 +5,6 @@ package com.example.routes
 import com.example.imageProcessing.blendImages
 import com.example.imageProcessing.deleteDirectory
 import com.example.imageProcessing.extractFrames
-import com.example.models.Project
-import com.example.models.configureProjects
-import com.example.models.projects
-import com.example.models.updateProjects
 import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.server.application.*
@@ -20,17 +16,12 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 import kotlin.io.path.exists
-import kotlin.math.round
-import kotlin.reflect.typeOf
-
 
 fun Route.videoProcessRouting() {
 
     fun createStaticRoutes(){
-        val directories = File("projects").listFiles()?.map { it.name }
+        val directories = File("/app/data/projects").listFiles()?.map { it.name }
         directories?.forEach{
             staticFiles("/$it", File("/app/data/projects/$it/frames"))
             staticFiles("/$it/video", File("/app/data/projects/$it"))
@@ -98,15 +89,7 @@ fun Route.videoProcessRouting() {
                 deleteDirectory(File("/app/data/projects/$projectName/frames"))
             }
             val file = File("/app/data/projects/$projectName/uploadedVideo.mp4")
-            //val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
-            //splitVideo(file.absolutePath, executor, projectName)
             extractFrames(file, projectName)
-            //executor.shutdown()
-            try {
-                //executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)
-            } catch (e: InterruptedException) {
-                //e.printStackTrace()
-            }
             call.respondText("Frames sucessfully split", status = HttpStatusCode.BadRequest)
         }
         delete("/{id}") {

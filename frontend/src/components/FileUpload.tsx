@@ -36,7 +36,6 @@ const FileUpload = (props: any) => {
     const [uploadedVideo, setUploadedVideo] = useState<string>("")
     const [isVideoUploaded, setIsVideoUploaded] = useState<Boolean>(false)
     const [loadingImage, setLoadingImage] = useState<Boolean>(false);
-    const videoRef = useRef(null);
 
     const onDrop = useCallback((acceptedFiles: SetStateAction<Nullable<File>>[]) => {
         setFile(acceptedFiles[0])
@@ -157,8 +156,10 @@ const FileUpload = (props: any) => {
         })
     }
 
-    const handleHighlightStrength = (event: ChangeEvent, index: number | number[]) => {
-        images[index as number].highlightStrength = parseInt((event.target as HTMLInputElement).value.split("x")[0]);
+    const handleHighlightStrength = (event: ChangeEvent, index: any) => {
+        var copy = [...images]
+        copy[index - 1].highlightStrength = parseInt((event.target as HTMLInputElement).value.split("x")[0]);
+        setImages(copy)
     }
 
     const createImage = async () => {
@@ -170,9 +171,9 @@ const FileUpload = (props: any) => {
                 selectedImages += image.index + ","
             }
             if (image.highlighted) {
-                highlightedImages += image.index + ","
-            }
-        })
+                highlightedImages += image.index + ";" + image.highlightStrength + ","
+
+        }})
         const form = new FormData();
         form.append('framesToUse', selectedImages)
         form.append('framesToHighlight', highlightedImages)

@@ -1,6 +1,7 @@
 package com.example.routes
 
 import com.example.models.Project
+import com.example.models.configureProjects
 import com.example.models.projects
 import com.example.models.updateProjects
 import io.ktor.http.*
@@ -12,8 +13,6 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import java.io.File
-import java.nio.file.Files
-import java.nio.file.Paths
 
 fun Route.projectRouting() {
 
