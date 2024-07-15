@@ -1,11 +1,13 @@
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
-import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, IconButton, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, IconButton, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, ThemeProvider } from "@mui/material";
 import axios from "axios";
 import { useCallback, useState, useRef, useEffect, SyntheticEvent, SetStateAction, ChangeEvent } from "react";
 import { useDropzone } from 'react-dropzone'
+import MainTheme from '../themes/mainTheme';
 
 import "./Slide.css";
+import { Margin } from '@mui/icons-material';
 
 type Nullable<T> = T | undefined | null;
 
@@ -18,12 +20,6 @@ interface IImage {
     highlightStrength: Number,
 }
 
-interface IProject {
-    projectName: string,
-    imageCount: number,
-    videoExists: boolean,
-    blendedImageExists: boolean
-}
 
 const FileUpload = (props: any) => {
     const [file, setFile] = useState<Nullable<File>>();
@@ -173,7 +169,8 @@ const FileUpload = (props: any) => {
             if (image.highlighted) {
                 highlightedImages += image.index + ";" + image.highlightStrength + ","
 
-        }})
+            }
+        })
         const form = new FormData();
         form.append('framesToUse', selectedImages)
         form.append('framesToHighlight', highlightedImages)
@@ -204,8 +201,14 @@ const FileUpload = (props: any) => {
             <>
                 <div id="uploaded-content">
                     {
+                        uploadedVideo &&
+                        <video width="47%" style={{ border: "5px solid #dd33fa" }} controls>
+                            <source src={uploadedVideo} type="video/mp4"></source>
+                        </video>
+                    }
+                    {
                         blendedImage &&
-                        <img loading="lazy" style={{ width: "47%", border: "5px solid blue" }} src={blendedImage}></img>
+                        <img loading="lazy" style={{ width: "47%", border: "5px solid #dd33fa" }} src={blendedImage}></img>
 
                     }
                     {
@@ -214,70 +217,67 @@ const FileUpload = (props: any) => {
                             <Typography variant="h5" color="white">No Blended Image available</Typography>
                         </div>
                     }
-                    {
-                        uploadedVideo &&
-                        <video width="47%" style={{ border: "5px solid blue" }} controls>
-                            <source src={uploadedVideo} type="video/mp4"></source>
-                        </video>
-                    }
+
                 </div>
-                <Button variant="outlined" onClick={downloadImage} sx={{ float: "left", marginTop: "10px" }}>Download</Button>
+                <Button variant="contained" onClick={downloadImage} sx={{ float: "right", right: "60px", marginTop: "10px", marginBottom: "10px" }}>Download</Button>
                 <div id="card-container">
                     {
                         images.map((item, index) => (
                             <Grid item sx={{ margin: "50px" }} xs={6} sm={6} md={2} lg={2}>
-                                <Card key={index} className={`${item.selected ? "selected" : "unselected"}`}>
-                                    <CardMedia>
-                                        <img loading="lazy" src={item.data} width="300px"></img>
-                                        {
-                                            item.highlighted &&
-                                            <IconButton sx={{ float: "right", color: "gold" }} onClick={() => changeHighlightStatus(index)}>
-                                                <StarIcon></StarIcon>
-                                            </IconButton>
-                                        }
-                                        {
-                                            !item.highlighted &&
-                                            <IconButton sx={{ float: "right", color: "gray" }} onClick={() => changeHighlightStatus(index)}>
-                                                <StarOutlineIcon></StarOutlineIcon>
-                                            </IconButton>
-                                        }
-                                        <FormControl disabled={!item.highlighted} sx={{ml: 2, color: "black"}}>
-                                            <FormLabel  sx={{color: "black"}} id="demo-row-radio-buttons-group-label">Hightlight Strength</FormLabel>
-                                            <RadioGroup
-                                                row
-                                                aria-labelledby="demo-row-radio-buttons-group-label"
-                                                name="row-radio-buttons-group"
-                                                onChange={(event) => handleHighlightStrength(event, item.index)}
-                                            >
-                                                <FormControlLabel value="1x" control={<Radio />} label="1x" />
-                                                <FormControlLabel value="2x" control={<Radio />} label="2x" />
-                                                <FormControlLabel value="3x" control={<Radio />} label="3x" />
-                                            </RadioGroup>
-                                        </FormControl>
+                                <ThemeProvider theme={MainTheme}>
+                                    <Card key={index} className={`${item.selected ? "selected" : "unselected"}`} sx={{ background: "#303030" }}>
+                                        <CardMedia>
+                                            <img loading="lazy" src={item.data} width="300px"></img>
+                                            {
+                                                item.highlighted &&
+                                                <IconButton sx={{ float: "right", color: "gold" }} onClick={() => changeHighlightStatus(index)}>
+                                                    <StarIcon></StarIcon>
+                                                </IconButton>
+                                            }
+                                            {
+                                                !item.highlighted &&
+                                                <IconButton sx={{ float: "right", color: "white" }} onClick={() => changeHighlightStatus(index)}>
+                                                    <StarOutlineIcon></StarOutlineIcon>
+                                                </IconButton>
+                                            }
+                                            <FormControl disabled={!item.highlighted} sx={{ ml: 2 }}>
+                                                <FormLabel id="demo-row-radio-buttons-group-label">Hightlight Strength</FormLabel>
+                                                <RadioGroup
+                                                    row
+                                                    aria-labelledby="demo-row-radio-buttons-group-label"
+                                                    name="row-radio-buttons-group"
+                                                    onChange={(event) => handleHighlightStrength(event, item.index)}
+                                                >
+                                                    <FormControlLabel value="1x" control={<Radio />} label="1x" />
+                                                    <FormControlLabel value="2x" control={<Radio />} label="2x" />
+                                                    <FormControlLabel value="3x" control={<Radio />} label="3x" />
+                                                </RadioGroup>
+                                            </FormControl>
 
-                                    </CardMedia>
-                                    <CardContent>
-                                        <Grid container spacing={1}>
-                                            <Grid item xs={8} sx={{ml: 0}}>
-                                                <Typography variant="h5">{"Frame: " + item.index}</Typography>
+                                        </CardMedia>
+                                        <CardContent>
+                                            <Grid container spacing={1}>
+                                                <Grid item xs={8} sx={{ ml: 0 }}>
+                                                    <Typography variant="h5">{"Frame: " + item.index}</Typography>
+                                                </Grid>
+                                                <Grid item xs>
+                                                    {item.selected &&
+                                                        <Button variant="outlined" onClick={() => changeSelectStatus(index)} color="warning">Deselect</Button>
+                                                    }
+                                                    {!item.selected &&
+                                                        <Button variant="outlined" onClick={() => changeSelectStatus(index)} color="success">Select</Button>
+                                                    }
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs>
-                                                {item.selected &&
-                                                    <Button variant="outlined" onClick={() => changeSelectStatus(index)} color="warning">Deselect</Button>
-                                                }
-                                                {!item.selected &&
-                                                    <Button variant="outlined" onClick={() => changeSelectStatus(index)} color="success">Select</Button>
-                                                }
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </Card>
+                                        </CardContent>
+                                    </Card>
+                                </ThemeProvider>
                             </Grid>
                         ))
                     }
                 </div>
-                <Slider min={0} max={images.length} value={sliderValue} valueLabelDisplay="on" onChange={changeSelectedValue} onChangeCommitted={changeSelected} sx={{ mt: 4 }}></Slider>
-                <Button variant="outlined" onClick={createImage} sx={{ float: "right" }}>Create Image</Button>
+                <Slider min={0} max={images.length} value={sliderValue} valueLabelDisplay="on" onChange={changeSelectedValue} onChangeCommitted={changeSelected} sx={{ mt: 4, width: "1160px" }}></Slider>
+                <Button variant="contained" onClick={createImage} sx={{ float: "right", marginBottom: "20px", right: "60px" }}>Create Image</Button>
                 {
                     loadingImage &&
                     <LinearProgress sx={{ mt: 8 }}></LinearProgress>

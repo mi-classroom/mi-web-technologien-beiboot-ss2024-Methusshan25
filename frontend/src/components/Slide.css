@@ -4,6 +4,8 @@
     align-items: center;
     overflow-x: scroll;
     width: 95%;
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: 25px;
 
     /* width */
     &::-webkit-scrollbar {
@@ -13,27 +15,27 @@
 
     /* Track */
     &::-webkit-scrollbar-track {
-        background: #f1f1f1;
+        background: #303030;
     }
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-        background: lightgreen;
+        background: #dd33fa;
         border-radius: 20px;
     }
 
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-        background: green;
+        background:#9500ae;
     }
 }
 
 .selected {
-    border: 3px solid green;
+    border: 3px solid #dd33fa;
 }
 
 .unselected {
-    border: none;
+    border: 3px solid gray;
 }
 
 #uploaded-content {
@@ -41,14 +43,13 @@
 }
 
 #uploaded-content video {
-    margin-left: 4%;
+    margin-right: 1%;
 }
 
 #imagePlaceholder {
     width: 47%;
     height: 320px;
     background-color: black;
-    border: 3px solid blue;
     display: flex;
     justify-content: center;
     align-items: center;

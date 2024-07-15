@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />
   },
   {
-    path: '/upload',
+    path: '/upload/:id',
     element: <UploadImage />,
     errorElement: <NotFoundPage />
   },{
