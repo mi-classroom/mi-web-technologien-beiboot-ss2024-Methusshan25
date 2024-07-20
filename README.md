@@ -15,4 +15,6 @@ Reviewer: Dennis Wäckerle
   - Frontend runs under URL: http://localhost:5173
 3. Shutdown application with `docker compose down`
 
+## Deployments:
+Application runs on: https://les-frontend.onrender.com/
 
