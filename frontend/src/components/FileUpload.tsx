@@ -1,8 +1,8 @@
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
-import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, IconButton, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, ThemeProvider } from "@mui/material";
+import { Button, Typography, Box, Card, CardContent, CardMedia, Grid, Slider, LinearProgress, IconButton, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, ThemeProvider, Input } from "@mui/material";
 import axios from "axios";
-import { useCallback, useState, useRef, useEffect, SyntheticEvent, SetStateAction, ChangeEvent } from "react";
+import { useCallback, useState, useRef, useEffect, SyntheticEvent, SetStateAction, ChangeEvent, KeyboardEvent } from "react";
 import { useDropzone } from 'react-dropzone'
 import MainTheme from '../themes/mainTheme';
 
@@ -32,6 +32,7 @@ const FileUpload = (props: any) => {
     const [uploadedVideo, setUploadedVideo] = useState<string>("")
     const [isVideoUploaded, setIsVideoUploaded] = useState<Boolean>(false)
     const [loadingImage, setLoadingImage] = useState<Boolean>(false);
+    const [state, setState] = useState<number>(0);
 
     const onDrop = useCallback((acceptedFiles: SetStateAction<Nullable<File>>[]) => {
         setFile(acceptedFiles[0])
@@ -48,12 +49,13 @@ const FileUpload = (props: any) => {
             createImage()
         }
         if (props.project.videoExists) {
-            setUploadedVideo("http://localhost:8080/" + props.project.projectName + "/video/uploadedVideo.mp4")
+            setUploadedVideo("http://localhost:8080" + props.project.projectName + "/video/uploadedVideo.mp4")
         }
+        setState(Math.random());
     }, [])
 
     const checkVideo = async () => {
-        await axios.get('http://127.0.0.1:8080/uploadVideo/' + props.project.projectName).then((res) => {
+        await axios.get('http://localhost:8080/uploadVideo/' + props.project.projectName).then((res) => {
             setVideo(res.data);
             setFile(res.data);
             console.log("Video found")
@@ -67,7 +69,7 @@ const FileUpload = (props: any) => {
         const form = new FormData();
         form.append('projectName', props.project.projectName)
         form.append('video', file!!)
-        await axios.post('http://127.0.0.1:8080/uploadVideo', form).then((res) => {
+        await axios.post('http://localhost:8080/uploadVideo', form).then((res) => {
             console.log(res)
             setIsVideoUploaded(true)
             setLoading(false)
@@ -137,12 +139,18 @@ const FileUpload = (props: any) => {
         setImages(copy)
     }
 
-    const changeSelectedValue = (event: Event | SyntheticEvent, newValue: number | number[]) => {
+    const changeSliderValue = (event: Event | SyntheticEvent, newValue: number | number[]) => {
+        event.preventDefault()
         setSliderValue(newValue as number[])
     }
 
-    const changeSelected = (event: Event | SyntheticEvent, newValue: number | number[]) => {
+    const changeSliderValueComitted = (event: Event | SyntheticEvent, newValue: number | number[]) => {
+        event.preventDefault()
         setSliderValue(newValue as number[])
+        markSelectedImages()
+    }
+
+    const markSelectedImages = () => {
         images.forEach((image) => {
             if (image.index < sliderValue[0] || image.index > sliderValue[1]) {
                 image.selected = false;
@@ -150,6 +158,7 @@ const FileUpload = (props: any) => {
                 image.selected = true;
             }
         })
+        setState(Math.random());
     }
 
     const handleHighlightStrength = (event: ChangeEvent, index: any) => {
@@ -176,18 +185,31 @@ const FileUpload = (props: any) => {
         form.append('framesToHighlight', highlightedImages)
         console.log(highlightedImages)
         if (props.blendedImageExists) {
-            await axios.get("http://127.0.0.1:8080/blendedImage/" + props.project.projectName).then((res) => {
+            await axios.get("http://localhost:8080/blendedImage/" + props.project.projectName).then((res) => {
                 setBlendedImage("data:image/jpeg;base64," + res.data)
                 setLoadingImage(false)
             })
         } else {
-            await axios.post("http://127.0.0.1:8080/blendImages/" + props.project.projectName, form).then((res) => {
+            await axios.post("http://localhost:8080/blendImages/" + props.project.projectName, form).then((res) => {
                 setBlendedImage("data:image/jpeg;base64," + res.data)
                 setLoadingImage(false)
             })
         }
     }
 
+    const handleTopInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault()
+        setSliderValue([sliderValue[0], parseInt(event.target.value)]);
+    }
+
+    const handleBottomInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault()
+        setSliderValue([parseInt(event.target.value), sliderValue[1]]);
+    }
+
+    const handleBlur = () => {
+        markSelectedImages()
+    }
 
     const downloadImage = () => {
         var a = document.createElement("a");
@@ -220,7 +242,7 @@ const FileUpload = (props: any) => {
 
                 </div>
                 <Button variant="contained" onClick={downloadImage} sx={{ float: "right", right: "60px", marginTop: "10px", marginBottom: "10px" }}>Download</Button>
-                <div id="card-container">
+                <div id="card-container" key={state}>
                     {
                         images.map((item, index) => (
                             <Grid item sx={{ margin: "50px" }} xs={6} sm={6} md={2} lg={2}>
@@ -276,7 +298,45 @@ const FileUpload = (props: any) => {
                         ))
                     }
                 </div>
-                <Slider min={0} max={images.length} value={sliderValue} valueLabelDisplay="on" onChange={changeSelectedValue} onChangeCommitted={changeSelected} sx={{ mt: 4, width: "1160px" }}></Slider>
+                <Box>
+                    <Grid container spacing={4} alignItems="center">
+                        <Grid item>
+                            <Input
+                                value={sliderValue[0]}
+                                size='small'
+                                sx={{width: 50}}
+                                onChange={handleBottomInputChange}
+                                onBlur={handleBlur}
+                                inputProps={{
+                                    step: 1,
+                                    min: 0,
+                                    max: images.length,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                  }}
+                                
+                            />
+                        </Grid>
+                        <Grid item xs>
+                            <Slider min={0} max={images.length} value={sliderValue} valueLabelDisplay="on" onChange={changeSliderValue} onChangeCommitted={changeSliderValueComitted} sx={{ mt: 4, width: "96%"}}></Slider>
+                        </Grid>
+                        <Grid item>
+                            <Input
+                                value={sliderValue[1]}
+                                sx={{width: 50}}
+                                onChange={handleTopInputChange}
+                                onBlur={handleBlur}
+                                inputProps={{
+                                    step: 1,
+                                    min: 0,
+                                    max: images.length,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                  }}
+                            />
+                        </Grid>
+                    </Grid>
+                </Box>
                 <Button variant="contained" onClick={createImage} sx={{ float: "right", marginBottom: "20px", right: "60px" }}>Create Image</Button>
                 {
                     loadingImage &&
