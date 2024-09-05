@@ -1,4 +1,4 @@
-import FileUpload from "../components/FileUpload";
+import FileUpload from "../components/ProjectDetailView";
 import Navbar from "../components/Navbar";
 import '../App.css';
 import { Typography } from "@mui/material";

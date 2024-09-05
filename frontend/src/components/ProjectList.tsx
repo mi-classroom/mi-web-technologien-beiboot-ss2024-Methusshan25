@@ -2,24 +2,11 @@ import { Card, CardActions, CardContent, Typography, Button } from "@mui/materia
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IProjectProps } from "../interfaces/IProjectProps";
-import axios from "axios";
 
-
-const ProjectList = ({ projects, getProjects }: IProjectProps) => {
+const ProjectList = ({ projects, useRemoveProject }: IProjectProps) => {
 
     useEffect(() => {
-        getProjects()
     }, [])
-
-    const removeProject = async (id: String) => {
-        await axios.delete('http://localhost:8080/projects/' + id).then(() => {
-            console.log("Project " + id + " removed")
-            getProjects()
-        }).catch((err) => {
-            console.error(err);
-        });
-    }
-
 
     return (
         <>
@@ -28,7 +15,7 @@ const ProjectList = ({ projects, getProjects }: IProjectProps) => {
                 <div className="card-container">
                     {
                         projects.map((project: any) => (
-                            <>
+                            <div key={project.projectName}>
                                 {
                                     project.projectName != "" &&
                                     <Card sx={{ margin: "10px 0px", border: "3px solid purple", borderRadius: "20px", background: "#303030", boxShadow: "revert" }}>
@@ -44,7 +31,7 @@ const ProjectList = ({ projects, getProjects }: IProjectProps) => {
                                                     Select
                                                 </Link>
                                             </Button>
-                                            <Button color="warning" variant="contained" onClick={() => removeProject(project.projectName)}>
+                                            <Button color="warning" variant="contained" onClick={() => useRemoveProject(project.projectName)}>
                                                 Delete
                                             </Button>
                                         </CardActions>
@@ -54,7 +41,7 @@ const ProjectList = ({ projects, getProjects }: IProjectProps) => {
                                     project.projectName == "" &&
                                     <Typography variant="h3" sx={{textAlign: "center", marginBottom: "20px"}}>No projects </Typography>
                                 }
-                            </>
+                            </div>
                         ))
                     }
                 </div>

@@ -3,7 +3,7 @@ import axios from "axios"
 import {useState } from "react";
 import { IProjectProps } from "../interfaces/IProjectProps";
 
-function ProjectDialog({getProjects} : IProjectProps) {
+function ProjectDialog({useAddProject} : IProjectProps) {
 
     const [open, setOpen] = useState(false);
     const [newProjectName, setNewProjectName] = useState("");
@@ -16,21 +16,14 @@ function ProjectDialog({getProjects} : IProjectProps) {
         setNewProjectName(event.target.value)
     }
 
-    const saveProject = async() => {
-        const form = new FormData();
-        form.append('projectName', newProjectName)
-        await axios.post('http://127.0.0.1:8080/projects', form).then((res) => {
-            console.log(res)
-            getProjects()
-            handleClose()
-        }).catch((err) => {
-            console.error(err)
-        })
-    }
-
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleSave = () => {
+        useAddProject(newProjectName); 
+        handleClose();
+    }
 
     return (
         <>
@@ -61,13 +54,12 @@ function ProjectDialog({getProjects} : IProjectProps) {
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" color="warning" onClick={handleClose}>Don't save</Button>
-                <Button variant="contained" color="primary" onClick={saveProject} autoFocus>
+                <Button variant="contained" color="primary" onClick={handleSave} autoFocus>
                     Save
                 </Button>
             </DialogActions>
         </Dialog><div id="buttonsProjectOverview">
             <Button variant="contained" sx={{ width: "200px" }} onClick={handleClickOpen}>Add Project</Button>
-            <Button variant="contained" sx={{ width: "200px" }} onClick={getProjects}>Update</Button>
         </div></>
     )
 

@@ -103,6 +103,37 @@ const MainTheme = createTheme({
         },
       },
     },
+    MuiToggleButtonGroup: {
+      styleOverrides: {
+        grouped: {
+          '&:not(:first-of-type)': {
+            borderLeft: '1px solid #fff', // Border between buttons
+          },
+          '&:not(:last-of-type)': {
+            borderRight: 'none', // Remove right border from all except last button
+          },
+        },
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px', // Rounded corners for each button
+          backgroundColor: '#dd33fa', // Default background color of buttons
+          color: '#fff', // Default text color
+          '&.Mui-selected': {
+            backgroundColor: '#ee8aff', // Background color when selected
+            color: '#fff', // Text color when selected
+          },
+          '&:hover': {
+            backgroundColor: '#ee8aff', // Background color on hover
+          },
+          '&.Mui-selected:hover': {
+            backgroundColor: '#ee8aff', // Background color when selected and hovered
+          },
+        },
+      },
+    },
   },
 })
 
