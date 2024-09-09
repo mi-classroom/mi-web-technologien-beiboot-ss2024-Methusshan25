@@ -64,6 +64,8 @@ fun Route.projectRouting() {
                 status = HttpStatusCode.BadRequest
             )
             if(projects.removeIf{it.projectName == id }){
+                val directory = File("/app/data/projects/${id}")
+                directory.deleteRecursively()
                 call.respondText("Project removed correctly", status = HttpStatusCode.Accepted)
             }else{
                 call.respondText("Project not found", status = HttpStatusCode.NotFound)

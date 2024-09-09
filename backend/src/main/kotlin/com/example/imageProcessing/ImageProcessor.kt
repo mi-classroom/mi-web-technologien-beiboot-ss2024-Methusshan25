@@ -20,7 +20,7 @@ fun deleteDirectory(directory: File) {
     }
 }
 
-fun extractFrames(videoFile: File, project : String, fps : Int = 30): Boolean {
+fun extractFrames(videoFile: File, project: String, fps: Int = 30): Boolean {
     try {
         val processBuilder = ProcessBuilder(
             "ffmpeg",
@@ -32,7 +32,7 @@ fun extractFrames(videoFile: File, project : String, fps : Int = 30): Boolean {
         processBuilder.redirectErrorStream(true)
         val process = processBuilder.start()
 
-        val outputThread = Thread{
+        val outputThread = Thread {
             val reader = BufferedReader(InputStreamReader(process.inputStream))
             reader.forEachLine { println(it) }
         }
@@ -49,27 +49,39 @@ fun extractFrames(videoFile: File, project : String, fps : Int = 30): Boolean {
     }
 }
 
-fun blendImages(project: String, framesToUse : String = "", framesToHighlight: String) {
-
-    val framesToUse = framesToUse.split(",").toMutableList()
-    val framesToHighlightList = mutableListOf<ArrayList<String>>()
-    framesToHighlight.split(",").toMutableList().forEach {
-        val split = it.split(";").toMutableList()
-        println(split)
-        if(split.size > 1){
-            framesToHighlightList.add(arrayListOf(split[0], split[1]))
+fun generateFrameList(listType : FrameListType, frameList : String) : Any?{
+    if(listType == FrameListType.BLENDLIST){
+        return frameList.split(",").toMutableList()
+    }
+    else if(listType == FrameListType.HIGHLIGHTLIST){
+        val framesToHighlightList = mutableListOf<ArrayList<String>>()
+        frameList.split(",").toMutableList().forEach {
+            val split = it.split(";").toMutableList()
+            println(split)
+            if (split.size > 1) {
+                framesToHighlightList.add(arrayListOf(split[0], split[1]))
+            }
         }
+        return framesToHighlightList
+    }
+    else{
+        return null
+    }
+}
+
+fun blendImages(project: String, framesToUse: String = "", framesToHighlight: String) {
+
+    val framesToUseList = generateFrameList(FrameListType.BLENDLIST, framesToUse) as MutableList<String>
+    val framesToHighlightList = generateFrameList(FrameListType.HIGHLIGHTLIST, framesToHighlight) as MutableList<ArrayList<String>>
+
+    var image = imread("/app/data/projects/$project/frames/frame${framesToUseList[0]}.png")
+
+    framesToUseList.removeFirst()
+    if (framesToUseList.isNotEmpty()) {
+        framesToUseList.removeLast()
     }
 
-
-    var image = imread("/app/data/projects/$project/frames/frame${framesToUse[0]}.png")
-
-    framesToUse.removeFirst()
-    if(framesToUse.isNotEmpty()){
-        framesToUse.removeLast()
-    }
-
-    println(framesToUse)
+    println(framesToUseList)
     println(framesToHighlight)
 
     // Check if images are loaded properly
@@ -84,29 +96,32 @@ fun blendImages(project: String, framesToUse : String = "", framesToHighlight: S
     // Blend images with a given weight (alpha and beta)
     var alpha = 1 - 0.1// Weight for the first image
     var beta = 1 - alpha // Weight for the second image
-    var gamma = 0.0 // Scalar added to each sum
+    val gamma = 0.0 // Scalar added to each sum
     addWeighted(image, alpha, image, beta, gamma, blendedImage)
 
-    framesToUse.forEach{
+    framesToUseList.forEach {
         image = imread("/app/data/projects/$project/frames/frame$it.png")
-        if(!image.empty()){
-            addWeighted(blendedImage, alpha, image, beta, gamma, blendedImage)
-            println("image $it blended")
-        }
+        blendImage(blendedImage, alpha, beta, gamma, image)
+        println("image $it blended")
     }
+
     alpha = 1 - 0.01
     beta = 1 - alpha
 
     framesToHighlightList.forEach {
         image = imread("/app/data/projects/$project/frames/frame${it[0]}.png")
-        if (!image.empty()) {
-            for (i in 1..10 * it[1].toInt()) {
-                addWeighted(blendedImage, alpha, image, beta, gamma, blendedImage)
-            }
+        for (i in 1..10 * it[1].toInt()) {
+            blendImage(blendedImage, alpha, beta, gamma, image)
             println("image ${it[0]} highlighted with strength ${it[1]}")
         }
     }
     // Save the result
     imwrite("/app/data/projects/$project/blendedImage.png", blendedImage)
+}
+
+fun blendImage(blendedImage: Mat, alpha: Double, beta: Double, gamma: Double, image: Mat) {
+    if (!image.empty()) {
+        addWeighted(blendedImage, alpha, image, beta, gamma, blendedImage)
+    }
 }
 

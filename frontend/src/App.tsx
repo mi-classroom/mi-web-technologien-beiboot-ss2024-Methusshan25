@@ -1,14 +1,18 @@
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import './App.css';
+import {ThemeProvider } from "@mui/material";
+import MainTheme from "./themes/mainTheme"
 
 function App() {
 
   return (
-    <div id="background">
-      <Navbar />
-      <Home />
-    </div>
+    <ThemeProvider theme={MainTheme}>
+      <div id="root">
+        <Navbar />
+        <Home />
+      </div>
+    </ThemeProvider>
   );
 }
 

@@ -6,7 +6,6 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import { ButtonGroup } from '@mui/joy';
 import { styled } from '@mui/material/styles';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { lightGreen } from '@mui/material/colors';
@@ -20,33 +19,13 @@ function Navbar() {
     setMobileOpen((prevState) => !prevState);
   };
 
-
-  const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-    color: theme.palette.getContrastText(lightGreen[500]),
-    backgroundColor: lightGreen[500],
-    '&:hover': {
-      backgroundColor: lightGreen[700],
-    },
-  }));
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Button variant='text' sx={{color: "white", fontSize: "2em"}} href="/">LES</Button>
-          <ButtonGroup spacing={1}>
-            <ColorButton sx={{position: 'absolute', right: 10, top: 15, borderRadius: 3}} variant='contained' color='success' href="/projects">Projects</ColorButton>
-          </ButtonGroup>
+          <Button variant='text' sx={{ fontSize: "2em", color: "white" }} href="/">LES</Button>
+          <Button sx={{ position: 'absolute', right: 10, top: 15, borderRadius: 3 }} variant='contained' color='success' href="/projects">Projects</Button>
         </Toolbar>
       </AppBar>
       <nav>
