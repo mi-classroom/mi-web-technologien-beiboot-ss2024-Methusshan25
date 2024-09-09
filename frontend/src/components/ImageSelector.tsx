@@ -1,14 +1,41 @@
-import { Button, Grid, IconButton, Pagination, ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
+import { Button, Grid, Icon, IconButton, Pagination, ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
 import { IImageSelectorProps } from "../interfaces/IImageSelectorProps";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { useImageViewModel } from "../ViewModel/ImageViewModel";
 import Selecto from "react-selecto";
+import ImageDetail from "./ImageDetail";
 
 const ImageSelector = ({ projectName, sendImage, blendedImageExists }: IImageSelectorProps) => {
 
-    const {pageCount,
-        currentImages, refreshKey, setSelectStatus, setHighlightStatus, changeHighlightStrength, imagesLoaded, currentPage, setCurrentPage, sendImagesToBlend
+    const { pageCount, currentImages, refreshKey, swapSelectStatus, swapHighlightStatus, changeHighlightStrength, imagesLoaded, currentPage, 
+        setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, setFullscreenImage
     } = useImageViewModel(projectName, sendImage, blendedImageExists);
+
+    const handleOpen = (imgSource : string) => {
+        setFullscreenImage(imgSource)
+        setOpen(true);
+    }
+
+    const selectAllImages = () => {
+        currentImages.forEach(image => {
+            if(!image.selected){
+                swapSelectStatus(image.index)
+            }
+        })
+    }
+
+    const deselectAllImages = () => {
+        currentImages.forEach(image => {
+            if(image.selected){
+                if(image.highlighted){
+                    swapHighlightStatus(image.index)
+                }
+                swapSelectStatus(image.index)
+            }
+        })
+    }
+
     return (
         <>
             <Selecto
@@ -26,7 +53,7 @@ const ImageSelector = ({ projectName, sendImage, blendedImageExists }: IImageSel
                     e.added.forEach(el => {
                         let id = el.getAttribute("id")
                         if (id != null)
-                            setSelectStatus(parseInt(id));
+                            swapSelectStatus(parseInt(id));
                     });
                 }}
             />
@@ -34,17 +61,33 @@ const ImageSelector = ({ projectName, sendImage, blendedImageExists }: IImageSel
                 imagesLoaded &&
                 <>
                     <Tooltip title="Generate image with the selected frames">
-                        <Button variant="contained" onClick={sendImagesToBlend} sx={{ marginTop: 10, float: "right", right: -90}}>Create Image</Button>
+                        <Button variant="contained" onClick={sendImagesToBlend} sx={{ marginTop: 10, marginLeft: 1, float: "right", right: -90 }}>Create Image</Button>
                     </Tooltip>
+                    <Tooltip title="Select all frames of this page">
+                        <Button variant="contained" onClick={selectAllImages} sx={{ marginTop: 10, float: "left" }}>Select Page</Button>
+                    </Tooltip>
+                    <Tooltip title="Deselect all frames of this page">
+                        <Button variant="contained" onClick={deselectAllImages} sx={{ marginTop: 10, marginLeft: 1, float: "left", left: 0 }}>Deselect Page</Button>
+                    </Tooltip>
+                    <ImageDetail open={open} setOpen={setOpen} imgSrc={fullscreenImage} ></ImageDetail>
                     <Grid container spacing={2} key={refreshKey}>
                         {
                             currentImages.map((image, index) => (
                                 <Grid item xs={2} key={index}>
+                                    <IconButton onClick={() => handleOpen(image.data)} sx={{
+                                        float: "right", top: 45, left: 5, backgroundColor: "rgba(0,0,0,0.5)", // Set the background color
+                                        color: "white", // Set the icon color
+                                        '&:hover': {
+                                            backgroundColor: "rgba(50, 50, 50, 0.5)", // Background color on hover
+                                        },
+                                    }}>
+                                        <FullscreenIcon fontSize="medium"></FullscreenIcon>
+                                    </IconButton>
                                     <Tooltip title={"Image " + image.index} placement="top">
-                                        <img id={image.index + ""} loading="lazy" decoding="async" src={image.data} width={200} onClick={() => setSelectStatus(image.index)} className={`${image.selected ? "selected" : "unselected"}`}></img>
+                                        <img id={image.index + ""} loading="lazy" decoding="async" src={image.data} width={200} onClick={() => swapSelectStatus(image.index)} className={`${image.selected ? "selected" : "unselected"}`}></img>
                                     </Tooltip>
                                     <IconButton disabled={!image.selected ? true : false} sx={{ color: `${image.highlighted ? "#dd33fa" : "white"}` }}
-                                        onClick={() => setHighlightStatus(image.index)}>
+                                        onClick={() => swapHighlightStatus(image.index)}>
                                         <Tooltip title="Highlight frame">
                                             <StarBorderIcon></StarBorderIcon>
                                         </Tooltip>

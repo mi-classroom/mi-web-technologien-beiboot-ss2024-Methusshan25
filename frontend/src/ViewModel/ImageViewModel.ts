@@ -18,10 +18,14 @@ interface ImageViewModel {
     imagesLoaded: boolean
     currentPage : number,
     setCurrentPage : (page : number) => void 
+    open: boolean,
+    setOpen: (isOpen: boolean) => void,
+    fullscreenImage: string,
+    setFullscreenImage: (fullscreenImage: string) => void
     setImagesLoaded: (value : boolean) => void
     updateImages : (pCurrentPage : number) => void
-    setSelectStatus: (index : number) => void
-    setHighlightStatus: (index : number) => void
+    swapSelectStatus: (index : number) => void
+    swapHighlightStatus: (index : number) => void
     changeHighlightStrength: (event: React.MouseEvent<HTMLElement>, newStrength: Number, index: Number) => void
     updateSelected: (images : IImage[]) => IImage[]
     setCurrentImages: (images : IImage[]) => void
@@ -44,6 +48,8 @@ export function useImageViewModel(projectName : string, sendFunction?: (image : 
     const [frameCount, setFrameCount] = useState<number>(0);
     const [imagesLoaded, setImagesLoaded] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [open, setOpen] = useState<boolean>(false);
+    const [fullscreenImage, setFullscreenImage] = useState<string>("");
 
     useEffect(() => {
         if (blendedImageExists) {
@@ -86,7 +92,7 @@ export function useImageViewModel(projectName : string, sendFunction?: (image : 
         return images;
     }
 
-    const setSelectStatus = (index: number) => {
+    const swapSelectStatus = (index: number) => {
         let fillerImages = currentImages;
         let findIndex = fillerImages.findIndex((image) => image.index == index);
         if (fillerImages[findIndex].selected) {
@@ -103,7 +109,7 @@ export function useImageViewModel(projectName : string, sendFunction?: (image : 
         setRefreshKey((prevKey: number) => prevKey + 1);
     }
 
-    const setHighlightStatus = (index: number) => {
+    const swapHighlightStatus = (index: number) => {
         let fillerImages = currentImages;
         let findIndex = fillerImages.findIndex((image) => image.index == index);
         if (fillerImages[findIndex].highlighted) {
@@ -138,11 +144,13 @@ export function useImageViewModel(projectName : string, sendFunction?: (image : 
         var highlightedString = "";
         await useGetImages(projectName, 0, frameCount).then((res) => {
             res.forEach((image) => {
-                if (selectedImages.find((selectedImage) => selectedImage == image.index) != undefined) {
+                let selected = selectedImages.find((selectedImage) => selectedImage == image.index)
+                if (selected != undefined) {
                     selectedString += image.index + ",";
                 }
-                if (image.highlighted) {
-                    highlightedString += image.index + ";" + image.highlightStrength + ",";
+                let highlight = highlightedImages.find((highlight) => highlight.highlightedImage == image.index)
+                if (highlight != undefined) {
+                    highlightedString += highlight.highlightedImage + ";" + highlight.hightlightStrength + ",";
                 }
             })
         })
@@ -191,6 +199,6 @@ export function useImageViewModel(projectName : string, sendFunction?: (image : 
 
     return {useGetImages, useGetBlendedImage, useGetTotalFrameCount, useGenerateBlendedImage, useGenerateFrames, pageCount, 
         setPageCount, currentImages, setCurrentImages, selectedImages, highlightedImages, setHighlightedImages, refreshKey, 
-        setRefreshKey, updateSelected, setSelectStatus, setHighlightStatus, changeHighlightStrength, frameCount, setFrameCount,
-        generateImageString, getFrameCount, imagesLoaded, setImagesLoaded, updateImages, currentPage, setCurrentPage, sendImagesToBlend}
+        setRefreshKey, updateSelected, swapSelectStatus, swapHighlightStatus, changeHighlightStrength, frameCount, setFrameCount,
+        generateImageString, getFrameCount, imagesLoaded, setImagesLoaded, updateImages, currentPage, setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, setFullscreenImage}
 }

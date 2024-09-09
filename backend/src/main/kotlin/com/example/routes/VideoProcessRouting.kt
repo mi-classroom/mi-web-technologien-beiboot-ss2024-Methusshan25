@@ -123,6 +123,7 @@ fun Route.videoProcessRouting() {
                     framesToHighlight = part.value
                 }
             }
+            println(framesToHighlight);
             if (Paths.get("/app/data/projects/$projectName/frames").exists()) {
                 blendImages(projectName, framesToUse, framesToHighlight)
                 var result = File("/app/data/projects/$projectName/blendedImage.png")

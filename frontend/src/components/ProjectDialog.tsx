@@ -1,6 +1,5 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@mui/material";
-import axios from "axios"
-import {useState } from "react";
+import {useState} from "react";
 import { IProjectProps } from "../interfaces/IProjectProps";
 
 function ProjectDialog({useAddProject} : IProjectProps) {
