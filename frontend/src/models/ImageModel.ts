@@ -1,9 +1,11 @@
 import axios from "axios";
 import { IImage } from "../interfaces/IImage";
 
+const url = 'https://les-backend.onrender.com'
+
 export async function getImages(projectName: string, min: number, count: number): Promise<Array<IImage>> {
   let images: Array<IImage> = []
-  await axios.get('http://localhost:8080/listImages/' + projectName).then(res => {
+  await axios.get(url + '/listImages/' + projectName).then(res => {
     res.data.forEach((image: any) => {
       let indexArray = image.split("frame")
       indexArray = indexArray[1].split(".")
@@ -12,7 +14,7 @@ export async function getImages(projectName: string, min: number, count: number)
         images.push({
           index: imageIndex,
           name: image,
-          data: "http://localhost:8080/" + projectName + "/" + image,
+          data: url + projectName + "/" + image,
           selected: false,
           highlighted: false,
           highlightStrength: 0,
@@ -29,7 +31,7 @@ export async function getImages(projectName: string, min: number, count: number)
 
 export async function getTotalFrameCount(projectName: string): Promise<number> {
   let totalFrameCount = 0;
-  await axios.get('http://localhost:8080/listImages/' + projectName).then(res => {
+  await axios.get(url + '/listImages/' + projectName).then(res => {
     totalFrameCount = res.data.length;
   }).catch(err => {
     console.log(err);
@@ -38,7 +40,7 @@ export async function getTotalFrameCount(projectName: string): Promise<number> {
 }
 
 export async function generateFrames(projectName: string): Promise<Boolean> {
-  await axios.get("http://localhost:8080/splitFrames/" + projectName).then(res => {
+  await axios.get(url + "/splitFrames/" + projectName).then(res => {
     console.log(res)
     return true;
   }).catch(err => {
@@ -53,7 +55,7 @@ export async function generateBlendedImage(projectName: string, selectedImages: 
   const form = new FormData();
   form.append("framesToUse", selectedImages);
   form.append("framesToHighlight", highlightedImages);
-  await axios.post('http://localhost:8080/blendImages/' + projectName, form).then((res) => {
+  await axios.post(url + '/blendImages/' + projectName, form).then((res) => {
     result = "data:image/jpeg;base64," + res.data;
   })
   return result
@@ -61,7 +63,7 @@ export async function generateBlendedImage(projectName: string, selectedImages: 
 
 export async function getBlendedImage(projectName: string): Promise<string> {
   var result = "";
-  await axios.get('http://localhost:8080/blendedImage/' + projectName).then((res) => {
+  await axios.get(url + '/blendedImage/' + projectName).then((res) => {
     result = "data:image/jpeg;base64," + res.data;
   })
   return result
