@@ -7,15 +7,12 @@ import { useVideoViewModel } from "../ViewModel/VideoViewModel";
 const UploadArea = ({projectName, uploadVerification} : IUploadAreaProps) => {
 
     type Nullable<T> = T | undefined | null;
-    
-    const [isVideoUploaded, setIsVideoUploaded] = useState<Boolean>(false)
-    const [loading, _] = useState<Boolean>(false);
 
     const onDrop = useCallback((acceptedFiles: SetStateAction<Nullable<File>>[]) => {
         setFile(acceptedFiles[0])
     }, [])
 
-    const {useVideoAvailable, file, setFile, removeFile, doVideoUpload, frameGeneration} = useVideoViewModel(projectName, uploadVerification);
+    const {useVideoAvailable, file, setFile, removeFile, doVideoUpload, frameGeneration, loading, isVideoUploaded, setIsVideoUploaded} = useVideoViewModel(projectName, uploadVerification);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
     const isAvailable = useCallback(async () => {

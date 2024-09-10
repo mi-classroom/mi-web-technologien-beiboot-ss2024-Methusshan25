@@ -76,6 +76,7 @@ export function useImageViewModel(projectName : string, sendFunction?: (image : 
     }, [])
 
     const updateSelected = (images: IImage[]) => {
+        console.log(selectedImages)
         selectedImages.forEach((imageId) => {
             let findIndex = images.findIndex((image) => image.index == imageId)
             if (findIndex != -1) {
@@ -98,8 +99,9 @@ export function useImageViewModel(projectName : string, sendFunction?: (image : 
         if (fillerImages[findIndex].selected) {
             fillerImages[findIndex].selected = false;
             fillerImages[findIndex].highlighted = false;
-            let deleteIndex = selectedImages.indexOf(index);
+            let deleteIndex = selectedImages.findIndex((imageID) => imageID == index);
             selectedImages.splice(deleteIndex, 1);
+            console.log("index:" + index + " findIndex: " + findIndex + " deleteIndex: " + deleteIndex + " selectedImages: " + selectedImages)
         }
         else {
             fillerImages[findIndex].selected = true;
