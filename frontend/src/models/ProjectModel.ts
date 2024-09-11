@@ -1,6 +1,10 @@
 import axios from "axios";
 import { IProject } from "../interfaces/IProject";
 
+/**
+ * Makes an request to the API to return all projects
+ * @returns Array with all projects
+ */
 export async function fetchProjects(): Promise<Array<IProject>> {
   var projects: Array<IProject> = [];
   try {
@@ -22,6 +26,10 @@ export async function fetchProjects(): Promise<Array<IProject>> {
   return projects;
 }
 
+/**
+ * Makes an request to delete the given project
+ * @param projectName Refers to the project which has to be removed
+ */
 export async function removeProject(projectName: string){
   await axios.delete('http://localhost:8080/projects/' + projectName).then(() => {
     console.log("Project " + projectName + " removed");
@@ -30,6 +38,10 @@ export async function removeProject(projectName: string){
   });
 }
 
+/**
+ * Makes an request to create a project 
+ * @param newProjectName Name of the new project
+ */
 export async function addProject(newProjectName: string){
   const form = new FormData();
   form.append('projectName', newProjectName)

@@ -8,6 +8,9 @@ interface IDetail {
 
 const ImageDetail = ({ open, setOpen, imgSrc }: IDetail) => {
 
+    /**
+     * Closes the detail image view
+     */
     const handleClose = () => {
         setOpen(false);
     }
