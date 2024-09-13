@@ -20,6 +20,9 @@ import kotlin.io.path.exists
 
 fun Route.videoProcessRouting() {
 
+    /**
+     * Creates routes for accessing single frames and the video source
+     */
     fun createStaticRoutes(){
         val directories = File("/app/data/projects").listFiles()?.map { it.name }
         directories?.forEach{
