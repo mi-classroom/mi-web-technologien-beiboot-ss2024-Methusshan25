@@ -90,7 +90,7 @@ fun Route.videoProcessRouting() {
             }
             val file = File("/app/data/projects/$projectName/uploadedVideo.mp4")
             extractFrames(file, projectName)
-            call.respondText("Frames sucessfully split", status = HttpStatusCode.BadRequest)
+            call.respondText("Frames sucessfully split", status = HttpStatusCode.OK)
         }
         delete("/{id}") {
             val projectName = call.parameters["id"] ?: return@delete call.respondText(
