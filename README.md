@@ -19,7 +19,7 @@ Reviewer: Dennis Wäckerle
 
 ### Backend
 
-[[JDK21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)] required to run backend locally
+[JDK21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html) required to run backend locally
 
 Go into the `\backend`-folder and enter following command:
 
@@ -27,7 +27,7 @@ Go into the `\backend`-folder and enter following command:
 
 ### Frontend
 
-To run the frontend the [[node version >= 20.11](https://nodejs.org/en/download/package-manager)] is required
+To run the frontend the [node version >= 20.11](https://nodejs.org/en/download/package-manager) is required
 
 Go into the `\frontend`-folder and enter following command:
 
