@@ -8,23 +8,29 @@ export async function uploadVideo(projectName: string, file: File) : Promise<Boo
     const form = new FormData();
     form.append('projectName', projectName)
     form.append('video', file!!)
-    console.log(projectName, file);
-    let result = await axios.post('http://localhost:8080/uploadVideo' ,form).then((res) => {
-        console.log(res)
-        return true;
-    }
-    ).catch((err) => {
-        console.log(err);
-        return false; 
+    await fetch('http://localhost:8080/uploadVideo', {
+        body: form,
+        method: "POST"
     })
-    return result;
+    .then(response => response.text())
+    .then(text => {
+        console.log(text)
+        return true
+    })
+    .catch(error => {
+        console.log(error)
+        return false
+    })
+    return false;
 }
 
 export async function videoAvailable(projectName: string) : Promise<any>{
-    let result = await axios.get('http://localhost:8080/uploadVideo/' + projectName).then((res) => {
-        return res;
-    }).catch((err) => {
-        return null;
-    })
+    let result = null;
+    let response = await fetch('http://localhost:8080/uploadVideo/' + projectName)
+    
+    if(response.ok){
+        let blob = await response.blob()
+        result = new File([blob], "")
+    }
     return result
 }
