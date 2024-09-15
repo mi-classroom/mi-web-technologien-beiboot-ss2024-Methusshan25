@@ -15,6 +15,23 @@ Reviewer: Dennis Wäckerle
   - Frontend runs under URL: http://localhost:5173
 3. Shutdown application with `docker compose down`
 
+## Run locally:
+
+### Backend
+
+[[JDK21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)] required to run backend locally
+
+Go into the `\backend`-folder and enter following command:
+
+`./gradlew run`  
+
+### Frontend
+
+To run the frontend the [[node version >= 20.11](https://nodejs.org/en/download/package-manager)] is required
+
+Go into the `\frontend`-folder and enter following command:
+
+`npm run dev`
+
 ## Deployments:
 Application runs on: https://les-frontend.onrender.com/
-
