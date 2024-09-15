@@ -1,5 +1,6 @@
 import io.ktor.plugin.features.*
 import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val ktor_version: String by project
 val kotlin_version: String by project
@@ -19,6 +20,18 @@ application {
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+tasks.withType<KotlinCompile>{
+    kotlinOptions {
+        jvmTarget = "21"
+    }
 }
 
 repositories {
