@@ -46,3 +46,9 @@ When working on a issue, a associated issue in the repository is created. A asso
 3. Author looks at comment and implements recommended improvements
 4. After a second looks, the reviewer approves the pull request, if all improvements are implemented
 5. Pull request is done and merged with main
+
+### Review Criteria
+1. Does the code work?
+2. Is the code understandable?
+3. Are there better ways to implement it?
+4. Are there ideas for improvenent on the feature side?
