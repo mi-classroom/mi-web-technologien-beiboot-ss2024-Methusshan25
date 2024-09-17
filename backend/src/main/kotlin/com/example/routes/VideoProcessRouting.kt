@@ -31,13 +31,30 @@ fun Route.videoProcessRouting() {
     createStaticRoutes()
 
     route("/listImages"){
+        /**
+         * GET /listImages/{id}
+         *
+         * Returns a list of all image identifiers
+         *
+         * parameters:
+         *  - in: path
+         *    name: id
+         *    schema:
+         *      type: string
+         *    required: true
+         *    description: Name of the project
+         *
+         * responses:
+         *    200: OK - Returns a list of all image identifiers
+         *    400: Bad Request - Invalid project name given
+         */
         get("/{id}"){
             val projectName = call.parameters["id"] ?: return@get call.respondText(
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
             val images = File("/app/data/projects/$projectName/frames").listFiles()?.map { it.name }
-            call.respond(images!!)
+            call.respond(status = HttpStatusCode.OK, images!!)
         }
     }
 
@@ -54,6 +71,23 @@ fun Route.videoProcessRouting() {
                 call.respondText("Video not found", status = HttpStatusCode.NotFound)
             }
         }
+
+        /**
+         * POST /uploadVideo
+         *
+         * Uploads a video to the given project
+         *
+         * requestBody:
+         *      description: A multipart/form-data object containing the project name and the video file
+         *      content:
+         *          multipart/form-data:
+         *              example:
+         *                  projectName: Kreisverkehr
+         *                  file: Kreisverkehr.mp4
+         * responses:
+         *      200: OK - Video uploaded to project
+         *      415: Unsupported Media Type - Not a valid video file
+         */
         post() {
             val multipart = call.receiveMultipart()
 
@@ -67,7 +101,7 @@ fun Route.videoProcessRouting() {
                         destination.writeBytes(fileBytes)
                         call.respondText("File uploaded successfully", status = HttpStatusCode.OK)
                     } else {
-                        call.respondText("File not uploaded yet", status = HttpStatusCode.BadRequest)
+                        call.respondText("File could not be uploaded", status = HttpStatusCode.BadRequest)
                     }
                 }
                 if (part is PartData.FormItem) {
@@ -78,6 +112,22 @@ fun Route.videoProcessRouting() {
         }
     }
     route("/splitFrames") {
+        /**
+         * GET /splitFrames/{id}
+         *
+         * Splits a video into frames
+         *
+         * parameters:
+         *  - in: path
+         *    name: id
+         *    schema:
+         *      type: string
+         *    required: true
+         *    description: Name of the project
+         *
+         * responses:
+         *    200: OK - Frames are successfully split
+         */
         get("/{id}") {
             val projectName = call.parameters["id"] ?: return@get call.respondText(
                 "Missing id",
@@ -92,6 +142,25 @@ fun Route.videoProcessRouting() {
             extractFrames(file, projectName)
             call.respondText("Frames sucessfully split", status = HttpStatusCode.OK)
         }
+
+        /**
+         * DELETE /listImages/{id}
+         *
+         * Removes all generated frames
+         *
+         * parameters:
+         *  - in: path
+         *    name: id
+         *    schema:
+         *      type: string
+         *    required: true
+         *    description: Name of the project
+         *
+         * responses:
+         *    200: OK - Frames successfully removed
+         *    400: Bad Request - Invalid project name given
+         *    404: Not Found - Given project does not exist
+         */
         delete("/{id}") {
             val projectName = call.parameters["id"] ?: return@delete call.respondText(
                 "Missing id",
@@ -107,6 +176,33 @@ fun Route.videoProcessRouting() {
         }
     }
     route("/blendImages") {
+        /**
+         * POST /blendImages
+         *
+         * Blends requested images together
+         *
+         * parameters:
+         *  - in: path
+         *    name: id
+         *    schema:
+         *      type: string
+         *    required: true
+         *    description: Name of the project
+         *
+         * requestBody:
+         *      description: A multipart/form-data object containing a string containing all frames that are used in the
+         *      blending process and a string containing all frames, that are used multiple times to highlight them and
+         *      the amount of duplicates
+         *      content:
+         *          multipart/form-data:
+         *              example:
+         *                  framesToUse: 12,13,14
+         *                  framesToHighlight: 13;10,14;20
+         * responses:
+         *      200: OK - Frames successfully blended
+         *      400: Bad Request - Invalid project name given
+         *      404: Not Found - Given project does not exist
+         */
         post("/{id}") {
             val projectName = call.parameters["id"] ?: return@post call.respondText(
                 "Missing id",
