@@ -9,32 +9,8 @@ import ImageDetail from "./ImageDetail";
 const ImageSelector = ({ projectName, sendImage, blendedImageExists }: IImageSelectorProps) => {
 
     const { pageCount, currentImages, refreshKey, swapSelectStatus, swapHighlightStatus, changeHighlightStrength, imagesLoaded, currentPage, 
-        setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, setFullscreenImage
+        setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, selectAllImagesOnPage, deselectAllImagesOnPage, handleOpen
     } = useImageViewModel(projectName, sendImage, blendedImageExists);
-
-    const handleOpen = (imgSource : string) => {
-        setFullscreenImage(imgSource)
-        setOpen(true);
-    }
-
-    const selectAllImages = () => {
-        currentImages.forEach(image => {
-            if(!image.selected){
-                swapSelectStatus(image.index)
-            }
-        })
-    }
-
-    const deselectAllImages = () => {
-        currentImages.forEach(image => {
-            if(image.selected){
-                if(image.highlighted){
-                    swapHighlightStatus(image.index)
-                }
-                swapSelectStatus(image.index)
-            }
-        })
-    }
 
     return (
         <>
@@ -64,10 +40,10 @@ const ImageSelector = ({ projectName, sendImage, blendedImageExists }: IImageSel
                         <Button variant="contained" onClick={sendImagesToBlend} sx={{ marginTop: 10, marginLeft: 1, float: "right", right: -90 }}>Create Image</Button>
                     </Tooltip>
                     <Tooltip title="Select all frames of this page">
-                        <Button variant="contained" onClick={selectAllImages} sx={{ marginTop: 10, float: "left" }}>Select Page</Button>
+                        <Button variant="contained" onClick={selectAllImagesOnPage} sx={{ marginTop: 10, float: "left" }}>Select Page</Button>
                     </Tooltip>
                     <Tooltip title="Deselect all frames of this page">
-                        <Button variant="contained" onClick={deselectAllImages} sx={{ marginTop: 10, marginLeft: 1, float: "left", left: 0 }}>Deselect Page</Button>
+                        <Button variant="contained" onClick={deselectAllImagesOnPage} sx={{ marginTop: 10, marginLeft: 1, float: "left", left: 0 }}>Deselect Page</Button>
                     </Tooltip>
                     <ImageDetail open={open} setOpen={setOpen} imgSrc={fullscreenImage} ></ImageDetail>
                     <Grid container spacing={2} key={refreshKey}>

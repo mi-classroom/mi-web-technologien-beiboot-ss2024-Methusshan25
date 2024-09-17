@@ -8,6 +8,9 @@ const UploadArea = ({ projectName, uploadVerification }: IUploadAreaProps) => {
 
     type Nullable<T> = T | undefined | null;
 
+    /**
+     * If file is dropped into target area, the file parameter will be updates to the dropped file
+     */
     const onDrop = useCallback((acceptedFiles: SetStateAction<Nullable<File>>[]) => {
         setFile(acceptedFiles[0])
     }, [])
@@ -15,6 +18,9 @@ const UploadArea = ({ projectName, uploadVerification }: IUploadAreaProps) => {
     const { useVideoAvailable, file, setFile, removeFile, doVideoUpload, frameGeneration, loading, isVideoUploaded, setIsVideoUploaded, fps, handleFps, useGenerateVideoSourceURL } = useVideoViewModel(projectName, uploadVerification);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
+    /**
+     * Checks if a video exists and updates the parameters depending if it exists
+     */
     const isAvailable = useCallback(async () => {
         let videoFile = await useVideoAvailable(projectName);
         console.log(videoFile)

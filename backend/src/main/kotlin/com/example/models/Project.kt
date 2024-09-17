@@ -9,6 +9,9 @@ data class Project(var projectName : String, var frameCount : Int = 0, var video
 
 var projects = mutableListOf<Project>()
 
+/**
+ * Adds all existing projects into the projects-list
+ */
 fun configureProjects(){
     File("/app/data/projects").listFiles()?.forEach {
         val imageDirectory = File("/app/data/projects/${it.name}/frames")
@@ -19,6 +22,9 @@ fun configureProjects(){
     }
 }
 
+/**
+ * Updates all projects in the projects-list
+ */
 fun updateProjects(){
     projects.forEach {
         val imageDirectory = File("/app/data/projects/${it.projectName}/frames")

@@ -7,18 +7,31 @@ function ProjectDialog({useAddProject} : IProjectProps) {
     const [open, setOpen] = useState(false);
     const [newProjectName, setNewProjectName] = useState("");
 
+    /**
+     * Opens the dialog window
+     */
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    /**
+     * Sets the newProjectName parameter to the value of the event
+     * @param event Event containing the typed name
+     */
     const handleTyping = (event : any) => {
         setNewProjectName(event.target.value)
     }
 
+    /**
+     * Closes the dialog window
+     */
     const handleClose = () => {
         setOpen(false);
     };
 
+    /**
+     * Make an request to create a new project and closes the dialog window
+     */
     const handleSave = () => {
         useAddProject(newProjectName); 
         handleClose();

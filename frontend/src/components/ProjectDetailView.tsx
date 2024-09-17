@@ -24,11 +24,18 @@ const ProjectDetailView = (props: any) => {
     }, [])
 
 
+    /**
+     * Updates the blendedImage parameter with the given image
+     * @param image image which will be the value of blendedImage
+     */
     const handleReceivedImage = (image : string) => {
         setBlendedImage(image);
     }
 
 
+    /**
+     * Downloads the image in blendedImage as in jpg format
+     */
     const downloadImage = () => {
         var a = document.createElement("a");
         a.href = blendedImage;
