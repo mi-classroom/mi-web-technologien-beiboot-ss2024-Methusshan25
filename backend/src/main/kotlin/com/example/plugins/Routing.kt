@@ -1,7 +1,9 @@
 package com.example.plugins
 
+import com.example.routes.imageRouting
 import com.example.routes.videoProcessRouting
 import com.example.routes.projectRouting
+import com.example.routes.videoAccessRouting
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -13,5 +15,7 @@ fun Application.configureRouting() {
         }
         videoProcessRouting()
         projectRouting()
+        imageRouting()
+        videoAccessRouting()
     }
 }
