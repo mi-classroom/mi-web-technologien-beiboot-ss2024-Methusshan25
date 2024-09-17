@@ -133,13 +133,18 @@ fun Route.videoProcessRouting() {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
+            var fps = 30
+            fps = call.request.queryParameters["fps"]?.toInt() ?: return@get call.respondText(
+                "Invalid fps number",
+                status = HttpStatusCode.BadRequest
+            )
             if(!File("/app/data/projects/$projectName/frames").exists()) {
                 Files.createDirectory(Paths.get("/app/data/projects/$projectName/frames"))
             }else{
                 deleteDirectory(File("/app/data/projects/$projectName/frames"))
             }
             val file = File("/app/data/projects/$projectName/uploadedVideo.mp4")
-            extractFrames(file, projectName)
+            extractFrames(file, projectName, fps)
             call.respondText("Frames sucessfully split", status = HttpStatusCode.OK)
         }
 

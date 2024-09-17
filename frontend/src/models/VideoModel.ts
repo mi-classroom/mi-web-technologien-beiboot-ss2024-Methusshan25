@@ -1,5 +1,3 @@
-import axios, { AxiosResponse } from "axios";
-
 export function generateVideoSourceURL(projectName: string) : string {
     return "http://localhost:8080/" + projectName + "/video/uploadedVideo.mp4";
 }

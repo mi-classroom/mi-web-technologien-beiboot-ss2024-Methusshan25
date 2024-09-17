@@ -35,7 +35,7 @@ interface ImageViewModel {
     useGetBlendedImage: (projectName: string) => Promise<string>
     useGetTotalFrameCount: (projectName: string) => Promise<number>
     useGenerateBlendedImage: (projectName: string, selectedImages: string, highlightedImages: string) => Promise<string>
-    useGenerateFrames: (projectName: string) => Promise<Boolean>
+    useGenerateFrames: (projectName: string, fps: number) => Promise<Boolean>
 }
 
 export function useImageViewModel(projectName : string, sendFunction?: (image : string) => void, blendedImageExists? : boolean) : ImageViewModel {
@@ -194,8 +194,8 @@ export function useImageViewModel(projectName : string, sendFunction?: (image : 
         return image;
     }
 
-    async function useGenerateFrames(projectName : string){
-        let framesGenerated = await generateFrames(projectName);
+    async function useGenerateFrames(projectName : string, fps: number){
+        let framesGenerated = await generateFrames(projectName, fps);
         return framesGenerated;
     }
 

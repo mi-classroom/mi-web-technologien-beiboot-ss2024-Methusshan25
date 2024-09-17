@@ -1,6 +1,7 @@
 import { SetStateAction, useState } from "react";
 import { generateVideoSourceURL, uploadVideo, videoAvailable } from "../models/VideoModel";
 import { useImageViewModel } from "./ImageViewModel";
+import { SelectChangeEvent } from "@mui/material";
 
 type Nullable<T> = T | undefined | null;
 
@@ -14,9 +15,12 @@ interface VideoViewModel {
     setIsVideoUploaded : (isVideoUploaded : boolean) => void
     loading : boolean,
     setLoading : (loading : boolean) => void
+    fps: number,
+    setFps: (pFps : number) => void
     removeFile : () => void
     doVideoUpload : () => void
-    frameGeneration : () => void
+    frameGeneration : (fps : number) => void
+    handleFps: (event : SelectChangeEvent) => void
 }
 
 
@@ -25,6 +29,7 @@ export function useVideoViewModel(projectName : string, uploadVerification? : (v
     const [file, setFile] = useState<Nullable<File>>();
     const [isVideoUploaded, setIsVideoUploaded] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false);
+    const [fps, setFps] = useState<number>(30);
 
     const {useGenerateFrames} = useImageViewModel(projectName);
 
@@ -42,13 +47,17 @@ export function useVideoViewModel(projectName : string, uploadVerification? : (v
         setLoading(false)
     }
 
-    const frameGeneration = async () => {
+    const frameGeneration = async (fps: number) => {
         setLoading(true);
-        await useGenerateFrames(projectName);
+        await useGenerateFrames(projectName, fps);
         if(uploadVerification != undefined)
             uploadVerification(true);
         setLoading(false);
 
+    }
+
+    const handleFps = (event : SelectChangeEvent) => {
+        setFps(parseInt(event.target.value))
     }
 
     function useGenerateVideoSourceURL(projectName: string){
@@ -66,5 +75,6 @@ export function useVideoViewModel(projectName : string, uploadVerification? : (v
         return isVideoAvailable
     }
 
-    return {useGenerateVideoSourceURL, useUploadVideo, useVideoAvailable, file, setFile, isVideoUploaded, setIsVideoUploaded, loading, setLoading, doVideoUpload, frameGeneration, removeFile}
+    return {useGenerateVideoSourceURL, useUploadVideo, useVideoAvailable, file, setFile, isVideoUploaded, setIsVideoUploaded, loading, 
+        setLoading, fps, setFps, doVideoUpload, frameGeneration, removeFile, handleFps}
 }
