@@ -1,5 +1,3 @@
-import axios, { AxiosResponse } from "axios";
-
 export function generateVideoSourceURL(projectName: string) : string {
     return "http://localhost:8080/" + projectName + "/video/uploadedVideo.mp4";
 }
@@ -26,7 +24,7 @@ export async function uploadVideo(projectName: string, file: File) : Promise<Boo
 
 export async function videoAvailable(projectName: string) : Promise<any>{
     let result = null;
-    let response = await fetch('http://localhost:8080/uploadVideo/' + projectName)
+    let response = await fetch('http://localhost:8080/' + projectName + "/video/uploadedVideo.mp4")
     
     if(response.ok){
         let blob = await response.blob()

@@ -2,7 +2,7 @@ import { IImage } from "../interfaces/IImage";
 
 export async function getImages(projectName: string, min: number, count: number): Promise<Array<IImage>> {
   let images: Array<IImage> = []
-  await fetch('http://localhost:8080/listImages/' + projectName)
+  await fetch('http://localhost:8080/frames/' + projectName)
   .then(response => response.json())
   .then(data => {
     data.forEach((image : any) => {
@@ -28,7 +28,7 @@ export async function getImages(projectName: string, min: number, count: number)
 
 export async function getTotalFrameCount(projectName: string): Promise<number> {
   let totalFrameCount = 0;
-  await fetch('http://localhost:8080/listImages/' + projectName)
+  await fetch('http://localhost:8080/frames/' + projectName)
   .then(response => response.json())
   .then(data => {
     totalFrameCount = data.length
