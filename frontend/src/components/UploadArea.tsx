@@ -23,6 +23,7 @@ const UploadArea = ({projectName, uploadVerification} : IUploadAreaProps) => {
      */
     const isAvailable = useCallback(async () => {
         let videoFile = await useVideoAvailable(projectName);
+        console.log(videoFile)
         if(videoFile != null){
             setIsVideoUploaded(true);
             setFile(videoFile);
