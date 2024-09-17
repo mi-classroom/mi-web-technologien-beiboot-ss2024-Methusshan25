@@ -40,6 +40,10 @@ export function useVideoViewModel(projectName : string, uploadVerification? : (v
         setFile(null)
     } 
 
+    /**
+     * Updates the fps variable 
+     * @param event Event triggered, when diffrent fps are selected
+     */
     const handleFps = (event : SelectChangeEvent) => {
         setFps(event.target.value)
     }

@@ -301,6 +301,7 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
     /**
      * Makes an request to split the video of the project into frames and returns if it was successful
      * @param projectName Refers to the project whose video is split into frames
+     * @param fps Frames per second, at which the images are split
      * @returns Success of the splitting process
     */
     async function useGenerateFrames(projectName: string, fps: string) {
