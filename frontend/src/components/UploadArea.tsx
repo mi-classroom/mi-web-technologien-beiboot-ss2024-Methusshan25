@@ -59,7 +59,7 @@ const UploadArea = ({ projectName, uploadVerification }: IUploadAreaProps) => {
                         <FormControl>
                             <InputLabel>FPS</InputLabel>
                             <Select
-                                value={fps.toString()}
+                                value={fps}
                                 label="Age"
                                 onChange={handleFps}
                             >

@@ -37,8 +37,8 @@ interface ImageViewModel {
     useGetImages: (projectName: string, min: number, count: number) => Promise<Array<IImage>>;
     useGetBlendedImage: (projectName: string) => Promise<string>
     useGetTotalFrameCount: (projectName: string) => Promise<number>
-    useGenerateBlendedImage: (projectName: string, selectedImages: string, highlightedImages: string) => Promise<string>
-    useGenerateFrames: (projectName: string) => Promise<Boolean>
+    useGenerateBlendedImage: (projectName: string, selectedImages: string, highlightedImages: string) => Promise<string | null>
+    useGenerateFrames: (projectName: string, fps: string) => Promise<Boolean>
 }
 
 export function useImageViewModel(projectName: string, sendFunction?: (image: string) => void, blendedImageExists?: boolean): ImageViewModel {
@@ -56,7 +56,7 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
 
     useEffect(() => {
         if (blendedImageExists) {
-            getAndSendBlendedImage()
+            getAndSendBlendedImage();
         }
     }, [])
 
@@ -69,9 +69,9 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
      * Generates an blended images and sends it to the parent
      */
     const sendImagesToBlend = async () => {
-        let strings = await generateImageString()
+        let strings = await generateImageString();
         let image = await useGenerateBlendedImage(projectName, strings[0], strings[1]);
-        if (sendFunction != undefined)
+        if (sendFunction != undefined && image != null)
             sendFunction(image);
     }
 
@@ -91,13 +91,13 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
      */
     const updateSelected = (images: IImage[]) => {
         selectedImages.forEach((imageId) => {
-            let findIndex = images.findIndex((image) => image.index == imageId)
+            let findIndex = images.findIndex((image) => image.index == imageId);
             if (findIndex != -1) {
                 images[findIndex].selected = true;
             }
         })
         highlightedImages.forEach((highlight) => {
-            let findIndex = images.findIndex((image) => image.index == highlight.highlightedImage)
+            let findIndex = images.findIndex((image) => image.index == highlight.highlightedImage);
             if (findIndex != -1) {
                 images[findIndex].highlighted = true;
                 images[findIndex].highlightStrength = highlight.hightlightStrength;
@@ -160,7 +160,7 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
         let findIndex = fillerImages.findIndex((image) => image.index == index);
         if (newStrength != null) {
             fillerImages[findIndex].highlightStrength = newStrength;
-            let findIndex2 = highlightedImages.findIndex((image) => image.highlightedImage == index)
+            let findIndex2 = highlightedImages.findIndex((image) => image.highlightedImage == index);
             let copyHighlightedImages = highlightedImages;
             copyHighlightedImages[findIndex2].hightlightStrength = newStrength;
             setHighlightedImages(copyHighlightedImages);
@@ -179,11 +179,11 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
         var highlightedString = "";
         await useGetImages(projectName, 0, frameCount).then((res) => {
             res.forEach((image) => {
-                let selected = selectedImages.find((selectedImage) => selectedImage == image.index)
+                let selected = selectedImages.find((selectedImage) => selectedImage == image.index);
                 if (selected != undefined) {
                     selectedString += image.index + ",";
                 }
-                let highlight = highlightedImages.find((highlight) => highlight.highlightedImage == image.index)
+                let highlight = highlightedImages.find((highlight) => highlight.highlightedImage == image.index);
                 if (highlight != undefined) {
                     highlightedString += highlight.highlightedImage + ";" + highlight.hightlightStrength + ",";
                 }
@@ -217,8 +217,8 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
      * Opens the given Image in fullscreen view
      * @param imgSource Image to be seen in fullscreen view
      */
-    const handleOpen = (imgSource : string) => {
-        setFullscreenImage(imgSource)
+    const handleOpen = (imgSource: string) => {
+        setFullscreenImage(imgSource);
         setOpen(true);
     }
 
@@ -227,22 +227,22 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
      */
     const selectAllImagesOnPage = () => {
         currentImages.forEach(image => {
-            if(!image.selected){
-                swapSelectStatus(image.index)
+            if (!image.selected) {
+                swapSelectStatus(image.index);
             }
         })
     }
 
     /**
-     * Deselects all images on the current üage
+     * Deselects all images on the current page
      */
     const deselectAllImagesOnPage = () => {
         currentImages.forEach(image => {
-            if(image.selected){
-                if(image.highlighted){
-                    swapHighlightStatus(image.index)
+            if (image.selected) {
+                if (image.highlighted) {
+                    swapHighlightStatus(image.index);
                 }
-                swapSelectStatus(image.index)
+                swapSelectStatus(image.index);
             }
         })
     }
@@ -288,8 +288,14 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
      * @returns The blended image in base64 format
     */
     async function useGenerateBlendedImage(projectName: string, selectedImages: string, highlightedImages: string) {
-        let image = await generateBlendedImage(projectName, selectedImages, highlightedImages);
-        return image;
+        if (selectedImages == "") {
+            alert("No images selected");
+            return null
+        } else {
+            let image = await generateBlendedImage(projectName, selectedImages, highlightedImages);
+            return image;
+        }
+
     }
 
     /**
@@ -297,8 +303,8 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
      * @param projectName Refers to the project whose video is split into frames
      * @returns Success of the splitting process
     */
-    async function useGenerateFrames(projectName: string) {
-        let framesGenerated = await generateFrames(projectName);
+    async function useGenerateFrames(projectName: string, fps: string) {
+        let framesGenerated = await generateFrames(projectName, fps);
         return framesGenerated;
     }
 
@@ -306,9 +312,7 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
         useGetImages, useGetBlendedImage, useGetTotalFrameCount, useGenerateBlendedImage, useGenerateFrames, pageCount,
         setPageCount, currentImages, setCurrentImages, selectedImages, highlightedImages, setHighlightedImages, refreshKey,
         setRefreshKey, updateSelected, swapSelectStatus, swapHighlightStatus, changeHighlightStrength, frameCount, setFrameCount,
-        generateImageString, getFrameCount: updateFrameAndPagecount, imagesLoaded, setImagesLoaded, updateImages, 
-        currentPage, setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, setFullscreenImage, handleOpen, selectAllImagesOnPage, deselectAllImagesOnPage() {
-            
-        },
+        generateImageString, getFrameCount: updateFrameAndPagecount, imagesLoaded, setImagesLoaded, updateImages,
+        currentPage, setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, setFullscreenImage, handleOpen, selectAllImagesOnPage, deselectAllImagesOnPage
     }
 }

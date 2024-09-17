@@ -39,7 +39,7 @@ export async function getTotalFrameCount(projectName: string): Promise<number> {
   return totalFrameCount;
 }
 
-export async function generateFrames(projectName: string, fps: number): Promise<Boolean> {
+export async function generateFrames(projectName: string, fps: string): Promise<Boolean> {
   await fetch("http://localhost:8080/splitFrames/" + projectName + "?fps=" + fps)
   .then(response => response.text())
   .then(text => {
