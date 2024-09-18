@@ -1,22 +1,22 @@
+import axios from "axios";
 import { IImage } from "../interfaces/IImage";
+
 
 /**
  * Makes request for images for all images from a project and filters and saves images that are in the given range.
  * @param projectName Name of the project whose images are requested
- * @param min The lowest index of the filtered images 
- * @param count The number of images that are returned
+ * @param lowestIndex The lowest index of the filtered images 
+ * @param numberOfImages The number of images that are returned
  * @returns Array with all images from the project that are in the given range
  *  */ 
-export async function getImages(projectName: string, min: number, count: number): Promise<Array<IImage>> {
+export async function getImages(projectName: string, lowestIndex: number, numberOfImages: number): Promise<Array<IImage>> {
   let images: Array<IImage> = []
-  await fetch('http://localhost:8080/frames/' + projectName)
-  .then(response => response.json())
-  .then(data => {
-    data.forEach((image : any) => {
+  await axios.get('http://localhost:8080/listImages/' + projectName).then(res => {
+    res.data.forEach((image: any) => {
       let indexArray = image.split("frame")
       indexArray = indexArray[1].split(".")
       let imageIndex = indexArray[0];
-      if (imageIndex >= min && imageIndex < min + count && imageIndex < data.length) {
+      if (imageIndex >= lowestIndex && imageIndex < lowestIndex + numberOfImages && imageIndex < res.data.length) {
         images.push({
           index: imageIndex,
           name: image,
@@ -28,8 +28,10 @@ export async function getImages(projectName: string, min: number, count: number)
       }
     })
     images.sort((a, b) => { return a.index - b.index })
+    //console.log(images)
+  }).catch(err => {
+    console.log(err);
   })
-  .catch(error => console.log(error))
   return images;
 }
 
@@ -40,14 +42,11 @@ export async function getImages(projectName: string, min: number, count: number)
  */
 export async function getTotalFrameCount(projectName: string): Promise<number> {
   let totalFrameCount = 0;
-  await fetch('http://localhost:8080/frames/' + projectName)
-  .then(response => response.json())
-  .then(data => {
-    totalFrameCount = data.length
-  }).catch(error => {
-    console.log(error)
-    totalFrameCount = -1
-  }) 
+  await axios.get('http://localhost:8080/listImages/' + projectName).then(res => {
+    totalFrameCount = res.data.length;
+  }).catch(err => {
+    console.log(err);
+  })
   return totalFrameCount;
 }
 
@@ -56,18 +55,15 @@ export async function getTotalFrameCount(projectName: string): Promise<number> {
  * @param projectName Refers to the project whose video is split into frames
  * @returns Success of the splitting process
  */
-export async function generateFrames(projectName: string, fps: string): Promise<Boolean> {
-  await fetch("http://localhost:8080/splitFrames/" + projectName + "?fps=" + fps)
-  .then(response => response.text())
-  .then(text => {
-    console.log(text);
+export async function generateFrames(projectName: string): Promise<Boolean> {
+  await axios.get("http://localhost:8080/splitFrames/" + projectName).then(res => {
+    console.log(res)
     return true;
-  })
-  .catch(error => {
-    console.log(error)
+  }).catch(err => {
+    console.error(err)
     return false;
   })
-  return false;
+  return true;
 }
 
 /**
@@ -82,15 +78,10 @@ export async function generateBlendedImage(projectName: string, selectedImages: 
   const form = new FormData();
   form.append("framesToUse", selectedImages);
   form.append("framesToHighlight", highlightedImages);
-  await fetch('http://localhost:8080/blendImages/' + projectName, {
-    body: form,
-    method: "POST"
+  await axios.post('http://localhost:8080/blendImages/' + projectName, form).then((res) => {
+    result = "data:image/jpeg;base64," + res.data;
   })
-  .then(response => response.text())
-  .then(text => result = "data:image/jpeg;base64," + text)
-  .catch(error => console.log(error))
   return result
-  
 }
 
 /**
@@ -100,11 +91,8 @@ export async function generateBlendedImage(projectName: string, selectedImages: 
  */
 export async function getBlendedImage(projectName: string): Promise<string> {
   var result = "";
-  await fetch('http://localhost:8080/blendedImage/' + projectName)
-  .then(response => response.text())
-  .then(text => result = "data:image/jpeg;base64," + text)
-  .catch(error => {
-    console.log(error)
+  await axios.get('http://localhost:8080/blendedImage/' + projectName).then((res) => {
+    result = "data:image/jpeg;base64," + res.data;
   })
   return result
 }

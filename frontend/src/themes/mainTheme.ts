@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme} from "@mui/material";
 import { pink, purple } from "@mui/material/colors";
 import background from "../assets/background-image.jpg"
 
@@ -11,11 +11,11 @@ const MainTheme = createTheme({
       primary: "#fff"
     }
   },
-  typography: {
+  typography:{
     "fontFamily": `"Staatliches", sans-serif`
   },
   components: {
-    MuiDialog: {
+    MuiDialog:{
       styleOverrides: {
         paper: {
           backgroundColor: "#303030"
@@ -36,7 +36,7 @@ const MainTheme = createTheme({
         },
       },
     },
-    MuiCssBaseline: {
+    MuiCssBaseline:{
       styleOverrides: {
         body: {
           backgroundImage: `url(${background})`
@@ -130,44 +130,6 @@ const MainTheme = createTheme({
           },
           '&.Mui-selected:hover': {
             backgroundColor: '#ee8aff', // Background color when selected and hovered
-          },
-        },
-      },
-    },
-    MuiSelect: {
-      styleOverrides: {
-        root: {
-          border: '2px solid #dd33fa',           // Text color white
-          borderRadius: '8px',
-          '&:hover':{        
-            borderRadius: '8px',
-          },
-          '&.Mui-focused': {
-            color: '#fff',            // Text color white
-          },
-        },
-        icon: {
-          color: '#dd33fa',             // Change the color of the dropdown icon to white
-        },
-      },
-    },
-
-    // Customize the MUI MenuItem component
-    MuiMenuItem: {
-      styleOverrides: {
-        root: {
-          color: '#000',
-          '&.Mui-selected': {
-            backgroundColor: "#ee8aff", // Background color when selected
-            color: '#000',
-            '&:hover': {
-              backgroundColor: "#dd33fa",
-              color: "#000"
-          },
-          },
-          '&:hover': {
-            backgroundColor: "lightgray",
-            color: "#000"
           },
         },
       },
