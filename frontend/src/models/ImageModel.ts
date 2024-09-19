@@ -57,7 +57,7 @@ export async function getTotalFrameCount(projectName: string): Promise<number> {
  * @returns Success of the splitting process
  */
 export async function generateFrames(projectName: string, fps: string): Promise<Boolean> {
-  await fetch("http://localhost:8080/splitFrames/" + projectName + "?fps=" + fps)
+  return await fetch("http://localhost:8080/splitFrames/" + projectName + "?fps=" + fps)
   .then(response => response.text())
   .then(text => {
     console.log(text);
@@ -67,7 +67,6 @@ export async function generateFrames(projectName: string, fps: string): Promise<
     console.log(error)
     return false;
   })
-  return false;
 }
 
 /**

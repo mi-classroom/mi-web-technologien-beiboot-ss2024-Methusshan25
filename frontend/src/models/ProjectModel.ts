@@ -53,15 +53,21 @@ export async function addProject(newProjectName: string) {
   .catch(error => console.log(error))
 }
 
-export async function copyProject(newProjectName: string, originalProjectName: string, fps: number){
+export async function copyProject(newProjectName: string, originalProjectName: string, fps: number) : Promise<Boolean>{
   const form = new FormData();
   form.append('newProjectName', newProjectName)
   form.append('fps', fps.toString())
-  await fetch('http://localhost:8080/projects/' + originalProjectName, {
+  return await fetch('http://localhost:8080/projects/' + originalProjectName, {
     body: form,
     method: "POST"
   })
   .then(response => response.text())
-  .then(text => console.log(text))
-  .catch(error => console.log(error))
+  .then(text => {
+    console.log(text);
+    return true;
+  })
+  .catch(error => {
+    console.log(error)
+    return false;
+  })
 }

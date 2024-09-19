@@ -1,12 +1,12 @@
 import { createTheme } from "@mui/material";
-import { pink, purple } from "@mui/material/colors";
+import { green, pink, purple } from "@mui/material/colors";
 import background from "../assets/background-image.jpg"
 
 const MainTheme = createTheme({
   palette: {
     primary: purple,
     secondary: pink,
-    success: pink,
+    success: green,
     text: {
       primary: "#fff"
     }

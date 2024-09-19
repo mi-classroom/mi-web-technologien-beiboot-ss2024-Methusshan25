@@ -8,13 +8,13 @@ import ImageDetail from "./ImageDetail";
 import { useState } from "react";
 import CopyDialog from "./CopyDialog";
 
-const ImageSelector = ({ projectName, sendImage, blendedImageExists }: IImageSelectorProps) => {
+const ImageSelector = ({ projectName, sendImage, blendedImageExists, launchNotification}: IImageSelectorProps) => {
 
     const [openCopy, setOpenCopy] = useState<boolean>(false);
 
     const { pageCount, currentImages, refreshKey, swapSelectStatus, swapHighlightStatus, changeHighlightStrength, imagesLoaded, currentPage,
         setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, selectAllImagesOnPage, deselectAllImagesOnPage, handleOpen
-    } = useImageViewModel(projectName, sendImage, blendedImageExists);
+    } = useImageViewModel(projectName, sendImage, blendedImageExists, launchNotification);
 
     return (
         <>
@@ -52,7 +52,7 @@ const ImageSelector = ({ projectName, sendImage, blendedImageExists }: IImageSel
                     <Tooltip title="Deselect all frames of this page">
                         <Button variant="contained" color="warning" onClick={deselectAllImagesOnPage} sx={{ marginTop: 10, marginLeft: 1, float: "left", left: 0 }}>Deselect Page</Button>
                     </Tooltip>
-                    <CopyDialog projectName={projectName} open={openCopy} setOpen={setOpenCopy}></CopyDialog>
+                    <CopyDialog projectName={projectName} open={openCopy} setOpen={setOpenCopy} launchNotification={launchNotification}></CopyDialog>
                     <ImageDetail open={open} setOpen={setOpen} imgSrc={fullscreenImage} ></ImageDetail>
                     <Grid container spacing={2} key={refreshKey}>
                         {

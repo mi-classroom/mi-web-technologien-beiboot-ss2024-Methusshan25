@@ -18,7 +18,7 @@ export async function uploadVideo(projectName: string, file: File) : Promise<Boo
     const form = new FormData();
     form.append('projectName', projectName)
     form.append('video', file!!)
-    await fetch('http://localhost:8080/uploadVideo', {
+    return await fetch('http://localhost:8080/uploadVideo', {
         body: form,
         method: "POST"
     })
@@ -31,7 +31,6 @@ export async function uploadVideo(projectName: string, file: File) : Promise<Boo
         console.log(error)
         return false
     })
-    return false;
 }
 
 /**

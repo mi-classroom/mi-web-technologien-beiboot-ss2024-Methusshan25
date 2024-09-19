@@ -6,7 +6,7 @@ interface ProjectViewModel {
     projects: IProject[];
     useRemoveProject : (projectName : string) => void;
     useAddProject: (newProjectName: string) => void;
-    useCopyProject: (newProjectName: string, originalProjectName: string, fps: number) => void
+    useCopyProject: (newProjectName: string, originalProjectName: string, fps: number) => Promise<Boolean>
 }
 
 export function useProjectViewModel() : ProjectViewModel {
@@ -44,7 +44,8 @@ export function useProjectViewModel() : ProjectViewModel {
     }
 
     async function useCopyProject(newProjectName: string, originalProjectName: string, fps: number){
-        await copyProject(newProjectName, originalProjectName, fps);
+        let result = await copyProject(newProjectName, originalProjectName, fps);
+        return result
     }
 
     return {projects, useRemoveProject, useAddProject, useCopyProject}

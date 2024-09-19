@@ -1,12 +1,13 @@
-import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent, Snackbar, Alert, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useProjectViewModel } from "../ViewModel/ProjectViewModel";
 import { ICopyProps } from "../interfaces/ICopyProps";
 
-function CopyDialog({ projectName, open, setOpen }: ICopyProps) {
+function CopyDialog({ projectName, open, setOpen, launchNotification }: ICopyProps) {
 
     const [newProjectName, setNewProjectName] = useState("");
     const [fps, setFps] = useState<string>("30");
+    const [loading, setLoading] = useState<boolean>(false);
     const { projects, useCopyProject } = useProjectViewModel();
 
     /**
@@ -31,16 +32,21 @@ function CopyDialog({ projectName, open, setOpen }: ICopyProps) {
     /**
      * Make an request to create a new project and closes the dialog window
      */
-    const handleCreateCopy = () => {
+    const handleCreateCopy = async () => {
         if (projects.map((project) => project.projectName).includes(newProjectName)) {
             alert("Project with project name " + newProjectName + " does already exist");
         }
-        else if(newProjectName == ""){
+        else if (newProjectName == "") {
             alert("New Project Name is empty");
         }
-        else{
-            useCopyProject(newProjectName, projectName, parseInt(fps))
+        else {
+            setLoading(true);
+            let result = await useCopyProject(newProjectName, projectName, parseInt(fps))
             handleClose();
+            if(result == true){
+                launchNotification("Project successfully copied");
+            }
+            setLoading(false);
         }
     }
 
@@ -72,7 +78,7 @@ function CopyDialog({ projectName, open, setOpen }: ICopyProps) {
                         variant="standard"
                         value={newProjectName}
                         onChange={handleTyping} />
-                    <FormControl sx={{float: "right"}}>
+                    <FormControl sx={{ float: "right" }}>
                         <InputLabel>FPS</InputLabel>
                         <Select
                             value={fps}
@@ -87,6 +93,12 @@ function CopyDialog({ projectName, open, setOpen }: ICopyProps) {
                             <MenuItem value={60}>60</MenuItem>
                         </Select>
                     </FormControl>
+                    <>
+                        {
+                            loading &&
+                            <CircularProgress></CircularProgress>
+                        }
+                    </>
                 </DialogContent>
                 <DialogActions>
                     <Button variant="contained" color="warning" onClick={handleClose}>Close</Button>

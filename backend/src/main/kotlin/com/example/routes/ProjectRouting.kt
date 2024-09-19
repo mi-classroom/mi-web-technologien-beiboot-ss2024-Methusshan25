@@ -115,6 +115,7 @@ fun Route.projectRouting() {
          *      201: Created - A new project was created
          *      400: Bad request - Invalid project id given
          *      404: Not Found - Project with given project id does not exist
+         *      500: Internal Server Error - An error occurred during frame extraction
          */
         post("/{id}"){
             val id = call.parameters["id"] ?: return@post call.respondText(
@@ -142,8 +143,13 @@ fun Route.projectRouting() {
             val videoBytes = video.readBytes()
             saveVideoInProject(videoBytes, newProjectName, ContentType.Video.MP4)
             Files.createDirectory(Paths.get("/app/data/projects/$newProjectName/frames"))
-            extractFrames(video, newProjectName, fps)
-            call.respondText("Project successfully copied", status = HttpStatusCode.Created)
+            val res = extractFrames(video, newProjectName, fps)
+            if(res){
+                call.respondText("Project successfully copied", status = HttpStatusCode.Created)
+            }
+            else{
+                call.respondText("Project copying failed", status = HttpStatusCode.InternalServerError)
+            }
         }
 
         /**

@@ -41,7 +41,7 @@ interface ImageViewModel {
     useGenerateFrames: (projectName: string, fps: string) => Promise<Boolean>
 }
 
-export function useImageViewModel(projectName: string, sendFunction?: (image: string) => void, blendedImageExists?: boolean): ImageViewModel {
+export function useImageViewModel(projectName: string, sendFunction?: (image: string) => void, blendedImageExists?: boolean, launchNotification?: (message: string) => void): ImageViewModel {
 
     const [pageCount, setPageCount] = useState<number>(0);
     const [currentImages, setCurrentImages] = useState<IImage[]>([{ index: 0, name: "FillName", data: "FillData", selected: false, highlighted: false, highlightStrength: 1 }]);
@@ -73,6 +73,9 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
         let image = await useGenerateBlendedImage(projectName, strings[0], strings[1]);
         if (sendFunction != undefined && image != null)
             sendFunction(image);
+        if(launchNotification != undefined){
+            launchNotification("Images successfully blended");
+        }
     }
 
     /**
