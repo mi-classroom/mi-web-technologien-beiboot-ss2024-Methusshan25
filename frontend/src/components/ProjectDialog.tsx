@@ -2,7 +2,7 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogAc
 import {useState} from "react";
 import { IProjectProps } from "../interfaces/IProjectProps";
 
-function ProjectDialog({useAddProject} : IProjectProps) {
+function ProjectDialog({useAddProject, projects} : IProjectProps) {
 
     const [open, setOpen] = useState(false);
     const [newProjectName, setNewProjectName] = useState("");
@@ -33,8 +33,13 @@ function ProjectDialog({useAddProject} : IProjectProps) {
      * Make an request to create a new project and closes the dialog window
      */
     const handleSave = () => {
-        useAddProject(newProjectName); 
-        handleClose();
+        if(projects.map((project) => project.projectName).includes(newProjectName)){
+            alert("Project with project name " + newProjectName + " does already exist");
+        }
+        else{
+            useAddProject(newProjectName); 
+            handleClose();
+        }
     }
 
     return (
