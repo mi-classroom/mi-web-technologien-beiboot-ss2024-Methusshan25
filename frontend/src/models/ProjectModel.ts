@@ -52,3 +52,16 @@ export async function addProject(newProjectName: string) {
   .then(text => console.log(text))
   .catch(error => console.log(error))
 }
+
+export async function copyProject(newProjectName: string, originalProjectName: string, fps: number){
+  const form = new FormData();
+  form.append('newProjectName', newProjectName)
+  form.append('fps', fps.toString())
+  await fetch('http://localhost:8080/projects/' + originalProjectName, {
+    body: form,
+    method: "POST"
+  })
+  .then(response => response.text())
+  .then(text => console.log(text))
+  .catch(error => console.log(error))
+}

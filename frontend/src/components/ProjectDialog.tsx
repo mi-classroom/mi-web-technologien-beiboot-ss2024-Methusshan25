@@ -62,7 +62,7 @@ function ProjectDialog({useAddProject, projects} : IProjectProps) {
                     required
                     margin="dense"
                     id="projectName"
-                    name="email"
+
                     label="Project name"
                     fullWidth
                     variant="standard"
@@ -75,7 +75,8 @@ function ProjectDialog({useAddProject, projects} : IProjectProps) {
                     Save
                 </Button>
             </DialogActions>
-        </Dialog><div id="buttonsProjectOverview">
+        </Dialog>
+        <div id="buttonsProjectOverview">
             <Button variant="contained" sx={{ width: "200px" }} onClick={handleClickOpen}>Add Project</Button>
         </div></>
     )

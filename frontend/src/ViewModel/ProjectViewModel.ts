@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { fetchProjects, removeProject, addProject } from "../models/ProjectModel";
+import { fetchProjects, removeProject, addProject, copyProject } from "../models/ProjectModel";
 import { IProject } from "../interfaces/IProject";
 
 interface ProjectViewModel {
     projects: IProject[];
     useRemoveProject : (projectName : string) => void;
     useAddProject: (newProjectName: string) => void;
+    useCopyProject: (newProjectName: string, originalProjectName: string, fps: number) => void
 }
 
 export function useProjectViewModel() : ProjectViewModel {
@@ -42,5 +43,9 @@ export function useProjectViewModel() : ProjectViewModel {
         await loadProjects();
     }
 
-    return {projects, useRemoveProject, useAddProject}
+    async function useCopyProject(newProjectName: string, originalProjectName: string, fps: number){
+        await copyProject(newProjectName, originalProjectName, fps);
+    }
+
+    return {projects, useRemoveProject, useAddProject, useCopyProject}
 }
