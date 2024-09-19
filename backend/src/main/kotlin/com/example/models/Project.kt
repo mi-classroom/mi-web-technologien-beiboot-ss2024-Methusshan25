@@ -23,6 +23,19 @@ fun configureProjects(){
 }
 
 /**
+ * Creates a new Project
+ * @param projectName Name of the new Project
+ */
+fun createNewProject(projectName: String){
+    val project = Project(projectName)
+    project.let { it -> projects.add(it) }
+    val directory = File("/app/data/projects/${project.projectName}")
+    if(!directory.exists()){
+        directory.mkdirs()
+    }
+}
+
+/**
  * Updates all projects in the projects-list
  */
 fun updateProjects(){

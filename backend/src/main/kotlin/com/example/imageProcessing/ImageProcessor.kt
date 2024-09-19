@@ -1,5 +1,6 @@
 package com.example.imageProcessing
 
+import io.ktor.http.*
 import kotlinx.coroutines.DelicateCoroutinesApi
 import org.bytedeco.opencv.global.opencv_core.addWeighted
 import org.bytedeco.opencv.global.opencv_imgcodecs.imread
@@ -77,6 +78,17 @@ fun extractFrames(videoFile: File, project: String, fps: Int = 30): Boolean {
     } catch (e: Exception) {
         e.printStackTrace()
         return false
+    }
+}
+
+fun saveVideoInProject(bytes: ByteArray, projectName: String, type: ContentType){
+    if(type.match(ContentType.Video.QuickTime)){
+        val videoFile = File("/app/data/projects/$projectName/uploadedVideo.mov")
+        videoFile.writeBytes(bytes)
+        convertVideo(videoFile, projectName)
+    } else {
+        val videoFile = File("/app/data/projects/$projectName/uploadedVideo.mp4")
+        videoFile.writeBytes(bytes)
     }
 }
 
