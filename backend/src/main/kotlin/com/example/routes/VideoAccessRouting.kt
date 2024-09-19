@@ -1,5 +1,6 @@
 package com.example.routes
 
+import com.example.imageProcessing.convertVideo
 import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.server.application.*
@@ -58,8 +59,17 @@ fun Route.videoAccessRouting(){
                 if (part is PartData.FileItem) {
                     if (part.contentType?.match(ContentType.Video.Any) == true) {
                         val fileBytes = part.streamProvider().readBytes()
-                        val destination = File("/app/data/projects/$projectName/uploadedVideo.mp4")
-                        destination.writeBytes(fileBytes)
+                        if(part.contentType?.match(ContentType.Video.QuickTime) == true){
+                            println("Quicktime detected")
+                            val videoFile = File("/app/data/projects/$projectName/uploadedVideo.mov")
+                            videoFile.writeBytes(fileBytes)
+                            convertVideo(videoFile, projectName)
+                        }else{
+                            println("Not Quicktime detected")
+                            val destination = File("/app/data/projects/$projectName/uploadedVideo.mp4")
+                            destination.writeBytes(fileBytes)
+                        }
+
                         call.respondText("File uploaded successfully", status = HttpStatusCode.OK)
                     } else {
                         call.respondText("File could not be uploaded", status = HttpStatusCode.BadRequest)

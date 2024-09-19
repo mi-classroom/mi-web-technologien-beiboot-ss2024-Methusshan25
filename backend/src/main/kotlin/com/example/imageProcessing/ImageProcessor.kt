@@ -22,6 +22,27 @@ fun deleteDirectory(directory: File) {
     }
 }
 
+fun convertVideo(videoFile: File, projectName: String){
+    val processBuilder = ProcessBuilder(
+        "ffmpeg",
+        "-i", videoFile.absolutePath,
+        "/app/data/projects/$projectName/uploadedVideo.mp4"
+    )
+    processBuilder.redirectErrorStream(true)
+    val process = processBuilder.start()
+
+    val outputThread = Thread {
+        val reader = BufferedReader(InputStreamReader(process.inputStream))
+        reader.forEachLine { println(it) }
+    }
+
+    outputThread.start()
+    val result = process.waitFor()
+    outputThread.join()
+
+    //deleteDirectory(File(videoFile.absolutePath))
+}
+
 /**
  * Generates frames from given videofile
  * @param videoFile Videofile to be split into frames
