@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchProjects, getProject, removeProject, addProject } from "../models/ProjectModel";
+import { fetchProjects, getProject, removeProject, addProject, copyProject } from "../models/ProjectModel";
 import { IProject } from "../interfaces/IProject";
 
 interface ProjectViewModel {
@@ -7,6 +7,7 @@ interface ProjectViewModel {
     useGetProject: (projectName : string) => Promise<IProject | null>
     useRemoveProject : (projectName : string) => void;
     useAddProject: (newProjectName: string) => void;
+    useCopyProject: (newProjectName: string, originalProjectName: string, fps: number) => Promise<Boolean>;
 }
 
 export function useProjectViewModel() : ProjectViewModel {
@@ -48,5 +49,10 @@ export function useProjectViewModel() : ProjectViewModel {
         await loadProjects();
     }
 
-    return {projects, useGetProject,useRemoveProject, useAddProject}
+    async function useCopyProject(newProjectName: string, originalProjectName: string, fps: number){
+        let result = await copyProject(newProjectName, originalProjectName, fps);
+        return result
+    }
+
+    return {projects, useGetProject,useRemoveProject, useAddProject, useCopyProject}
 }

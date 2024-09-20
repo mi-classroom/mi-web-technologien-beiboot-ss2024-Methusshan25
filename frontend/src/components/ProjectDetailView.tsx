@@ -1,5 +1,5 @@
 
-import { Button, Typography, Box, LinearProgress} from "@mui/material";
+import { Button, Typography, Box, LinearProgress, Snackbar, SnackbarCloseReason, SnackbarContent} from "@mui/material";
 import {useState, useEffect} from "react";
 import "./Slide.css";
 import ImageSelector from './ImageSelector';
@@ -13,6 +13,8 @@ const ProjectDetailView = ({project} : IProjectDetailViewProps) => {
     const [uploadedVideo, setUploadedVideo] = useState<string>("")
     const [loadingImage, setLoadingImage] = useState<Boolean>(false);
     const [state, setState] = useState<number>(0);
+    const [openNotification, setOpenNotification] = useState<boolean>(false)
+    const [notificationMessage, setNotificationMessage] = useState<string>("");
 
     useEffect(() => {
         if (project.imageCount > 0) {
@@ -29,9 +31,23 @@ const ProjectDetailView = ({project} : IProjectDetailViewProps) => {
      * Updates the blendedImage parameter with the given image
      * @param image image which will be the value of blendedImage
      */
-    const handleReceivedImage = (image : string) => {
+    const handleReceivedImage = (image: string) => {
         setBlendedImage(image);
     }
+    
+    const launchNotification = (message : string) => {
+        setNotificationMessage(message);
+        setOpenNotification(true);
+    }
+    const handleClose = (
+        event: React.SyntheticEvent | Event,
+        reason?: SnackbarCloseReason,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenNotification(false);
+    };
 
 
     /**
@@ -68,11 +84,22 @@ const ProjectDetailView = ({project} : IProjectDetailViewProps) => {
 
                 </div>
                 <Button variant="contained" onClick={downloadImage} sx={{ float: "right", right: "0px", marginTop: "10px", marginBottom: "10px" }}>Download</Button>
-                <ImageSelector blendedImageExists={project.blendedImageExists} sendImage={handleReceivedImage} projectName={project.projectName}></ImageSelector>
+                <ImageSelector launchNotification={launchNotification} blendedImageExists={project.blendedImageExists} sendImage={handleReceivedImage} projectName={project.projectName}></ImageSelector>
                 {
                     loadingImage &&
                     <LinearProgress sx={{ mt: 8 }}></LinearProgress>
                 }
+                <Snackbar
+                    open={openNotification}
+                    color="success"
+                    autoHideDuration={3000}
+                    onClose={handleClose}
+                >
+                    <SnackbarContent
+                        message={notificationMessage}
+                        sx={{ backgroundColor: 'lightgreen', color: 'black' }}
+                    />
+                </Snackbar >
             </>
         )
     } else {
