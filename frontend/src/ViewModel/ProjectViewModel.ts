@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { fetchProjects, removeProject, addProject } from "../models/ProjectModel";
+import { fetchProjects, getProject, removeProject, addProject } from "../models/ProjectModel";
 import { IProject } from "../interfaces/IProject";
 
 interface ProjectViewModel {
     projects: IProject[];
+    useGetProject: (projectName : string) => Promise<IProject | null>
     useRemoveProject : (projectName : string) => void;
     useAddProject: (newProjectName: string) => void;
 }
@@ -24,6 +25,11 @@ export function useProjectViewModel() : ProjectViewModel {
         setProjects(data);
     }
 
+    async function useGetProject(projectName: string){
+        let project : IProject | null = await getProject(projectName);
+        return project;
+    }
+
     /**
      * Makes an request to delete the given project
      * @param projectName Refers to the project which has to be removed
@@ -42,5 +48,5 @@ export function useProjectViewModel() : ProjectViewModel {
         await loadProjects();
     }
 
-    return {projects, useRemoveProject, useAddProject}
+    return {projects, useGetProject,useRemoveProject, useAddProject}
 }
