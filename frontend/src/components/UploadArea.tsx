@@ -22,17 +22,17 @@ const UploadArea = ({ projectName, uploadVerification }: IUploadAreaProps) => {
      * Checks if a video exists and updates the parameters depending if it exists
      */
     const isAvailable = useCallback(async () => {
+        console.log(projectName)
         let videoFile = await useVideoAvailable(projectName);
-        console.log(videoFile)
         if (videoFile != null) {
             setIsVideoUploaded(true);
             setFile(videoFile);
         }
-    }, [])
+    }, [projectName])
 
     useEffect(() => {
         isAvailable()
-    }, [])
+    }, [projectName])
 
     return (
         <>

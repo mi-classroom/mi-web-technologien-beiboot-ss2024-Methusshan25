@@ -23,6 +23,23 @@ export async function fetchProjects(): Promise<Array<IProject>> {
   return projects;
 }
 
+export async function getProject(projectName: string) : Promise<IProject | null>{
+  return await fetch('http://localhost:8080/projects/' + projectName)
+  .then(response => response.json())
+  .then(json => {
+    return {
+      projectName : json.projectName,
+      imageCount : json.frameCount,
+      videoExists: json.videoExists,
+      blendedImageExists: json.blendedImageExists
+    }
+  })
+  .catch(error => {
+    console.log(error)
+    return null;
+  })
+}
+
 /**
  * Makes an request to delete the given project
  * @param projectName Refers to the project which has to be removed

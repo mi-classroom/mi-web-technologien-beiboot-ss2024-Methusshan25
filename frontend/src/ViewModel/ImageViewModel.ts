@@ -58,12 +58,12 @@ export function useImageViewModel(projectName: string, sendFunction?: (image: st
         if (blendedImageExists) {
             getAndSendBlendedImage();
         }
-    }, [])
+    }, [projectName])
 
     useEffect(() => {
         updateFrameAndPagecount();
         updateImages(currentPage);
-    }, [frameCount, currentPage])
+    }, [frameCount, currentPage, projectName])
 
     /**
      * Generates an blended images and sends it to the parent
