@@ -4,8 +4,9 @@ import {useState, useEffect} from "react";
 import "./Slide.css";
 import ImageSelector from './ImageSelector';
 import UploadArea from "./UploadArea";
+import { IProjectDetailViewProps } from "../interfaces/IProjectDetailViewProps";
 
-const ProjectDetailView = (props: any) => {
+const ProjectDetailView = ({project} : IProjectDetailViewProps) => {
     const [imagesUploaded, setImagesUploaded] = useState<Boolean>();
     const [loading, setLoading] = useState<Boolean>(false);
     const [blendedImage, setBlendedImage] = useState<string>("")
@@ -14,14 +15,14 @@ const ProjectDetailView = (props: any) => {
     const [state, setState] = useState<number>(0);
 
     useEffect(() => {
-        if (props.project.imageCount > 0) {
+        if (project.imageCount > 0) {
             setImagesUploaded(true);
         }
-        if (props.project.videoExists) {
-            setUploadedVideo("http://localhost:8080/" + props.project.projectName + "/video/uploadedVideo.mp4")
+        if (project.videoExists) {
+            setUploadedVideo("http://localhost:8080/" + project.projectName + "/video/uploadedVideo.mp4")
         }
         setState(Math.random());
-    }, [])
+    }, [project.projectName])
 
 
     /**
@@ -67,7 +68,7 @@ const ProjectDetailView = (props: any) => {
 
                 </div>
                 <Button variant="contained" onClick={downloadImage} sx={{ float: "right", right: "0px", marginTop: "10px", marginBottom: "10px" }}>Download</Button>
-                <ImageSelector blendedImageExists={props.project.blendedImageExists} sendImage={handleReceivedImage} projectName={props.project.projectName}></ImageSelector>
+                <ImageSelector blendedImageExists={project.blendedImageExists} sendImage={handleReceivedImage} projectName={project.projectName}></ImageSelector>
                 {
                     loadingImage &&
                     <LinearProgress sx={{ mt: 8 }}></LinearProgress>
@@ -77,7 +78,7 @@ const ProjectDetailView = (props: any) => {
     } else {
         return (
             <>
-                <UploadArea projectName={props.project.projectName} uploadVerification={setImagesUploaded}></UploadArea>
+                <UploadArea projectName={project.projectName} uploadVerification={setImagesUploaded}></UploadArea>
                 {
                     loading &&
                     <>
