@@ -6,9 +6,12 @@ function Home() {
 
     const [activeStep, setActiveStep] = useState(0);
 
+    /**
+     * Updates the activeStep parameter to the selected step
+     * @param step New value of activeStep
+     */
     const handleStep = (step: number) => () => {
         setActiveStep(step);
-        console.log(activeStep)
     };
 
     return (
