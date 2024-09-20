@@ -88,7 +88,7 @@ function CopyDialog({ projectName, open, setOpen, launchNotification }: ICopyPro
                             <MenuItem value={10}>10</MenuItem>
                             <MenuItem value={20}>20</MenuItem>
                             <MenuItem value={30}>30</MenuItem>
-                            <MenuItem value={40}>50</MenuItem>
+                            <MenuItem value={40}>40</MenuItem>
                             <MenuItem value={50}>50</MenuItem>
                             <MenuItem value={60}>60</MenuItem>
                         </Select>
