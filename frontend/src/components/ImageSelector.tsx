@@ -7,14 +7,26 @@ import Selecto from "react-selecto";
 import ImageDetail from "./ImageDetail";
 import { useState } from "react";
 import CopyDialog from "./CopyDialog";
+import "./Slide.css";
 
-const ImageSelector = ({ projectName, sendImage, blendedImageExists, launchNotification}: IImageSelectorProps) => {
+
+const ImageSelector = ({ projectName, sendImage, blendedImageExists, launchNotification, blendedImage }: IImageSelectorProps) => {
 
     const [openCopy, setOpenCopy] = useState<boolean>(false);
 
     const { pageCount, currentImages, refreshKey, swapSelectStatus, swapHighlightStatus, changeHighlightStrength, imagesLoaded, currentPage,
         setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, selectAllImagesOnPage, deselectAllImagesOnPage, handleOpen
     } = useImageViewModel(projectName, sendImage, blendedImageExists, launchNotification);
+
+    /**
+     * Downloads the image in blendedImage as in jpg format
+     */
+    const downloadImage = () => {
+        var a = document.createElement("a");
+        a.href = blendedImage;
+        a.download = "blendedImage.jpg";
+        a.click()
+    }
 
     return (
         <>
@@ -40,18 +52,29 @@ const ImageSelector = ({ projectName, sendImage, blendedImageExists, launchNotif
             {
                 imagesLoaded &&
                 <>
-                    <Tooltip title="Creates a copy of this project with different fps">
-                        <Button variant="contained" onClick={() => setOpenCopy(true)} sx={{ marginTop: 10, marginLeft: 1, float: "right", right: -90 }}>Create Copy</Button>
-                    </Tooltip>
-                    <Tooltip title="Generate image with the selected frames">
-                        <Button variant="contained" onClick={sendImagesToBlend} sx={{ marginTop: 10, marginLeft: 1, float: "right", right: -90 }}>Create Image</Button>
-                    </Tooltip>
-                    <Tooltip title="Select all frames of this page">
-                        <Button variant="contained" onClick={selectAllImagesOnPage} sx={{ marginTop: 10, float: "left" }}>Select Page</Button>
-                    </Tooltip>
-                    <Tooltip title="Deselect all frames of this page">
-                        <Button variant="contained" color="warning" onClick={deselectAllImagesOnPage} sx={{ marginTop: 10, marginLeft: 1, float: "left", left: 0 }}>Deselect Page</Button>
-                    </Tooltip>
+                    <div id="imageButtons">
+                        <Tooltip title="Generate image with the selected frames">
+                            <Button variant="contained" onClick={sendImagesToBlend}>Create Image</Button>
+                        </Tooltip>
+                        <Tooltip title="Download blended image">
+                            <Button variant="contained" onClick={downloadImage}>Download</Button>
+                        </Tooltip>
+                    </div>
+                    <div id="buttonContainerSelectCopy">
+                        <div id="selectButtons">
+                            <Tooltip title="Select all frames of this page">
+                                <Button variant="contained" onClick={selectAllImagesOnPage}>Select Page</Button>
+                            </Tooltip>
+                            <Tooltip title="Deselect all frames of this page">
+                                <Button variant="contained" color="warning" onClick={deselectAllImagesOnPage} >Deselect Page</Button>
+                            </Tooltip>
+                        </div>
+                        <div id="copyButton">
+                            <Tooltip title="Creates a copy of this project with different fps">
+                                <Button variant="contained" onClick={() => setOpenCopy(true)}>Create Copy</Button>
+                            </Tooltip>
+                        </div>
+                    </div>
                     <CopyDialog projectName={projectName} open={openCopy} setOpen={setOpenCopy} launchNotification={launchNotification}></CopyDialog>
                     <ImageDetail open={open} setOpen={setOpen} imgSrc={fullscreenImage} ></ImageDetail>
                     <Grid container spacing={2} key={refreshKey}>

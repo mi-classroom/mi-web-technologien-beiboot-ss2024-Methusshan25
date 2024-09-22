@@ -49,30 +49,19 @@ const ProjectDetailView = ({project} : IProjectDetailViewProps) => {
         setOpenNotification(false);
     };
 
-
-    /**
-     * Downloads the image in blendedImage as in jpg format
-     */
-    const downloadImage = () => {
-        var a = document.createElement("a");
-        a.href = blendedImage;
-        a.download = "blendedImage.jpg";
-        a.click()
-    }
-
     if (imagesUploaded) {
         return (
             <>
                 <div id="uploaded-content">
                     {
                         uploadedVideo &&
-                        <video width="49.5%" style={{ border: "5px solid #dd33fa" }} controls>
+                        <video style={{ border: "5px solid #dd33fa" }} controls>
                             <source src={uploadedVideo} type="video/mp4"></source>
                         </video>
                     }
                     {
                         blendedImage &&
-                        <img loading="lazy" style={{ width: "49.5%", border: "5px solid #dd33fa" }} src={blendedImage}></img>
+                        <img loading="lazy" style={{border: "5px solid #dd33fa" }} src={blendedImage}></img>
 
                     }
                     {
@@ -83,8 +72,7 @@ const ProjectDetailView = ({project} : IProjectDetailViewProps) => {
                     }
 
                 </div>
-                <Button variant="contained" onClick={downloadImage} sx={{ float: "right", right: "0px", marginTop: "10px", marginBottom: "10px" }}>Download</Button>
-                <ImageSelector launchNotification={launchNotification} blendedImageExists={project.blendedImageExists} sendImage={handleReceivedImage} projectName={project.projectName}></ImageSelector>
+                <ImageSelector blendedImage={blendedImage} launchNotification={launchNotification} blendedImageExists={project.blendedImageExists} sendImage={handleReceivedImage} projectName={project.projectName}></ImageSelector>
                 {
                     loadingImage &&
                     <LinearProgress sx={{ mt: 8 }}></LinearProgress>

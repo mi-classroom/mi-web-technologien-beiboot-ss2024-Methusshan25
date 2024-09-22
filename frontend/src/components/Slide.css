@@ -1,35 +1,3 @@
-#card-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    overflow-x: scroll;
-    width: 95%;
-    background-color: rgba(0, 0, 0, 0.65);
-    border-radius: 25px;
-
-    /* width */
-    &::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-    }
-
-    /* Track */
-    &::-webkit-scrollbar-track {
-        background: #303030;
-    }
-
-    /* Handle */
-    &::-webkit-scrollbar-thumb {
-        background: #dd33fa;
-        border-radius: 20px;
-    }
-
-    /* Handle on hover */
-    &::-webkit-scrollbar-thumb:hover {
-        background:#9500ae;
-    }
-}
-
 .selected {
     border: 3px solid #dd33fa;
 }
@@ -42,17 +10,48 @@
     display: flex;
 }
 
-#uploaded-content video {
-    margin-right: 1%;
+#uploaded-content video{
+    width: 49%;
+    margin-right: 2%;
 }
 
+#uploaded-content img{
+    width: 49%;
+}
+
+#selectButtons{
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 10px;
+}
+
+#imageButtons{
+    display: flex;
+    column-gap: 10px;
+    margin-top: 1%;
+    justify-content: flex-end;
+}
+
+#buttonContainerSelectCopy{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 5%;
+}
+
+#copyButton{
+    margin-left: auto;
+}
+
+
+
 #imagePlaceholder {
-    width: 47%;
-    height: 320px;
+    width: 49%;
+    height: 350px;
     background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 3px solid #dd33fa;
 }
 
 #buttonsProjectOverview{
