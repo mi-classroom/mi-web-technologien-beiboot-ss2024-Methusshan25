@@ -15,7 +15,7 @@ class ApplicationTest {
         }
         client.get("/").apply {
             assertEquals(HttpStatusCode.OK, status)
-            assertEquals("Hello World!", bodyAsText())
+            assertEquals("Welcome to the LES-API, a api to create long exposure images using videos", bodyAsText())
         }
     }
 }

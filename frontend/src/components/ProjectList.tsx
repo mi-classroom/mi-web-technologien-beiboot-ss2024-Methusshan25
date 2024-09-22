@@ -27,7 +27,7 @@ const ProjectList = ({ projects, useRemoveProject }: IProjectProps) => {
                                         </CardContent>
                                         <CardActions>
                                             <Button color="primary" variant="contained">
-                                                <Link style={{ color: 'white' }} className="linkToPage" to={'/upload/' + project.projectName} state={project}>
+                                                <Link style={{ color: 'white' }} className="linkToPage" to={'/upload/' + project.projectName}>
                                                     Select
                                                 </Link>
                                             </Button>

@@ -21,7 +21,7 @@ function Navbar() {
       <AppBar component="nav">
         <Toolbar>
           <Button variant='text' sx={{ fontSize: "2em", color: "white" }} href="/">LES</Button>
-          <Button sx={{ position: 'absolute', right: 10, top: 15, borderRadius: 3 }} variant='contained' color='success' href="/projects">Projects</Button>
+          <Button sx={{ position: 'absolute', right: 10, top: 15, borderRadius: 3 }} variant='contained' color='secondary' href="/projects">Projects</Button>
         </Toolbar>
       </AppBar>
       <nav>

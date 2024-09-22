@@ -2,26 +2,44 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogAc
 import {useState} from "react";
 import { IProjectProps } from "../interfaces/IProjectProps";
 
-function ProjectDialog({useAddProject} : IProjectProps) {
+function ProjectDialog({useAddProject, projects} : IProjectProps) {
 
     const [open, setOpen] = useState(false);
     const [newProjectName, setNewProjectName] = useState("");
 
+    /**
+     * Opens the dialog window
+     */
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    /**
+     * Sets the newProjectName parameter to the value of the event
+     * @param event Event containing the typed name
+     */
     const handleTyping = (event : any) => {
         setNewProjectName(event.target.value)
     }
 
+    /**
+     * Closes the dialog window
+     */
     const handleClose = () => {
         setOpen(false);
     };
 
+    /**
+     * Make an request to create a new project and closes the dialog window
+     */
     const handleSave = () => {
-        useAddProject(newProjectName); 
-        handleClose();
+        if(projects.map((project) => project.projectName).includes(newProjectName)){
+            alert("Project with project name " + newProjectName + " does already exist");
+        }
+        else{
+            useAddProject(newProjectName); 
+            handleClose();
+        }
     }
 
     return (
@@ -44,7 +62,7 @@ function ProjectDialog({useAddProject} : IProjectProps) {
                     required
                     margin="dense"
                     id="projectName"
-                    name="email"
+
                     label="Project name"
                     fullWidth
                     variant="standard"
@@ -57,7 +75,8 @@ function ProjectDialog({useAddProject} : IProjectProps) {
                     Save
                 </Button>
             </DialogActions>
-        </Dialog><div id="buttonsProjectOverview">
+        </Dialog>
+        <div id="buttonsProjectOverview">
             <Button variant="contained" sx={{ width: "200px" }} onClick={handleClickOpen}>Add Project</Button>
         </div></>
     )

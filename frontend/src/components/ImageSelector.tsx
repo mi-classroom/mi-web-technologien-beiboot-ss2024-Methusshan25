@@ -5,36 +5,16 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { useImageViewModel } from "../ViewModel/ImageViewModel";
 import Selecto from "react-selecto";
 import ImageDetail from "./ImageDetail";
+import { useState } from "react";
+import CopyDialog from "./CopyDialog";
 
-const ImageSelector = ({ projectName, sendImage, blendedImageExists }: IImageSelectorProps) => {
+const ImageSelector = ({ projectName, sendImage, blendedImageExists, launchNotification}: IImageSelectorProps) => {
 
-    const { pageCount, currentImages, refreshKey, swapSelectStatus, swapHighlightStatus, changeHighlightStrength, imagesLoaded, currentPage, 
-        setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, setFullscreenImage
-    } = useImageViewModel(projectName, sendImage, blendedImageExists);
+    const [openCopy, setOpenCopy] = useState<boolean>(false);
 
-    const handleOpen = (imgSource : string) => {
-        setFullscreenImage(imgSource)
-        setOpen(true);
-    }
-
-    const selectAllImages = () => {
-        currentImages.forEach(image => {
-            if(!image.selected){
-                swapSelectStatus(image.index)
-            }
-        })
-    }
-
-    const deselectAllImages = () => {
-        currentImages.forEach(image => {
-            if(image.selected){
-                if(image.highlighted){
-                    swapHighlightStatus(image.index)
-                }
-                swapSelectStatus(image.index)
-            }
-        })
-    }
+    const { pageCount, currentImages, refreshKey, swapSelectStatus, swapHighlightStatus, changeHighlightStrength, imagesLoaded, currentPage,
+        setCurrentPage, sendImagesToBlend, open, setOpen, fullscreenImage, selectAllImagesOnPage, deselectAllImagesOnPage, handleOpen
+    } = useImageViewModel(projectName, sendImage, blendedImageExists, launchNotification);
 
     return (
         <>
@@ -60,15 +40,19 @@ const ImageSelector = ({ projectName, sendImage, blendedImageExists }: IImageSel
             {
                 imagesLoaded &&
                 <>
+                    <Tooltip title="Creates a copy of this project with different fps">
+                        <Button variant="contained" onClick={() => setOpenCopy(true)} sx={{ marginTop: 10, marginLeft: 1, float: "right", right: -90 }}>Create Copy</Button>
+                    </Tooltip>
                     <Tooltip title="Generate image with the selected frames">
                         <Button variant="contained" onClick={sendImagesToBlend} sx={{ marginTop: 10, marginLeft: 1, float: "right", right: -90 }}>Create Image</Button>
                     </Tooltip>
                     <Tooltip title="Select all frames of this page">
-                        <Button variant="contained" onClick={selectAllImages} sx={{ marginTop: 10, float: "left" }}>Select Page</Button>
+                        <Button variant="contained" onClick={selectAllImagesOnPage} sx={{ marginTop: 10, float: "left" }}>Select Page</Button>
                     </Tooltip>
                     <Tooltip title="Deselect all frames of this page">
-                        <Button variant="contained" onClick={deselectAllImages} sx={{ marginTop: 10, marginLeft: 1, float: "left", left: 0 }}>Deselect Page</Button>
+                        <Button variant="contained" color="warning" onClick={deselectAllImagesOnPage} sx={{ marginTop: 10, marginLeft: 1, float: "left", left: 0 }}>Deselect Page</Button>
                     </Tooltip>
+                    <CopyDialog projectName={projectName} open={openCopy} setOpen={setOpenCopy} launchNotification={launchNotification}></CopyDialog>
                     <ImageDetail open={open} setOpen={setOpen} imgSrc={fullscreenImage} ></ImageDetail>
                     <Grid container spacing={2} key={refreshKey}>
                         {
