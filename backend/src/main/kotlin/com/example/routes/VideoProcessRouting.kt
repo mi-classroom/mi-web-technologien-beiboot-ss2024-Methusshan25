@@ -41,8 +41,7 @@ fun Route.videoProcessRouting() {
                 "Missing id",
                 status = HttpStatusCode.BadRequest
             )
-            var fps = 30
-            fps = call.request.queryParameters["fps"]?.toInt() ?: return@get call.respondText(
+            val fps = call.request.queryParameters["fps"]?.toInt() ?: return@get call.respondText(
                 "Invalid fps number",
                 status = HttpStatusCode.BadRequest
             )

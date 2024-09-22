@@ -15,7 +15,7 @@ import java.io.InputStreamReader
  * @param directory A file with the path to the directory to be removed
  */
 fun deleteDirectory(directory: File) {
-    val result = directory.listFiles()?.forEach {
+    directory.listFiles()?.forEach {
         if (it.isDirectory) {
             deleteDirectory(it)
         } else

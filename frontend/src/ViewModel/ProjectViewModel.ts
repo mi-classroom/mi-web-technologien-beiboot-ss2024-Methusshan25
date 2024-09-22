@@ -45,8 +45,13 @@ export function useProjectViewModel() : ProjectViewModel {
      * @param newProjectName Name of the new project
     */
     async function useAddProject(newProjectName: string){
-        await addProject(newProjectName);
-        await loadProjects();
+        if(projects.find((project) => project.projectName == newProjectName)){
+            alert("Project with project name " + newProjectName + " already exist")
+        } 
+        else {
+            await addProject(newProjectName);
+            await loadProjects();
+        }
     }
 
     async function useCopyProject(newProjectName: string, originalProjectName: string, fps: number){

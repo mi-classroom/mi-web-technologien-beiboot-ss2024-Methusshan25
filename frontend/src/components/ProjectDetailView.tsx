@@ -24,7 +24,7 @@ const ProjectDetailView = ({project} : IProjectDetailViewProps) => {
             setUploadedVideo("http://localhost:8080/" + project.projectName + "/video/uploadedVideo.mp4")
         }
         setState(Math.random());
-    }, [project.projectName])
+    }, [project.projectName, uploadedVideo])
 
 
     /**
