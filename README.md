@@ -29,9 +29,9 @@ Go into the `\backend`-folder and enter following command:
 
 To run the frontend the [node version >= 20.11](https://nodejs.org/en/download/package-manager) is required
 
-Go into the `\frontend`-folder and enter following commands:
+Go into the `\frontend`-folder and enter following command:
 
-First `npm install` and then `npm run dev`
+`npm run dev`
 
 ## Deployments:
 Application runs on: https://les-frontend.onrender.com/

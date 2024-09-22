@@ -25,42 +25,15 @@ fun Route.projectRouting() {
     }
 
     route("/projects") {
-        /**
-         * GET /projects
-         *
-         * Retrieves a list of all projects
-         *
-         * Responses:
-         *      200: Success - Returns a list of projects
-         *      404: Not Found - No projects available
-         */
         get{
             if(projects.isNotEmpty()) {
                 updateProjects()
                 call.respond(projects)
             }else
             {
-                call.respondText("No projects found", status = HttpStatusCode.NotFound)
+                call.respondText("No projects found", status = HttpStatusCode.OK)
             }
         }
-        /**
-         * GET /projects/{id}
-         *
-         * Retrieves the requested project
-         *
-         * Parameters:
-         * - in: path
-         *   name: id
-         *   schema:
-         *      type: string
-         *   required: true
-         *   description: Name of the project
-         *
-         * Responses:
-         *      200: Success - Returns the requested project
-         *      400: Bad request - Invalid project name given
-         *      404: Not Found - Requested Project does not exist
-         */
         get("/{id}") {
             val id = call.parameters["id"] ?: return@get call.respondText(
                 "Missing id",
@@ -72,21 +45,6 @@ fun Route.projectRouting() {
             )
             call.respond(project)
         }
-
-        /**
-         * POST /project
-         *
-         * Creates a new project
-         *
-         * requestBody:
-         *      description: A multipart/form-data object containing project information
-         *      content:
-         *          multipart/form-data:
-         *              example:
-         *                  projectName: Kreisverkehr
-         * responses:
-         *      201: Created - A new project was created
-         */
         post {
             val multipartPart = call.receiveMultipart()
             var projectName : String = ""
@@ -151,25 +109,6 @@ fun Route.projectRouting() {
                 call.respondText("Project copying failed", status = HttpStatusCode.InternalServerError)
             }
         }
-
-        /**
-         * DELETE /project/{id}
-         *
-         * Deletes the requested project
-         *
-         * Parameters:
-         *  - in: path
-         *    name: id
-         *    schema:
-         *      type: string
-         *    required: true
-         *    description: Name of the project
-         *
-         * Responses:
-         *      200: OK - Project removed
-         *      400: Bad Request - Invalid project name given
-         *      404: Not Found - Requested Project does not exist
-         */
         delete("/{id}") {
             val id = call.parameters["id"] ?: return@delete call.respondText(
                 "Missing id",
@@ -178,7 +117,7 @@ fun Route.projectRouting() {
             if(projects.removeIf{it.projectName == id }){
                 val directory = File("/app/data/projects/${id}")
                 directory.deleteRecursively()
-                call.respondText("Project removed correctly", status = HttpStatusCode.OK)
+                call.respondText("Project removed correctly", status = HttpStatusCode.Accepted)
             }else{
                 call.respondText("Project not found", status = HttpStatusCode.NotFound)
             }

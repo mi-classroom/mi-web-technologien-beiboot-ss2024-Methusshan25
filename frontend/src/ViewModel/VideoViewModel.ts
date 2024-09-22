@@ -1,7 +1,6 @@
 import { SetStateAction, useState } from "react";
 import { generateVideoSourceURL, uploadVideo, videoAvailable } from "../models/VideoModel";
 import { useImageViewModel } from "./ImageViewModel";
-import { SelectChangeEvent } from "@mui/material";
 
 type Nullable<T> = T | undefined | null;
 
@@ -15,12 +14,9 @@ interface VideoViewModel {
     setIsVideoUploaded : (isVideoUploaded : boolean) => void
     loading : boolean,
     setLoading : (loading : boolean) => void
-    fps: string,
-    setFps: (event : string) => void,
-    handleFps: (newFps : SelectChangeEvent) => void 
     removeFile : () => void
     doVideoUpload : () => void
-    frameGeneration : (fps: string) => void
+    frameGeneration : () => void
 }
 
 
@@ -29,7 +25,6 @@ export function useVideoViewModel(projectName : string, uploadVerification? : (v
     const [file, setFile] = useState<Nullable<File>>();
     const [isVideoUploaded, setIsVideoUploaded] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false);
-    const [fps, setFps] = useState<string>("30");
 
     const {useGenerateFrames} = useImageViewModel(projectName);
 
@@ -39,14 +34,6 @@ export function useVideoViewModel(projectName : string, uploadVerification? : (v
     const removeFile = () =>{
         setFile(null)
     } 
-
-    /**
-     * Updates the fps variable 
-     * @param event Event triggered, when diffrent fps are selected
-     */
-    const handleFps = (event : SelectChangeEvent) => {
-        setFps(event.target.value)
-    }
 
     /**
      * Uploads the video and updates the isVideoUploaded parameter
@@ -66,9 +53,9 @@ export function useVideoViewModel(projectName : string, uploadVerification? : (v
     /**
      * Sends request to generate frames and verifies the upload
      */
-    const frameGeneration = async (fps: string) => {
+    const frameGeneration = async () => {
         setLoading(true);
-        await useGenerateFrames(projectName, fps);
+        await useGenerateFrames(projectName);
         if(uploadVerification != undefined)
             uploadVerification(true);
         setLoading(false);
@@ -106,6 +93,5 @@ export function useVideoViewModel(projectName : string, uploadVerification? : (v
         return isVideoAvailable
     }
 
-    return {useGenerateVideoSourceURL, useUploadVideo, useVideoAvailable, file, setFile, isVideoUploaded, setIsVideoUploaded, loading, setLoading, 
-        doVideoUpload, frameGeneration, removeFile, fps, setFps, handleFps}
+    return {useGenerateVideoSourceURL, useUploadVideo, useVideoAvailable, file, setFile, isVideoUploaded, setIsVideoUploaded, loading, setLoading, doVideoUpload, frameGeneration, removeFile}
 }
