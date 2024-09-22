@@ -23,6 +23,11 @@ export async function fetchProjects(): Promise<Array<IProject>> {
   return projects;
 }
 
+/**
+ * Returns the requested project
+ * @param projectName Name of the requested project
+ * @returns The requested project
+ */
 export async function getProject(projectName: string) : Promise<IProject | null>{
   return await fetch('http://localhost:8080/projects/' + projectName)
   .then(response => response.json())
@@ -70,6 +75,13 @@ export async function addProject(newProjectName: string) {
   .catch(error => console.log(error))
 }
 
+/**
+ * Copies a project with a different fps number
+ * @param newProjectName Name of the new project
+ * @param originalProjectName Name of the project which will be copied
+ * @param fps Fps number of the copied project
+ * @returns If copying process succeeded or failed
+ */
 export async function copyProject(newProjectName: string, originalProjectName: string, fps: number) : Promise<Boolean>{
   const form = new FormData();
   form.append('newProjectName', newProjectName)

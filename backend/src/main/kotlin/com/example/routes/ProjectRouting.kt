@@ -103,7 +103,7 @@ fun Route.projectRouting() {
         /**
          * POST /project/{id}
          *
-         * Copies a existing project with different fps
+         * Copies an existing project with different fps
          *
          * requestBody:
          *      description: A multipart/form-data object containing project information

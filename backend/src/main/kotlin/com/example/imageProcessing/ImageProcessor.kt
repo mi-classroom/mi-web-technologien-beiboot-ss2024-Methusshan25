@@ -23,6 +23,11 @@ fun deleteDirectory(directory: File) {
     }
 }
 
+/**
+ * Converts a given video file into a mp4 video file
+ * @param videoFile Video file which will be converted
+ * @param projectName Name of the project where converted video will be saved
+ */
 fun convertVideo(videoFile: File, projectName: String){
     val processBuilder = ProcessBuilder(
         "ffmpeg",
@@ -40,8 +45,6 @@ fun convertVideo(videoFile: File, projectName: String){
     outputThread.start()
     val result = process.waitFor()
     outputThread.join()
-
-    //deleteDirectory(File(videoFile.absolutePath))
 }
 
 /**
@@ -81,6 +84,12 @@ fun extractFrames(videoFile: File, project: String, fps: Int = 30): Boolean {
     }
 }
 
+/**
+ * Saves a video in the given project
+ * @param bytes Bytes of the video to be saved
+ * @param projectName Name of the project where video will be saved
+ * @param type Content type of the video
+ */
 fun saveVideoInProject(bytes: ByteArray, projectName: String, type: ContentType){
     if(type.match(ContentType.Video.QuickTime)){
         val videoFile = File("/app/data/projects/$projectName/uploadedVideo.mov")

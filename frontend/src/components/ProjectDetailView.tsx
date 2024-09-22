@@ -35,10 +35,20 @@ const ProjectDetailView = ({project} : IProjectDetailViewProps) => {
         setBlendedImage(image);
     }
     
+    /**
+     * Launches a notification containing the given message
+     * @param message Message of the notification
+     */
     const launchNotification = (message : string) => {
         setNotificationMessage(message);
         setOpenNotification(true);
     }
+
+    /**
+     * Closes the notificaiton
+     * @param event Event triggert by closing process 
+     * @param reason Reason of the close
+     */
     const handleClose = (
         event: React.SyntheticEvent | Event,
         reason?: SnackbarCloseReason,
