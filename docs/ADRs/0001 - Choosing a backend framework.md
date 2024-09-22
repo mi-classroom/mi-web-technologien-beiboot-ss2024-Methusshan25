@@ -5,7 +5,7 @@ Besitzer/-in: Methusshan Elankumaran
 - Status: accepted
 - Workload: 1h
 - Decider: Methusshan Elankumaran
-- Technical Story: [Issue](https://github.com/mi-classroom/mi-master-wt-beiboot-2024/issues/1) 
+- Issue
 - Date 2024-04-29
 
 # Context and Problem Statement
@@ -35,7 +35,7 @@ Ktor was chosen as the backend framework. The decision was driven by the knowled
 
 - Good, because widely used
 - Good, because it’s lightweight
-- Good, because of scalability
+- Good, because auf scalability
 - Bad, because poor support of OpenCV in JS
 - Bad, because of limited build in features
 - Bad, because of lack of strong typing
