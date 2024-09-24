@@ -5,7 +5,7 @@ Besitzer/-in: Methusshan Elankumaran
 - Status: accepted
 - Workload: 2h
 - Decider: Methusshan Elankumaran
-- Issue
+- Technical Story: [Issue](https://github.com/mi-classroom/mi-master-wt-beiboot-2024/issues/1)
 - Date 2024-04-29
 
 # Context and Problem Statement
@@ -24,7 +24,7 @@ A library had to be chosen to split the videos and blend images together.
 
 # Decision Outcome
 
-To split the images, the FFMPEG-Wrapper JavaCV is used. To blend the images, native OpenGL for Java is used. 
+To split the images, native FFMPEG was used, because it delivers the best performance in Kotlin. To blend the images, native OpenGL for Kotlin is used because it includes a lot of image editing functions. This makes expanding the application easy. 
 
 # Pros and Cons of the Options
 
